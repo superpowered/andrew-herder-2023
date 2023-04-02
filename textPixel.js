@@ -53,6 +53,8 @@ export class TextPixel {
   }
 }
 
+// -----------------------------------------------------------------------------
+
 class TextPixelParticle {
   constructor(pixel) {
     const { x, y, r, g, b, a, height, width} = pixel;

@@ -1,19 +1,30 @@
-const KEY_MAP = {
-  arrowdown: 'DOWN',
-  arrowup: 'UP',
-  arrowleft: 'LEFT',
-  arrowright: 'RIGHT',
-  w: 'UP',
-  a: 'LEFT',
-  s: 'DOWN',
-  d: 'RIGHT',
-  ' ': 'SPACE',
-  mouseclick: 'SPACE',
+export const CONTROLS = {
+  DOWN: 'DOWN',
+  UP: 'UP',
+  LEFT: 'LEFT',
+  RIGHT: 'RIGHT',
+  SHOOT: 'SHOOT',
 }
+
+const KEY_MAP = {
+  arrowdown: CONTROLS.DOWN,
+  arrowup: CONTROLS.UP,
+  arrowleft: CONTROLS.LEFT,
+  arrowright: CONTROLS.RIGHT,
+  w: CONTROLS.UP,
+  a: CONTROLS.LEFT,
+  s: CONTROLS.DOWN,
+  d: CONTROLS.RIGHT,
+  ' ': CONTROLS.SHOOT,
+  mouseclick: CONTROLS.SHOOT,
+}
+
+// -----------------------------------------------------------------------------
 
 export class InputHandler {
   constructor() {
     this.keys = [];
+    
     this.init();
   }
 

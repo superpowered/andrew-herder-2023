@@ -6,6 +6,8 @@ const POSSIBLE_FILLS = [
   '#F7FF80',
 ];
 
+// -----------------------------------------------------------------------------
+
 export class Projectile {
   constructor(game, size, x, y, vx, vy) {
     this.game = game;

@@ -1,5 +1,7 @@
+import { CONTROLS } from './input.js';
 import { Projectile } from "./projectile.js";
 
+// -----------------------------------------------------------------------------
 export class Player {
   constructor(game) {
     this.game = game;
@@ -54,10 +56,10 @@ export class Player {
 
     // Handle L R Movement
     this.x += this.speedX;
-    if(inputKeys.includes('RIGHT')) {
+    if(inputKeys.includes(CONTROLS.RIGHT)) {
       this.speedX = this.maxSpeed;
       this.facing = 'r';
-    } else if(inputKeys.includes('LEFT')) {
+    } else if(inputKeys.includes(CONTROLS.LEFT)) {
       this.speedX = -this.maxSpeed;
       this.facing = 'l';
     } else {
@@ -66,17 +68,17 @@ export class Player {
 
     // Handle U D Movement
     this.y += this.speedY;
-    if(inputKeys.includes('UP')) {
+    if(inputKeys.includes(CONTROLS.UP)) {
       this.speedY = -this.maxSpeed;
       this.facing = 'u';
-    } else if(inputKeys.includes('DOWN')) {
+    } else if(inputKeys.includes(CONTROLS.DOWN)) {
       this.speedY = this.maxSpeed;
       this.facing = 'd';
     } else {
       this.speedY = 0;
     } 
 
-    if(inputKeys.includes('SPACE') && this.lastFired > this.fireRate ) {
+    if(inputKeys.includes(CONTROLS.SHOOT) && this.lastFired > this.fireRate ) {
       this.lastFired = 0;
       this.fireProjectile();
     } else {

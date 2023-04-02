@@ -8,10 +8,11 @@ export class TextBubble {
     this.textSystem = textSystem;
     this.destroyed = false;
     this.textData = textData;
-    this.displayText(textData);
+
+    this.init(textData);
   }
 
-  displayText(textData) {
+  init(textData) {
     const list = textData.text.reduce((prev, textObj, i) => {
       if(i < textData.text.length - 1 && !textObj.noEndSpace) {
         textObj.string += ' ';
@@ -65,6 +66,8 @@ export class TextBubble {
     }, 100);
   }
 }
+
+// -----------------------------------------------------------------------------
 
 export class TextSystem {
   constructor(game) {

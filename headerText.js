@@ -1,5 +1,4 @@
 import { TextPixel } from './textPixel.js';
-// import { textBubbleTest } from './textSystem.js';
 
 // -----------------------------------------------------------------------------
 
@@ -92,16 +91,19 @@ export const textBubbleTest4 = {
 // -----------------------------------------------------------------------------
 
 export class HeaderText {
-  constructor(game) {
+  constructor(game, context) {
     this.textElement = document.getElementById('intro-text');
+
     this.game = game; 
     this.textPixels = [];
     this.initialCount = null;
     this.count = null;
     this.textDisplayed = false;
+
+    this.init(context);
   }
 
-  init(context) {
+  init = (context) => {
     // Clear everything so we only save the pixels we output in this function
     context.save();
     context.clearRect(0,0, this.game.width, this.game.height);
@@ -125,7 +127,8 @@ export class HeaderText {
     context.shadowOffsetY=0;
     context.fillText('Senior Software Engineer | Milwaukee, WI', this.game.width / 2 / this.game.dpr, this.game.height / 2 / this.game.dpr + this.game.height * .05);
 
-    // This gives us a big crazy array of EVERY pixel on the screen * 32 so we store the pixel data for access, but use the Uint32Array to navigate it
+    // This gives us a big crazy array of EVERY pixel on the screen PLUS various data about those pixels 
+    // so we store the pixel data for access, but use the Uint32Array to navigate it
     const pixels = context.getImageData(0, 0, this.game.width, this.game.height).data;
     const data32 = new Uint32Array(pixels.buffer);
     let pix = [];
@@ -135,7 +138,7 @@ export class HeaderText {
         continue;
       }
 
-      // For every "real" pixel, we'll find the data we need from it and store it here so we can make destructible pixels with them later
+      // For every "real" pixel, we'll find the data we need from it and store it here so we can make interactable pixels with them later
       pix.push({
         x: (i % this.game.width),
         // bitwise here is just converting to an int. 32 offset is because of the Uint32Array
@@ -157,6 +160,7 @@ export class HeaderText {
   }
 
   update(deltaTime){
+    // TODO: use this markedForDeletion pattern on the other "destroy()" items to simplify logic
     this.textPixels = this.textPixels.filter( pixel => { 
       pixel.update(deltaTime);
       return !pixel.markedForDeletion;
