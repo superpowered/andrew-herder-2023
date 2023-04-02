@@ -1,3 +1,7 @@
+import { rectangularCollision } from "./utils.js";
+
+// -----------------------------------------------------------------------------
+
 const POSSIBLE_FILLS = [
   '#FF5E46',
   '#FFFFFF',
@@ -41,16 +45,13 @@ export class Projectile {
   }
 
   checkCollision(index){
-    this.game.headerText.textPixels.forEach((enemy, i) => {
+    this.game.headerText.textPixels.forEach((pixel, i) => {
       if(
-        enemy.x < this.x + this.width &&
-        enemy.x + enemy.width > this.x &&
-        enemy.y < this.y + this.height &&
-        enemy.y + enemy.height > this.y && 
-        enemy.render === true
+        rectangularCollision(pixel, this) && 
+        pixel.render === true
       ) {
-        enemy.destroy();
-        if(enemy.r === 255) {
+        pixel.destroy();
+        if(pixel.r === 255) {
           this.textHit++;
           if(this.textHit > this.size * (this.size / 2)) {
             this.textHit = 0;
