@@ -80,6 +80,32 @@ const textBubbles = [
         classes: ['bold', 'large'],
       },
     ],
+  },
+  {
+    clearOthers: true,
+    ttl: 4000,
+    removeOnNew: true,
+    text: [
+      {
+        string: 'Your',
+        speed: 40,
+      },
+      {
+        string: 'hubris',
+        speed: 50,
+        classes: ['bold'],
+      },
+      {
+        string: 'will be your downfall!',
+        speed: 40,
+        delayAfter: 100,
+      },
+      {
+        string: '(probably)',
+        speed: 10,
+        classes: ['small'],
+      },
+    ],
   }
 ]
 
@@ -93,6 +119,7 @@ export const level0 = {
           return levelData.count < levelData.initialCount - levelData.initialCount * .01;
         }  ,
         action: (levelData) => {
+          levelData['intro_text_1'] = true;
           levelData.game.textSystem.makeText(textBubbles[0]);
         }
       },
@@ -103,6 +130,7 @@ export const level0 = {
           return levelData.count < levelData.initialCount - levelData.initialCount * .05;
         }  ,
         action: (levelData) => {
+          levelData['intro_text_2'] = true;
           levelData.game.textSystem.makeText(textBubbles[1]);
         }
       },
@@ -113,6 +141,7 @@ export const level0 = {
           return levelData.count < levelData.initialCount - levelData.initialCount * .1;
         }  ,
         action: (levelData) => {
+          levelData['intro_text_3'] = true;
           levelData.game.textSystem.makeText(textBubbles[2]);
         }
       },
@@ -123,11 +152,23 @@ export const level0 = {
           return levelData.count < levelData.initialCount - levelData.initialCount * .15;
         }  ,
         action: (levelData) => {
+          levelData['intro_text_4'] = true;
           levelData.game.textSystem.makeText(textBubbles[3]);
           levelData.textPixels.forEach( pixel => pixel.destroy(true));
           levelData.textElement.remove();
         }
-      }
+      },
+      {
+        id: 'intro_text_5',
+        triggered: false,
+        trigger: (levelData) => { 
+          return levelData['intro_text_4'];
+        }  ,
+        action: (levelData) => {
+          levelData['intro_text_5'] = true;
+          setTimeout(() => levelData.game.textSystem.makeText(textBubbles[4]), 2000);
+        }
+      },
     ];
   }
 }

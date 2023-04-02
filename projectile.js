@@ -1,4 +1,4 @@
-import { rectangularCollision } from "./utils.js";
+import { isInGameBounds, isRectangularCollision } from "./utils.js";
 
 // -----------------------------------------------------------------------------
 
@@ -25,6 +25,9 @@ export class Projectile {
     this.destroyed = false;
     this.textHit = 0;
     this.color = POSSIBLE_FILLS[Math.floor(Math.random() * POSSIBLE_FILLS.length)];
+
+    // TODO: projectiles will need a list of things they can interact with (and maybe how they ineract with them)
+    this.collidesWith = [];
   }
 
   update(index) {
@@ -34,6 +37,7 @@ export class Projectile {
     this.checkEdges(index);
   }
 
+  // TODO: i need to actually, uh, implement debug mode
   draw(context, debug = false) {
     context.fillStyle = this.color;
     context.fillRect(this.x, this.y, this.width, this.height);
@@ -45,9 +49,10 @@ export class Projectile {
   }
 
   checkCollision(index){
+    // TODO: can we pass it like a list of things it can hit?
     this.game.headerText.textPixels.forEach((pixel, i) => {
       if(
-        rectangularCollision(pixel, this) && 
+        isRectangularCollision(pixel, this) && 
         pixel.render === true
       ) {
         pixel.destroy();
@@ -63,13 +68,14 @@ export class Projectile {
   }
 
   checkEdges(index) {
-    if(this.x > this.game.width || this.x + this.width < 0 || this.y > this.game.height || this.y + this.height < 0) {
+    if(isInGameBounds(this, this.game)) {
       this.destroy(index);
     }
   }
 
   destroy(index) {
     this.destroyed = true;
+    // TODO: projectile hsouldn't know about the game
     this.game.projectiles.splice(index, 1);
   }
 }

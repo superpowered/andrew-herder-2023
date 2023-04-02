@@ -7,18 +7,26 @@ import { TextSystem } from './textSystem.js';
 
 export class Game {
   constructor(canvas, context, width, height, dpr) {
+    // Initial Game data
     this.width = width;
     this.height = height;
-    this.player = null;
-    this.textPixels = [];
-    this.projectiles = [];
-    this.mousePos = { x: 0, y: 0 };
     this.dpr = dpr;
 
+    // Changeable Game Data
+    this.mousePos = { x: 0, y: 0 };
+
+    // Entities
+    this.player = null;
+    this.projectiles = [];
+
+    // Systems
     this.input = new InputHandler();
     this.textSystem = new TextSystem(this);
+
+    // Levels
     this.headerText = new HeaderText(this, context);
 
+    // Init
     this.init(canvas, context);
   }
 
