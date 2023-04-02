@@ -1,92 +1,5 @@
 import { TextPixel } from './textPixel.js';
-
-// -----------------------------------------------------------------------------
-
-export const textBubbleTest = {
-  clearOthers: true,
-  ttl: 6000,
-  removeOnNew: true,
-  removeAllOthers: false,
-  text: [
-    {
-      string: 'Hey!',
-      speed: 10,
-      delayAfter: 500,
-    },
-    {
-      string: 'Woah!',
-      speed: 20,
-      delayAfter: 600,
-    },
-    {
-      string: 'Calm down there bud.',
-      speed: 30,
-    }
-  ],
-};
-
-export const textBubbleTest2 = {
-  clearOthers: true,
-  ttl: 7000,
-  removeOnNew: true,
-  text: [
-    {
-      string: 'No seriously!',
-      speed: 30,
-      delayAfter: 100,
-    },
-    {
-      string: 'I worked hard to place all those pixels',
-      speed: 40,
-      noEndSpace: true,
-      delayAfter: 200,
-    },
-    {
-      string: '...',
-      speed: 400,
-    },
-  ],
-};
-
-export const textBubbleTest3 = {
-  clearOthers: true,
-  ttl: 9000,
-  removeOnNew: true,
-  text: [
-    {
-      string: 'Please stop!',
-      speed: 30,
-      delayAfter: 100,
-    },
-    {
-      string: 'Pretty please?',
-      speed: 40,
-    },
-    {
-      string: 'This is like my life\'s work.',
-      speed: 40,
-    },
-    {
-      string: 'I\'m nothing without this website.',
-      speed: 30,
-      classes: ['small'],
-    },
-  ],
-};
-
-export const textBubbleTest4 = {
-  clearOthers: true,
-  ttl: 2000,
-  removeOnNew: true,
-  classes: ['slam'],
-  text: [
-    {
-      string: 'ENOUGH!',
-      speed: 0,
-      classes: ['bold', 'large'],
-    },
-  ],
-};
+import { level0 } from './levelData.js';
 
 // -----------------------------------------------------------------------------
 
@@ -98,7 +11,9 @@ export class HeaderText {
     this.textPixels = [];
     this.initialCount = null;
     this.count = null;
-    this.textDisplayed = false;
+
+    this.levelData = level0;
+    this.events = [];
 
     this.init(context);
   }
@@ -157,6 +72,10 @@ export class HeaderText {
     this.textPixels = pix.map(pixel => new TextPixel(this.game, pixel));
     this.initialCount = this.textPixels.length;
     this.count = this.initialCount;
+
+
+    // register our events
+    this.events = this.levelData.events(this).map(event => event);
   }
 
   update(deltaTime){
@@ -166,29 +85,14 @@ export class HeaderText {
       return !pixel.markedForDeletion;
     });
 
-    // TODO: clean this up. (dispatcher?)
-    if(this.count <  this.initialCount - (this.initialCount * .01) && !this.textDisplayed) {
-        this.textDisplayed = true;
-        this.game.textSystem.makeText(textBubbleTest);
-    }
 
-    if(this.count <  this.initialCount - (this.initialCount * .05) && !this.textDisplayed2) {
-      this.textDisplayed2 = true;
-      this.game.textSystem.makeText(textBubbleTest2);
-    }
-
-    if(this.count <  this.initialCount - (this.initialCount * .1) && !this.textDisplayed3) {
-      this.textDisplayed3 = true;
-      this.game.textSystem.makeText(textBubbleTest3);
-    }
-
-    if(this.count <  this.initialCount - (this.initialCount * .15) && !this.textDisplayed4) {
-      document.body.classList.add('shake');
-      this.textDisplayed4 = true;
-      this.game.textSystem.makeText(textBubbleTest4);
-      this.textPixels.forEach( pixel => pixel.destroy(true));
-      this.textElement.remove();
-    }
+    // Loop through our level events and do things as needed
+    this.events.filter((event) => {
+      if(!event.triggered && event.trigger(this)) { 
+          event.triggered = true;
+          event.action(this);
+        }
+    });
   }
 
   draw(context) {

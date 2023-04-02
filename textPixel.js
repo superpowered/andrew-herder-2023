@@ -65,8 +65,8 @@ class TextPixelParticle {
     this.b = b;
     this.a = a;
     this.initialA = a;
-    this.height = height/2;
-    this.width = width/2;
+    this.height = height;
+    this.width = width;
     var plusOrMinusX = Math.random() < 0.5 ? -1 : 1;
     this.vx = Math.random() * 1.5 * plusOrMinusX;
     this.vy = Math.random() * 2;

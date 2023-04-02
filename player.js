@@ -34,7 +34,7 @@ export class Player {
     this.fireRate = 120;
     this.lastFired = 0;
     this.projectileSpeed = 5;
-    this.projectileSize = 8;
+    this.projectileSize = 10;
     this.controllable = false;
 
     this.init();
