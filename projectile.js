@@ -1,4 +1,4 @@
-import { isInGameBounds, isRectangularCollision } from "./utils.js";
+import { isOutOfGameBounds, isRectangularCollision } from "./utils.js";
 
 // -----------------------------------------------------------------------------
 
@@ -13,8 +13,7 @@ const POSSIBLE_FILLS = [
 // -----------------------------------------------------------------------------
 
 export class Projectile {
-  constructor(game, size, x, y, vx, vy) {
-    this.game = game;
+  constructor(game, size, x, y, vx, vy, collidesWith, type) {
     this.size = size;
     this.width = size;
     this.height = size;
@@ -24,23 +23,30 @@ export class Projectile {
     this.vy = vy;
     this.destroyed = false;
     this.textHit = 0;
+    this.health = this.size *  (this.size / 2);
     this.color = POSSIBLE_FILLS[Math.floor(Math.random() * POSSIBLE_FILLS.length)];
+    this.type = type;
+
+    this.render = true;
+    this.markedForDeletion = false;
 
     // TODO: projectiles will need a list of things they can interact with (and maybe how they ineract with them)
-    this.collidesWith = [];
+    this.collidesWith = collidesWith;
   }
 
-  update(index) {
+  update(bounds, collisionItems) {
     this.x += this.vx;
     this.y += this.vy;
-    this.checkCollision(index);
-    this.checkEdges(index);
+    this.checkCollision(collisionItems);
+    this.checkEdges(bounds);
   }
 
   // TODO: i need to actually, uh, implement debug mode
   draw(context, debug = false) {
-    context.fillStyle = this.color;
-    context.fillRect(this.x, this.y, this.width, this.height);
+    if(this.render) {
+      context.fillStyle = this.color;
+      context.fillRect(this.x, this.y, this.width, this.height);
+    }
     if(debug) {
       context.strokeStyle = "red";
       context.rect(this.x, this.y, this.width, this.height);
@@ -48,34 +54,33 @@ export class Projectile {
     }
   }
 
-  checkCollision(index){
-    // TODO: can we pass it like a list of things it can hit?
-    this.game.headerText.textPixels.forEach((pixel, i) => {
+  checkCollision(collisionItems){
+    collisionItems.filter((item) => {
+      if(!this.collidesWith.includes(item.type)) {
+        return false;
+      }
       if(
-        isRectangularCollision(pixel, this) && 
-        pixel.render === true
+        isRectangularCollision(item, this) && 
+        item.render === true
       ) {
-        pixel.destroy();
-        if(pixel.r === 255) {
-          this.textHit++;
-          if(this.textHit > this.size * (this.size / 2)) {
-            this.textHit = 0;
-            this.destroy(index);
+        item.destroy();
+        if(item.r === 255) {
+          this.health--;
+          if(this.health < 0) {
+            this.destroy();
           }
         }
       }
     });
   }
 
-  checkEdges(index) {
-    if(isInGameBounds(this, this.game)) {
-      this.destroy(index);
+  checkEdges(bounds) {
+    if(isOutOfGameBounds(this, bounds)) {
+      this.destroy();
     }
   }
 
-  destroy(index) {
-    this.destroyed = true;
-    // TODO: projectile hsouldn't know about the game
-    this.game.projectiles.splice(index, 1);
+  destroy() {
+    this.markedForDeletion = true;
   }
 }

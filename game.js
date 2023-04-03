@@ -1,5 +1,5 @@
 import { InputHandler } from './input.js';
-import { HeaderText } from './headerText.js';
+import { Level0 } from './level0.js';
 import { Player } from './player.js';
 import { TextSystem } from './textSystem.js';
 
@@ -12,19 +12,34 @@ export class Game {
     this.height = height;
     this.dpr = dpr;
 
+    this.bounds = {
+      height,
+      width,
+    }
+
     // Changeable Game Data
     this.mousePos = { x: 0, y: 0 };
 
     // Entities
     this.player = null;
+    this.enemies = [];
     this.projectiles = [];
+    this.textPixels = [];
 
     // Systems
     this.input = new InputHandler();
     this.textSystem = new TextSystem(this);
 
     // Levels
-    this.headerText = new HeaderText(this, context);
+    this.level0 = new Level0(this, context);
+
+    // Initialize our collision items
+    this.collisionItems = [
+      ...[this.player],
+      ...this.enemies,
+      ...this.projectiles,
+      ...this.textPixels,
+    ];
 
     // Init
     this.init(canvas, context);
@@ -47,18 +62,38 @@ export class Game {
   }
 
   update(deltaTime) {
+    // game, deltaTime, bounds, collisionItems,
     this.player && this.player.update(this.input.keys, deltaTime);
-    this.headerText.update(deltaTime);
+    this.level0.update(deltaTime);
 
-    // TODO: projectiles in own system
-    this.projectiles.forEach( (projectile, i) => projectile.update(i));
+    this.enemies = this.enemies.filter( (enemy) => {
+      enemy.update(this, this.bounds);
+      return !enemy.markedForDeletion;
+    });
+
+    this.textPixels = this.textPixels.filter( pixel => { 
+      pixel.update(deltaTime);
+      return !pixel.markedForDeletion;
+    });
+
+    this.projectiles = this.projectiles.filter( (projectile) => {
+      console.log();
+      projectile.update(this.bounds, this.collisionItems);
+      return !projectile.markedForDeletion;
+    });
+
+    // Reupdate the collision items (since we will filter out some)
+    this.collisionItems = [
+      ...[this.player],
+      ...this.enemies,
+      ...this.projectiles,
+      ...this.textPixels,
+    ];
   }
 
   draw(context, deltaTime) {
     this.player && this.player.draw(context, deltaTime, false, this.dpr);
-    this.headerText.draw(context);
-
-    // TODO: projectiles in own system
     this.projectiles.forEach( projectile => projectile.draw(context));
+    this.textPixels.forEach( pixel => pixel.draw(context));
   }
 }

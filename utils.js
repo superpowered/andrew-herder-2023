@@ -24,7 +24,7 @@ export const isRectangularCollision = (rect1, rect2) => {
 }
 
 /**
- * isInGameBounds
+ * isOutOfGameBounds
  * Checks if rectange is within the game bounds
  * 
  * @param {Object} rect
@@ -32,14 +32,14 @@ export const isRectangularCollision = (rect1, rect2) => {
  * @param {Number} rect.y
  * @param {Number} rect.height
  * @param {Number} rect.width
- * @param {Object} game 
- * @param {Number} game.height
- * @param {Number} game.width
+ * @param {Object} gameBounds 
+ * @param {Number} gameBounds.height
+ * @param {Number} gameBounds.width
  * 
  * @returns {Boolean} - is colliding
  */
-export const isInGameBounds = (rect, game) => {
-  return rect.x > game.width || rect.x + rect.width < 0 || rect.y > game.height || rect.y + rect.height < 0;
+export const isOutOfGameBounds = (rect, gameBounds) => {
+  return rect.x > gameBounds.width || rect.x + rect.width < 0 || rect.y > gameBounds.height || rect.y + rect.height < 0;
 }
 
 /**

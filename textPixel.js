@@ -1,7 +1,6 @@
 export class TextPixel {
-  constructor(game, pixel) {
+  constructor(pixel) {
     const { x, y, r, g, b, a } = pixel;
-    this.game = game;
     this.x = x;
     this.y = y;
     this.r = r;
@@ -14,12 +13,14 @@ export class TextPixel {
     this.particles = [];
     this.destroyedTime = 0;
     this.markedForDeletion = false;
+    this.type = 'textPixel';
   }
 
   update(deltaTime) {
     if(this.particles && this.particles.length) {
       this.particles.forEach(particle => particle.update());
 
+      // Delay destruction
       this.destroyedTime += deltaTime;
       if(this.destroyedTime > 500) {
         this.particles = null;
@@ -43,8 +44,6 @@ export class TextPixel {
     if(!this.render) {
       return;
     }
-
-    this.game.headerText.count--;
     this.render = false;
 
     for(let x = 0; x < (massDestroy ? 1 : 5); x++) {

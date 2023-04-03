@@ -3,12 +3,11 @@ import { level0 } from './levelData.js';
 
 // -----------------------------------------------------------------------------
 
-export class HeaderText {
+export class Level0 {
   constructor(game, context) {
     this.textElement = document.getElementById('intro-text');
 
     this.game = game; 
-    this.textPixels = [];
     this.initialCount = null;
     this.count = null;
 
@@ -19,6 +18,19 @@ export class HeaderText {
   }
 
   init = (context) => {
+    // Create our destructible pixel header
+    const pixels = createIntroTextPixels(context);
+    this.game.textPixels = pixels.map(pixel => new TextPixel(pixel));
+
+    // Set our counts, which we reference for firing events
+    this.initialCount = this.game.textPixels.length;
+    this.count = this.initialCount;
+
+    // register our events
+    this.events = this.levelData.events(this).map(event => event);
+  }
+
+  createIntroTextPixels(context) {
     // Clear everything so we only save the pixels we output in this function
     context.save();
     context.clearRect(0,0, this.game.width, this.game.height);
@@ -69,23 +81,11 @@ export class HeaderText {
     this.textElement.classList.add('hidden');
     context.restore();
 
-    this.textPixels = pix.map(pixel => new TextPixel(this.game, pixel));
-    this.initialCount = this.textPixels.length;
-    this.count = this.initialCount;
-
-
-    // register our events
-    this.events = this.levelData.events(this).map(event => event);
+    return pix;
   }
 
   update(deltaTime){
-    // TODO: use this markedForDeletion pattern on the other "destroy()" items to simplify logic
-    this.textPixels = this.textPixels.filter( pixel => { 
-      pixel.update(deltaTime);
-      return !pixel.markedForDeletion;
-    });
-
-
+    this.count = this.game.textPixels.length;
     // Loop through our level events and do things as needed
     this.events.filter((event) => {
       if(!event.triggered && event.trigger(this)) { 
@@ -93,9 +93,5 @@ export class HeaderText {
           event.action(this);
         }
     });
-  }
-
-  draw(context) {
-    this.textPixels.forEach( pixel => pixel.draw(context));
   }
 }

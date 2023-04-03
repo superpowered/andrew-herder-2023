@@ -11,13 +11,14 @@ export class Player {
     this.swidth = 24;
     this.sheight = 24;
     this.image = document.getElementById('player');
+    this.type = 'player';
 
     this.maxSpeed = 3;
     this.speedX = 0;
     this.speedY = 0;
 
-    this.x = (this.game.width / 2) - (this.width / 2);
-    this.y = (this.game.height / 2) - (this.height / 2);
+    this.x = (this.game.bounds.width / 2) - (this.width / 2);
+    this.y = (this.game.bounds.height / 2) - (this.height / 2);
     // TODO: convert positions on all things to use a position compoosed class
     this.hasPosition = {
       x: 'TODO',
@@ -27,7 +28,7 @@ export class Player {
       height: 'TODO',
       width: 'TODO',
     };
-    
+
     this.spawnY = this.y;
     this.weight = 1;
 
@@ -96,7 +97,7 @@ export class Player {
       this.lastFired += deltaTime;
     }
 
-    keepInBounds(this, this.game);
+    keepInBounds(this, this.game.bounds);
     
     this.checkCollisions();
   }
@@ -107,10 +108,6 @@ export class Player {
       context.fillRect(this.x, this.y, this.width, this.height);
     }
     context.drawImage(this.image, this.idleFrame * this.swidth, 0, this.sheight, this.swidth, this.x, this.y, this.width, this.height);
-  }
-
-  onGround() {
-    return this.y >= this.game.height - this.height;
   }
 
   fireProjectile() {
@@ -124,7 +121,9 @@ export class Player {
       this.x + this.width / 2 - this.projectileSize / 2 - direction.x * this.width / 2, 
       this.y + this.height / 2 - this.projectileSize / 2 - direction.y * this.height / 2,
       direction.x * - this.projectileSpeed, 
-      direction.y * - this.projectileSpeed
+      direction.y * - this.projectileSpeed,
+      ['textPixel', 'enemy'],
+      'playerProjectile',
     );
     this.game.projectiles.unshift(projectile);
   }

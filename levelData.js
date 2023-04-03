@@ -154,7 +154,7 @@ export const level0 = {
         action: (levelData) => {
           levelData['intro_text_4'] = true;
           levelData.game.textSystem.makeText(textBubbles[3]);
-          levelData.textPixels.forEach( pixel => pixel.destroy(true));
+          levelData.game.textPixels.forEach( pixel => pixel.destroy(true));
           levelData.textElement.remove();
         }
       },
