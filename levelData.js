@@ -1,3 +1,7 @@
+import { shakeScreen } from './utils.js';
+
+// TODO: split this file up
+
 const textBubbles = [
   {
     clearOthers: true,
@@ -83,7 +87,7 @@ const textBubbles = [
   },
   {
     clearOthers: true,
-    ttl: 4000,
+    ttl: 3000,
     removeOnNew: true,
     text: [
       {
@@ -110,63 +114,243 @@ const textBubbles = [
 ]
 
 export const level0 = {
-  events: (levelData) => {
+  init: (data) => {
+
+  },
+  events: (data) => {
     return [
+      // DEBUG: Fast Forward to level 1
+      // {
+      //   id: 'intro_text_4',
+      //   triggered: false,
+      //   trigger: (data) => { 
+      //     return true;
+      //   }  ,
+      //   action: (data) => {
+      //     setTimeout(() => {
+      //       data.game.level = 1;
+      //       data.unload();
+      //     }, 1000);
+      //   }
+      // },
       {
         id: 'intro_text_1',
         triggered: false,
-        trigger: (levelData) => { 
-          return levelData.count < levelData.initialCount - levelData.initialCount * .01;
+        trigger: (data) => { 
+          return data.count < data.initialCount - data.initialCount * .01;
         }  ,
-        action: (levelData) => {
-          levelData['intro_text_1'] = true;
-          levelData.game.textSystem.makeText(textBubbles[0]);
+        action: (data) => {
+          data['intro_text_1'] = true;
+          data.game.textSystem.makeText(textBubbles[0]);
         }
       },
       {
         id: 'intro_text_2',
         triggered: false,
-        trigger: (levelData) => { 
-          return levelData.count < levelData.initialCount - levelData.initialCount * .05;
+        trigger: (data) => { 
+          return data.count < data.initialCount - data.initialCount * .05;
         }  ,
-        action: (levelData) => {
-          levelData['intro_text_2'] = true;
-          levelData.game.textSystem.makeText(textBubbles[1]);
+        action: (data) => {
+          data['intro_text_2'] = true;
+          data.game.textSystem.makeText(textBubbles[1]);
         }
       },
       {
         id: 'intro_text_3',
         triggered: false,
-        trigger: (levelData) => { 
-          return levelData.count < levelData.initialCount - levelData.initialCount * .1;
+        trigger: (data) => { 
+          return data.count < data.initialCount - data.initialCount * .1;
         }  ,
-        action: (levelData) => {
-          levelData['intro_text_3'] = true;
-          levelData.game.textSystem.makeText(textBubbles[2]);
+        action: (data) => {
+          data['intro_text_3'] = true;
+          data.game.textSystem.makeText(textBubbles[2]);
         }
       },
       {
         id: 'intro_text_4',
         triggered: false,
-        trigger: (levelData) => { 
-          return levelData.count < levelData.initialCount - levelData.initialCount * .15;
+        trigger: (data) => { 
+          return data.count < data.initialCount - data.initialCount * .15;
         }  ,
-        action: (levelData) => {
-          levelData['intro_text_4'] = true;
-          levelData.game.textSystem.makeText(textBubbles[3]);
-          levelData.game.textPixels.forEach( pixel => pixel.destroy(true));
-          levelData.textElement.remove();
+        action: (data) => {
+          data['intro_text_4'] = true;
+          data.game.textSystem.makeText(textBubbles[3]);
+          shakeScreen();
+          data.game.textPixels.forEach( pixel => pixel.destroy(true));
+          data.textElement.remove();
         }
       },
       {
         id: 'intro_text_5',
         triggered: false,
-        trigger: (levelData) => { 
-          return levelData['intro_text_4'];
+        trigger: (data) => { 
+          return data['intro_text_4'];
         }  ,
-        action: (levelData) => {
-          levelData['intro_text_5'] = true;
-          setTimeout(() => levelData.game.textSystem.makeText(textBubbles[4]), 2000);
+        action: (data) => {
+          data['intro_text_5'] = true;
+          setTimeout(() => data.game.textSystem.makeText(textBubbles[4]), 2000);
+        }
+      },
+      {
+        id: 'end_level',
+        triggered: false,
+        trigger: (data) => { 
+          return data['intro_text_5'];
+        }  ,
+        action: (data) => {
+          data['end_level'] = true;
+          setTimeout(() => {
+            data.game.level = 1;
+            data.unload();
+          }, 4000);
+        }
+      },
+    ];
+  }
+}
+
+export const level1 = {
+  init: (data) => {
+
+  },
+  events: (data) => {
+    return [
+      // DEBUG: Fast Forward to game over
+      // {
+      //   id: 'game_over',
+      //   triggered: false,
+      //   trigger: (data) => { 
+      //     return true;
+      //   }  ,
+      //   action: (data) => {
+      //     setTimeout(() => {
+      //       data.game.player.markedForDeletion = true;
+      //       data.game.player.render = false;
+      //       data.game.gameOver = true;
+      //       data.unload();
+      //     }, 1000);
+      //   }
+      // },
+      {
+        id: 'level_1_text_1',
+        triggered: false,
+        trigger: (data) => { 
+          return data.game.score >= 10;
+        }  ,
+        action: (data) => {
+          data['level_1_text_1'] = true;
+          data.game.textSystem.makeText(textBubbles[0]);
+          data.spawnRate -= 500;
+        }
+      },
+      {
+        id: 'level_1_text_2',
+        triggered: false,
+        trigger: (data) => { 
+          return data.game.score >= 30;
+        }  ,
+        action: (data) => {
+          data['level_1_text_2'] = true;
+          data.game.textSystem.makeText(textBubbles[1]);
+          data.spawnRate -= 500;
+        }
+      },
+      {
+        id: 'level_1_text_3',
+        triggered: false,
+        trigger: (data) => { 
+          return data.game.score >= 50;
+        }  ,
+        action: (data) => {
+          data['level_1_text_3'] = true;
+          data.game.textSystem.makeText(textBubbles[2]);
+          data.spawnRate -= 200;
+        }
+      },
+      {
+        id: 'level_1_text_4',
+        triggered: false,
+        trigger: (data) => { 
+          return data.game.score >= 100;
+        }  ,
+        action: (data) => {
+          data['level_1_text_4'] = true;
+          data.game.textSystem.makeText(textBubbles[3]);
+          data.spawnRate -= 200;
+        }
+      },
+      {
+        id: 'game_over',
+        triggered: false,
+        trigger: (data) => data.game.gameOver,
+        action: (data) => {
+          data['game_over'] = true;
+          data.game.scoreElement.forEach(el => {
+            el.classList.remove('active');
+          });
+          document.documentElement.classList.remove('game-loaded');
+          const enter = document.getElementById('initials-submit');
+          const endScreen = document.getElementById('end-screen')
+          endScreen.classList.add('active');
+
+          let initials = [];
+          window.addEventListener('keydown', e => {
+            console.log(e.key, initials.length);
+            const lastInitial = document.getElementById('initials-' + initials.length);
+            const nextInitial = document.getElementById('initials-' + (initials.length + 1));
+            if((e.key === 'Delete' || e.key === 'Backspace' || e.key === 'Escape') && initials.length) {
+              initials.pop();
+              lastInitial.innerText = '';
+              lastInitial?.classList.add('active');
+              nextInitial?.classList.remove('active');
+              enter.classList.remove('active');
+              return;
+            }
+
+            if(initials.length >= 3) {
+              if(e.key === 'Enter') {
+                const disallowed = [
+                  'ass', 'cum', 'fag', 'gay', 'god', 'jew', 'tit'
+                ];
+                const name = initials.join('');
+                if(disallowed.includes(name.toLowerCase())) {
+                  shakeScreen();
+                  return;
+                }
+
+                // TODO: 
+                // - submit to server
+                // Wait for response
+                // populate scoreboard
+
+                endScreen.classList.remove('active');
+                const scoreboard = document.getElementById('scoreboard');
+                scoreboard.classList.add('active');
+              }
+              return;
+            }
+
+            const key = e.key.toUpperCase();
+            if(!key.match(/^[a-z0-9]{1}$/i)) {
+              return;
+            }
+            lastInitial?.classList.remove('active');
+            nextInitial?.classList.add('active');
+
+            initials.push(key);
+            initials.forEach((init, i) => {
+              const initial = document.getElementById('initials-' + (i + 1));
+              if(!initial) {
+                return;
+              }
+              initial.innerText = init;
+            });
+
+            if(initials.length === 3) {
+              enter.classList.add('active');
+              nextInitial?.classList.remove('active');
+            }
+          });
         }
       },
     ];

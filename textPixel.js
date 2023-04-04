@@ -14,6 +14,7 @@ export class TextPixel {
     this.destroyedTime = 0;
     this.markedForDeletion = false;
     this.type = 'textPixel';
+    this.projectileAbsorption = .02;
   }
 
   update(deltaTime) {
@@ -38,6 +39,10 @@ export class TextPixel {
     if(this.particles) {
       this.particles.forEach(particle => particle.draw(context));
     }
+  }
+
+  hit() {
+    this.destroy();
   }
 
   destroy(massDestroy = false) {

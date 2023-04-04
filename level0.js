@@ -4,22 +4,22 @@ import { level0 } from './levelData.js';
 // -----------------------------------------------------------------------------
 
 export class Level0 {
-  constructor(game, context) {
+  constructor(game) {
     this.textElement = document.getElementById('intro-text');
 
     this.game = game; 
     this.initialCount = null;
     this.count = null;
 
+    this.initialized = false;
+
     this.levelData = level0;
     this.events = [];
-
-    this.init(context);
   }
 
-  init = (context) => {
+  init = (game, context) => {
     // Create our destructible pixel header
-    const pixels = createIntroTextPixels(context);
+    const pixels = this.createIntroTextPixels(context);
     this.game.textPixels = pixels.map(pixel => new TextPixel(pixel));
 
     // Set our counts, which we reference for firing events
@@ -28,6 +28,7 @@ export class Level0 {
 
     // register our events
     this.events = this.levelData.events(this).map(event => event);
+    this.initialized = true;
   }
 
   createIntroTextPixels(context) {
@@ -93,5 +94,12 @@ export class Level0 {
           event.action(this);
         }
     });
+  }
+
+  // We'll fire this to make sure we've cleaned up anything we may have left behind accidentally
+  unload() {
+    this.game.textPixels = [];
+    this.textElement.remove();
+    delete this;
   }
 }

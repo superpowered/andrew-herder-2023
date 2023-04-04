@@ -43,6 +43,7 @@
   <div id="asset-loader" style="opacity: 0; pointer-events: none;">
     <!-- We COULD load the sprites in from the JS, but this works well enough for now -->
     <img id="player" src="assets/DinoSprites - vita.png" />
+    <img id="enemy" src="assets/DinoSprites - mort.png" />
     <!-- Fonts wont load unless we display them at least once -->
     <span style="font-family: 'Black Han Sans';">1</span>
     <span style="font-family: 'Press Start 2P';">2</span>
@@ -57,6 +58,61 @@
     <div class="control-label control-label--movement">To Move</div>
     <div class="control-key control-key--space">Space</div>
     <div class="control-label control-label--shoot">To Shoot</div>
+  </section>
+
+  <div class="ui-score score-counter"></div>
+  <section id="end-screen" class="shakeable">
+    <div>
+      <h1>You died.</h1>
+      <div id="end-score">Score: <span class="score-counter"></span></div>
+      <div id="initials">
+        <h3>
+          Enter Your Initials:
+        </h3>
+        <div id="initials-container">
+          <span id="initials-1" class="active"></span>
+          <span id="initials-2"></span>
+          <span id="initials-3"></span>
+        </div>
+        <div id="initials-submit">
+          Press Enter to save
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="scoreboard">
+    <div>
+      <ol>
+        <li>
+          <span>ASH</span>
+          <span>10000</span>
+        </li>
+        <li>
+          <span>ASH</span>
+          <span>10000</span>
+        </li>
+        <li>
+          <span>ASH</span>
+          <span>10000</span>
+        </li>
+        <li>
+          <span>ASH</span>
+          <span>10000</span>
+        </li>
+        <li>
+          <span>ASH</span>
+          <span>10000</span>
+        </li>
+        <li>
+          <span>ASH</span>
+          <span>10000</span>
+        </li>
+      </ol>
+      <a href="/">
+        Click here to resart
+      </a>
+    </div>
   </section>
 
   <!-- It's easer to just do text with HTML & CSS than to use the canvas text items, so we'll display this at the top of the screen when needed -->

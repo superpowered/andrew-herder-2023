@@ -71,3 +71,17 @@ export const keepInBounds = (rect, game) => {
     rect.y = 0;
   }
 }
+
+
+export const getDistance = (x1, y1, x2, y2) => {
+  let y = x2 - x1;
+  let x = y2 - y1;
+  
+  return Math.sqrt(x * x + y * y);
+}
+
+export const shakeScreen = () => {
+  document.body.classList.remove('shake');
+  document.body.classList.add('shake');
+  setTimeout(() => document.body.classList.remove('shake'), 500);
+}

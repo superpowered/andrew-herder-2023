@@ -23,7 +23,7 @@ export class Projectile {
     this.vy = vy;
     this.destroyed = false;
     this.textHit = 0;
-    this.health = this.size *  (this.size / 2);
+    this.health = 1;
     this.color = POSSIBLE_FILLS[Math.floor(Math.random() * POSSIBLE_FILLS.length)];
     this.type = type;
 
@@ -63,12 +63,10 @@ export class Projectile {
         isRectangularCollision(item, this) && 
         item.render === true
       ) {
-        item.destroy();
-        if(item.r === 255) {
-          this.health--;
-          if(this.health < 0) {
-            this.destroy();
-          }
+        item.hit();
+        this.health -= item.projectileAbsorption;
+        if(this.health < 0) {
+          this.destroy();
         }
       }
     });

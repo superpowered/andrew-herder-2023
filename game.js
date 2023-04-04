@@ -1,5 +1,6 @@
 import { InputHandler } from './input.js';
 import { Level0 } from './level0.js';
+import { Level1 } from './level1.js';
 import { Player } from './player.js';
 import { TextSystem } from './textSystem.js';
 
@@ -12,10 +13,18 @@ export class Game {
     this.height = height;
     this.dpr = dpr;
 
+    this.context = context;
+    this.canvas = canvas;
+
     this.bounds = {
       height,
       width,
     }
+
+    this.score = 0;
+    this.lastScore = null;
+    this.scoreElement = Array.from(document.getElementsByClassName('score-counter'));
+    this.gameOver = false;
 
     // Changeable Game Data
     this.mousePos = { x: 0, y: 0 };
@@ -31,7 +40,12 @@ export class Game {
     this.textSystem = new TextSystem(this);
 
     // Levels
-    this.level0 = new Level0(this, context);
+    this.lastLevel = null;
+    this.level = 0;
+    this.levels = [
+      new Level0(this, context),
+      new Level1(this, context),
+    ];
 
     // Initialize our collision items
     this.collisionItems = [
@@ -42,7 +56,7 @@ export class Game {
     ];
 
     // Init
-    this.init(canvas, context);
+    this.init(canvas);
   }
 
   init(canvas) {
@@ -62,12 +76,20 @@ export class Game {
   }
 
   update(deltaTime) {
-    // game, deltaTime, bounds, collisionItems,
+    // Player
     this.player && this.player.update(this.input.keys, deltaTime);
-    this.level0.update(deltaTime);
+
+    // Level
+    if(this.lastLevel !== this.level) {
+      this.lastLevel = this.level;
+      this.levels[this.level].init(this, this.context);
+    }
+    if(this.levels[this.level] && this.levels[this.level].initialized) {
+      this.levels[this.level].update(deltaTime);
+    }
 
     this.enemies = this.enemies.filter( (enemy) => {
-      enemy.update(this, this.bounds);
+      enemy.update(deltaTime);
       return !enemy.markedForDeletion;
     });
 
@@ -77,7 +99,6 @@ export class Game {
     });
 
     this.projectiles = this.projectiles.filter( (projectile) => {
-      console.log();
       projectile.update(this.bounds, this.collisionItems);
       return !projectile.markedForDeletion;
     });
@@ -89,10 +110,19 @@ export class Game {
       ...this.projectiles,
       ...this.textPixels,
     ];
+
+
+    if(this.score !== this.lastScore) {
+      this.lastScore = this.score;
+      this.scoreElement.forEach(el => {
+        el.innerText = this.score;
+      });
+    }
   }
 
   draw(context, deltaTime) {
     this.player && this.player.draw(context, deltaTime, false, this.dpr);
+    this.enemies.forEach( enemy => enemy.draw(context, deltaTime, false, this.dpr));
     this.projectiles.forEach( projectile => projectile.draw(context));
     this.textPixels.forEach( pixel => pixel.draw(context));
   }

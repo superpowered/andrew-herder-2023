@@ -18,6 +18,10 @@ body {
   color: white;
   font-family: 'Courier', sans-serif;
   background-color: black;
+}
+
+html.game-loaded body,
+html.game-loaded #main-canvas {
   cursor: crosshair;
 }
 
@@ -211,7 +215,7 @@ body.shake .shakeable {
   position: absolute;
   right: 1em;
   top: 1em;
-  z-index: 10;
+  z-index: 100;
 }
 
 .site-nav .left-nav {
@@ -243,4 +247,103 @@ body.shake .shakeable {
 }
 .site-nav svg {
   fill: white;
+}
+
+.ui-score {
+  position: absolute;
+  left: 1em;
+  top: 1em;
+  color: white;
+  font-weight: bold;
+  z-index: 10;
+  font-size: 5vw;
+  opacity: 0;
+  pointer-events: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 5vw;
+  width: 5vw;
+}
+
+.ui-score.active {
+  opacity: 1;
+  transition: all .3s;
+}
+
+
+#end-screen {
+  position: absolute;
+  z-index: 99;
+  top: 0;
+  left: 0;
+  height: 100%;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0;
+  text-align: center;
+}
+
+#end-screen.active {
+  opacity: 1;
+  transition: all 1s;
+}
+#initials-container {
+  display: flex;
+  justify-content: center;
+}
+
+#initials-container span{
+  border-bottom: 3px solid white;
+  width: 3vw;
+  margin: .5em;
+  height: 5vw;
+}
+
+#initials-container span.active{
+  animation: blink-border .5s infinite;
+}
+
+#initials-submit {
+  opacity: 0;
+}
+#initials-submit.active {
+  opacity: 1;
+}
+
+@keyframes blink-border {
+  0% { border-color: white; }
+  50% { border-color: transparent; }
+  100% { border-color: white;  }
+}
+
+#scoreboard {
+  position: absolute;
+  z-index: 99;
+  top: 0;
+  left: 0;
+  height: 100%;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0;
+  text-align: center;
+}
+#scoreboard.active {
+  opacity: 1;
+  transition: all .5s;
+}
+
+#scoreboard a {
+  border: 1px solid white;
+  padding: 1em 2em;
+  text-transform: uppercase;
+  font-weight: bold;
+  text-decoration: none;
+  color: white;
+  display: block;
+  margin-top: 4em;
 }
