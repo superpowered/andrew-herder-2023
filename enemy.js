@@ -20,7 +20,7 @@ export class Enemy {
     this.spawnY = this.y;
     this.weight = 1;
 
-    // TODO:
+    // TODO: need an animation class
     this.idleFrame = 0;
     setInterval(() => {
       this.idleFrame++;
@@ -178,7 +178,6 @@ export class Enemy {
   }
 
   checkCollisions() {
-    // TODO
   }
 }
 

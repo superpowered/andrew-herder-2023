@@ -110,6 +110,106 @@ const textBubbles = [
         classes: ['small'],
       },
     ],
+  },
+  {
+    clearOthers: true,
+    ttl: 8000,
+    removeOnNew: true,
+    text: [
+      {
+        string: 'OH!',
+        speed: 10,
+        classes: ['bold'],
+      },
+      {
+        string: 'Well',
+        speed: 40,
+        delayAfter: 500,
+        noEndSpace: true,
+      },
+      {
+        string: '...',
+        speed: 150,
+        delayAfter: 500,
+      },
+      {
+        string: 'I was hoping the first 10 would just sort of,',
+        speed: 60,
+      },
+      {
+        string: 'Y\'know,',
+        speed: 10,
+      },
+      {
+        string: 'killed you.',
+        speed: 60,
+      },
+    ],
+  },
+  {
+    clearOthers: true,
+    ttl: 6000,
+    removeOnNew: true,
+    text: [
+      {
+        string: 'Quickly Minons!',
+        speed: 40,
+        classes: ['bold'],
+        delayAfter: 500,
+      },
+      {
+        string: 'Minionize them!',
+        speed: 60,
+        classes: ['bold', 'large'],
+      },
+    ],
+  },
+  {
+    clearOthers: true,
+    ttl: 8000,
+    removeOnNew: true,
+    text: [
+      {
+        string: 'UUUUUUUUGHH!',
+        speed: 70,
+        classes: ['large'],
+        delayAfter: 500,
+      },
+      {
+        string: ' ',
+      },
+      {
+        string: 'Your\'e supposed to run INTO the pixels!',
+        speed: 70,
+      },
+    ],
+  },
+  {
+    clearOthers: true,
+    ttl: 12000,
+    removeOnNew: true,
+    text: [
+      {
+        string: 'Well congrats.',
+        speed: 70,
+        delayAfter: 500,
+      },
+      {
+        string: 'You\'ve managed to expend the amount of minions I can spawn per second.',
+        speed: 70,
+        delayAfter: 500,
+      },
+      {
+        string: '(No really, I didn\'t code much past this. So uhh....',
+        speed: 50,
+        classes: ['small'],
+      },
+      {
+        string: 'K. Thnx. Baiii)',
+        speed: 50,
+        classes: ['small'],
+      },
+    ],
   }
 ]
 
@@ -239,7 +339,7 @@ export const level1 = {
         }  ,
         action: (data) => {
           data['level_1_text_1'] = true;
-          data.game.textSystem.makeText(textBubbles[0]);
+          data.game.textSystem.makeText(textBubbles[5]);
           data.spawnRate -= 500;
         }
       },
@@ -251,7 +351,7 @@ export const level1 = {
         }  ,
         action: (data) => {
           data['level_1_text_2'] = true;
-          data.game.textSystem.makeText(textBubbles[1]);
+          data.game.textSystem.makeText(textBubbles[6]);
           data.spawnRate -= 500;
         }
       },
@@ -263,7 +363,7 @@ export const level1 = {
         }  ,
         action: (data) => {
           data['level_1_text_3'] = true;
-          data.game.textSystem.makeText(textBubbles[2]);
+          data.game.textSystem.makeText(textBubbles[7]);
           data.spawnRate -= 200;
         }
       },
@@ -275,7 +375,7 @@ export const level1 = {
         }  ,
         action: (data) => {
           data['level_1_text_4'] = true;
-          data.game.textSystem.makeText(textBubbles[3]);
+          data.game.textSystem.makeText(textBubbles[8]);
           data.spawnRate -= 200;
         }
       },
@@ -295,7 +395,6 @@ export const level1 = {
 
           let initials = [];
           window.addEventListener('keydown', e => {
-            console.log(e.key, initials.length);
             const lastInitial = document.getElementById('initials-' + initials.length);
             const nextInitial = document.getElementById('initials-' + (initials.length + 1));
             if((e.key === 'Delete' || e.key === 'Backspace' || e.key === 'Escape') && initials.length) {

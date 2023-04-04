@@ -29,8 +29,6 @@ export class Projectile {
 
     this.render = true;
     this.markedForDeletion = false;
-
-    // TODO: projectiles will need a list of things they can interact with (and maybe how they ineract with them)
     this.collidesWith = collidesWith;
   }
 
