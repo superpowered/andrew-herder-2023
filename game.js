@@ -28,6 +28,7 @@ export class Game {
 
     // Changeable Game Data
     this.mousePos = { x: 0, y: 0 };
+    this.isTouch = false;
 
     // Entities
     this.player = null;
@@ -36,7 +37,7 @@ export class Game {
     this.textPixels = [];
 
     // Systems
-    this.input = new InputHandler();
+    this.input = new InputHandler(this);
     this.textSystem = new TextSystem(this);
 
     // Levels
@@ -63,10 +64,12 @@ export class Game {
     // Add listener to keep mouse position updated
     const rect = canvas.getBoundingClientRect();
     document.addEventListener('mousemove', (e) => {
-      this.mousePos = {
-        x: e.clientX - rect.left,
-        y: e.clientY - rect.top
-      };
+      if(!this.isTouch) {
+        this.mousePos = {
+          x: e.clientX - rect.left,
+          y: e.clientY - rect.top
+        };
+      }
     });
 
     // Delay our player for loading effect
@@ -78,6 +81,13 @@ export class Game {
   update(deltaTime) {
     // Player
     this.player && this.player.update(this.input.keys, deltaTime);
+
+    if(this.isTouch) {
+      this.mousePos = {
+        x: this.player.x,
+        y: this.player.y - this.player.height,
+      };
+    }
 
     // Level
     if(this.lastLevel !== this.level) {

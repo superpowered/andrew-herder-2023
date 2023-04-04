@@ -8,6 +8,12 @@ a {
   text-decoration: none;
 }
 
+html {
+  overflow: hidden;
+  height: 100%;
+  width: 100%;
+}
+
 body {
   display: flex;
   align-items: center;
@@ -70,7 +76,7 @@ html.game-loaded #main-canvas {
 
 .controls {
   position: absolute;
-  z-index: 3;
+  z-index: 4;
   left: 3vw;
   bottom: 3vw;
   color: white;
@@ -99,6 +105,11 @@ html.game-loaded .controls{
   align-items: center;
   justify-content: center;
   aspect-ratio: 1 / 1;
+}
+
+.control-key.active {
+  color: black;
+  background-color: white;
 }
 
 .control-key--w {
@@ -261,7 +272,7 @@ body.shake .shakeable {
   top: 1em;
   color: white;
   font-weight: bold;
-  z-index: 10;
+  z-index: 3;
   font-size: 5vw;
   opacity: 0;
   pointer-events: none;
@@ -280,7 +291,7 @@ body.shake .shakeable {
 
 #end-screen {
   position: absolute;
-  z-index: 99;
+  z-index: 3;
   top: 0;
   left: 0;
   height: 100%;
@@ -327,7 +338,7 @@ body.shake .shakeable {
 
 #scoreboard {
   position: absolute;
-  z-index: 99;
+  z-index: 3;
   top: 0;
   left: 0;
   height: 100%;

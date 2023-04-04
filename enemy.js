@@ -195,14 +195,14 @@ class TextPixelParticle {
     this.width = width;
     var plusOrMinusX = Math.random() < 0.5 ? -1 : 1;
     var plusOrMinusY = Math.random() < 0.5 ? -1 : 1;
-    this.vx = Math.random() * 2 * plusOrMinusX;
-    this.vy = Math.random() * 2 * plusOrMinusY;
+    this.vx = Math.random() * 3 * plusOrMinusX + .1;
+    this.vy = Math.random() * 3 * plusOrMinusY + .1;
   }
 
   update() {
     this.x += this.vx;
     this.y += this.vy;
-    this.a -= this.initialA * .02;
+    this.a -= this.initialA * Math.random() * .03 + .01;
   }
 
   draw(context) {

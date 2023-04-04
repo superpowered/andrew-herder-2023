@@ -388,10 +388,20 @@ export const level1 = {
           data.game.scoreElement.forEach(el => {
             el.classList.remove('active');
           });
+
           document.documentElement.classList.remove('game-loaded');
           const enter = document.getElementById('initials-submit');
-          const endScreen = document.getElementById('end-screen')
+          const endScreen = document.getElementById('end-screen');
+          const scoreboard = document.getElementById('scoreboard');
           endScreen.classList.add('active');
+
+          // TODO: eventually could probably find a way to get mobile input
+          if(data.game.isTouch) {
+            const scoreboard = document.getElementById('scoreboard');
+            endScreen.classList.remove('active');
+            scoreboard.classList.add('active');
+            return;
+          }
 
           let initials = [];
           window.addEventListener('keydown', e => {
@@ -423,7 +433,6 @@ export const level1 = {
                 // populate scoreboard
 
                 endScreen.classList.remove('active');
-                const scoreboard = document.getElementById('scoreboard');
                 scoreboard.classList.add('active');
               }
               return;
