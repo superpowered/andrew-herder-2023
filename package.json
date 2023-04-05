@@ -1,0 +1,55 @@
+{
+  "name": "andrew-herder-2023",
+  "description": "My Site",
+  "version": "3.0.0",
+  "private": true,
+  "repository": {
+    "type": "git",
+    "url": "TODO"
+  },
+  "engines": {
+    "node": "^18",
+    "npm": "^9"
+  },
+  "type": "module",
+  "scripts": {
+    "dev:client": "webpack serve --config src/client/webpack.config.dev.js",
+    "dev:server": " NODE_ENV=development nodemon --experimental-specifier-resolution=node --exec babel-node --inspect --watch src/server src/server",
+    "dev": "npm-run-all --parallel dev:client dev:server",
+    "prettier": "prettier --check \"*.js\" \"**/*.js\"",
+    "lint": "eslint . --ext .js --cache && npm run prettier -- --max-warnings=0",
+    "lint:fix": "npm run lint -- --fix",
+    "build:clean": "rimraf dist .eslintcache .stylelintcache",
+    "build:dist": "mkdirp dist dist/client",
+    "build:client": "webpack --config src/client/webpack.config.prod.js",
+    "build:server": "webpack --config src/server/webpack.config.prod.js",
+    "build": "npm-run-all --sequential build:clean build:dist build:client build:server",
+    "start:build": "npm-run-all --sequential build start",
+    "start": "node --enable-source-maps dist/server.cjs"
+  },
+  "dependencies": {
+    "axios": "1",
+    "express": "4",
+    "victor": "^1"
+  },
+  "devDependencies": {
+    "@babel/cli": "^7",
+    "@babel/core": "^7",
+    "@babel/eslint-parser": "^7",
+    "@babel/node": "^7",
+    "@babel/preset-env": "^7",
+    "babel-loader": "^9",
+    "css-loader": "^6",
+    "file-loader": "^6",
+    "html-webpack-plugin": "^5",
+    "mkdirp": "^2",
+    "nodemon": "^2",
+    "npm-run-all": "^4",
+    "sass": "^1",
+    "sass-loader": "^13",
+    "style-loader": "^3",
+    "webpack": "^5",
+    "webpack-cli": "^5",
+    "webpack-dev-server": "^4"
+  }
+}

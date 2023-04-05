@@ -7,11 +7,12 @@ import { TextSystem } from './textSystem.js';
 // -----------------------------------------------------------------------------
 
 export class Game {
-  constructor(canvas, context, width, height, dpr) {
+  constructor(sprites, canvas, context, width, height, dpr) {
     // Initial Game data
     this.width = width;
     this.height = height;
     this.dpr = dpr;
+    this.sprites = sprites;
 
     this.context = context;
     this.canvas = canvas;

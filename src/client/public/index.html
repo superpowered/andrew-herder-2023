@@ -5,12 +5,11 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Andrew Herder | Senior Software Engineer - Milwaukee, WI</title>
-  <link rel="stylesheet" href="style.css">
   <link href="https://fonts.googleapis.com/css?family=Press+Start+2P" rel="stylesheet">
   <link href="https://fonts.googleapis.com/css?family=Black+Han+Sans" rel="stylesheet">
-  <link rel="icon" href="./cropped-favi-192x192.jpg" sizes="192x192">
 </head>
 <body>
+  <noscript> You need to enable JavaScript to run this app. </noscript>
   
   <!-- This will display even when we haven't loaded (we'll hide it if the game loads up) -->
   <span id="intro-text">ANDREW HERDER</span>
@@ -41,9 +40,6 @@
 
   <!-- Going to load all my stuff here -->
   <div id="asset-loader" style="opacity: 0; pointer-events: none;">
-    <!-- We COULD load the sprites in from the JS, but this works well enough for now -->
-    <img id="player" src="assets/DinoSprites - vita.png" />
-    <img id="enemy" src="assets/DinoSprites - mort.png" />
     <!-- Fonts wont load unless we display them at least once -->
     <span style="font-family: 'Black Han Sans';">1</span>
     <span style="font-family: 'Press Start 2P';">2</span>
@@ -123,9 +119,5 @@
 
   <!-- ✨ This is where the magic happens ✨ -->
   <canvas id="main-canvas" class="shakeable"></canvas>
-
-  <!-- Who needs a build process when you have modules amirite? -->
-  <script type="text/javascript" src="vendor/victor.min.js"></script>
-  <script type="module" src="main.js"></script>
 </body>
 </html>
