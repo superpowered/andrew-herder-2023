@@ -66,7 +66,7 @@ export class Level0 {
     let pix = [];
     let bigPixels = [];
     let bigBigPixels = [];
-    console.log(pixels.length);
+    // console.log(pixels.length);
     // i = data.length; i >= 0; i -= 4
     // for(let i = pixels.length; i >= 0; i -= 4) {
     for(let i = 0; i < pixels.length; i += 4) {
@@ -240,9 +240,9 @@ export class Level0 {
     this.textElement.classList.add('hidden');
     context.restore();
 
-    console.log(pix.length);
-    console.log(bigPixels.length);
-    console.log(bigBigPixels.length);
+    // console.log(pix.length);
+    // console.log(bigPixels.length);
+    // console.log(bigBigPixels.length);
     return { pix, bigPixels, bigBigPixels };
   }
 

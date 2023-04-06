@@ -54,7 +54,6 @@ playerSprite.src = vita;
 playerSprite.addEventListener(
   "load",
   () => {
-    console.log('!');
     playerSpriteLoaded = true;
   },
   false
@@ -65,7 +64,6 @@ enemySprite.src = mort;
 enemySprite.addEventListener(
   "load",
   () => {
-    console.log('!');
     enemySpriteLoaded = true;
   },
   false
