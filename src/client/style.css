@@ -65,11 +65,11 @@ html.game-loaded #main-canvas {
   text-shadow: 3px 3px 0 #a5a5a5;
   cursor: crosshair;
   background-color: black;
-  transition: background-color .5s, color 0s .5s, text-shadow 0s .5s;
+  transition: all .5s;
 }
 
 #intro-text.hidden {
-  color: transparent;
+  color: rgba(255,255,255, 0);
   background-color: transparent;
   text-shadow: 3px 3px 0 transparent;
 }
