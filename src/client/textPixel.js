@@ -178,6 +178,7 @@ export class TextPixel2 {
       context.fillStyle = `rgba(${this.myPixels[0].pixelData.r}, ${this.myPixels[0].pixelData.g}, ${this.myPixels[0].pixelData.b}, ${this.myPixels[0].pixelData.a})`;
       // context.fillStyle = `red`;
       context.fillRect(this.x, this.y, this.width, this.height);
+
       // context.rect(this.x, this.y, this.width, this.height);
       // context.strokeStyle = 'blue';
       // context.stroke();
