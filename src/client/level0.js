@@ -1,4 +1,4 @@
-import { TextPixel2 } from './textPixel.js';
+import { TextPixel } from './textPixel.js';
 import { level0 } from './levelData.js';
 
 // -----------------------------------------------------------------------------
@@ -26,7 +26,7 @@ export class Level0 {
     pixelSizes.forEach(pixelSize => {
       this.game.textPixels = [
         ...this.game.textPixels,
-        ...pixelSize.pixels.map(pixel => new TextPixel2(pixel, pixelSize.size, pixelSize.absorption)),
+        ...pixelSize.pixels.map(pixel => new TextPixel(pixel, pixelSize.size, pixelSize.absorption)),
       ];
     });
 
@@ -39,26 +39,25 @@ export class Level0 {
     this.initialized = true;
   }
 
-  getNeigborPositions = (i, gw, size) => {
-    const arr = [];
+  getNeigborPositions = (i, gameWidth, size) => {
+    const positions = [];
     const sqr = Math.sqrt(size);
     for(let x = 0; x < sqr; x++) {
       for(let y = 0; y < sqr; y++) {
-        arr[x * sqr + y] = i + (gw * 4 * x) + (y * 4);
+        positions[x * sqr + y] = i + (gameWidth * 4 * x) + (y * 4);
       } 
     }
-    return arr;
+    return positions;
   }
 
   findMyNeigbors = (i, size, pixels) => {
-    const neighborPos9TL = this.getNeigborPositions(i, this.game.width, size);
-    return neighborPos9TL.map((pos) => {
-      const hasData = pixels[pos];
+    const neighborPositions = this.getNeigborPositions(i, this.game.width, size);
+    return neighborPositions.map((pos) => {
       return {
         pos, 
-        hasData,
         pixelData: {
           x: ((pos / 4) % this.game.width),
+          // This bitwise is just a Math.Floor
           y: (((pos / 4)  / this.game.width)|0),
           r: pixels[pos], 
           g: pixels[pos + 1], 
@@ -77,7 +76,6 @@ export class Level0 {
     const introText = this.textElement.textContent;
     const size = 5 / this.game.dpr;
     context.font = size + "vw 'Press Start 2P'";
-    // context.font = (50  / this.game.dpr) + "px 'Press Start 2P'";
     context.fillStyle="white";
     context.shadowColor="rgb(165,165,165,1)";
     context.shadowOffsetX=3;
@@ -96,6 +94,8 @@ export class Level0 {
     // This gives us a big crazy array of EVERY pixel on the screen PLUS various data about those pixels 
     // so we store the pixel data for access, & then convert to array so we can actually modify it reasonably.
     const pixels = Array.from(context.getImageData(0, 0, this.game.width, this.game.height).data);
+
+    // These are the pixel sizes we'll try to make, in order.
     const pixelSizes = [
       {
         size: 5,
@@ -131,11 +131,6 @@ export class Level0 {
         continue;
       }
 
-       // Mark our removed pixels, so we don't double render them
-       if (pixels[i] === 'removed') { 
-        continue;
-      }
-
       pixelSizes.find((pixelSize, index) => {
         // Find all neighboring pixels within the size & their data
         const neighbors = this.findMyNeigbors(i, pixelSize.size * pixelSize.size, pixels);
@@ -158,7 +153,7 @@ export class Level0 {
 
         // Remove from pixel array so we don't double paint them
         neighbors.forEach(neighbor => {
-          pixels[neighbor.pos] = 'removed';
+          pixels[neighbor.pos + 3] = 0;
         });
         pixelSizes[index].pixels.push(neighbors);
         return true;
@@ -173,6 +168,7 @@ export class Level0 {
 
   update(deltaTime){
     this.count = this.game.textPixels.length;
+
     // Loop through our level events and do things as needed
     this.events.filter((event) => {
       if(!event.triggered && event.trigger(this)) { 
