@@ -40,7 +40,6 @@ html.game-loaded #main-canvas {
   width: 100%;
   position: absolute;
   z-index: 1;
-  background-color: black;
   cursor: crosshair;
   cursor: crosshair;
 }
@@ -53,7 +52,7 @@ html.game-loaded #main-canvas {
   font-family: 'Press Start 2P', sans-serif; 
   position: absolute; 
   z-index: 2; 
-  font-size: 5vw;
+  font-size: 50px;
   display: flex;
   align-items: center;
   justify-content: center;

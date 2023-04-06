@@ -3,6 +3,10 @@ export class TextPixel {
     this.pixels = pixels;
     this.x = pixels[0].pixelData.x;
     this.y = pixels[0].pixelData.y;
+    this.r = pixels[0].pixelData.r;
+    this.g = pixels[0].pixelData.g;
+    this.b = pixels[0].pixelData.b;
+    this.a = pixels[0].pixelData.a;
     this.height = size;
     this.width = size;
     this.render = true;
@@ -34,14 +38,12 @@ export class TextPixel {
         context.strokeStyle = this.height === 1 ? 'red' : this.height === 2 ? 'green' : 'blue';
         context.stroke();
       } else {
-        context.fillStyle = `rgba(${this.pixels[0].pixelData.r}, ${this.pixels[0].pixelData.g}, ${this.pixels[0].pixelData.b}, ${this.pixels[0].pixelData.a})`;
+        context.fillStyle = `rgba(${this.r}, ${this.g}, ${this.b}, ${this.a})`;
         context.fill();
       }
     }
 
-    if(this.particles) {
-      this.particles.forEach(particle => particle.draw(context));
-    }
+    this.particles.map(particle => particle.draw(context));
   }
 
   hit() {

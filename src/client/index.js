@@ -9,6 +9,7 @@ import vita from './assets/dino-sprites-vita.png';
 
 const init = (sprites) => {
   const canvas = document.getElementById('main-canvas');
+  const fps = document.getElementById('fps');
   const ctx = canvas.getContext('2d');
 
   // Fix pixel scaling for retina screens
@@ -25,14 +26,20 @@ const init = (sprites) => {
   const game = new Game(sprites, canvas, ctx, rect.width, rect.height, dpr);
   document.documentElement.classList.add('game-loaded');
 
+  let fpsAvs = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
+  let fpsAv = 0;
+
   // Start the render loop
   let lastTime = 0;
   const animate = (timeStamp) => {
     const deltaTime = timeStamp - lastTime;
-    lastTime = timeStamp;
     ctx.clearRect(0,0, canvas.width, canvas.height);
     game.update(deltaTime);
     game.draw(ctx, deltaTime);
+    fpsAvs.unshift(1 / ((performance.now() - lastTime) / 1000)|0);
+    fpsAvs.pop();
+    fps.innerText = 'FPS: ' + (fpsAvs.reduce((l, t) => l+t, 0) / fpsAvs.length|0);
+    lastTime = timeStamp;
     requestAnimationFrame(animate);
   }
   animate(0);

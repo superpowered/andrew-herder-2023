@@ -26,11 +26,17 @@ export class Level0 {
     pixelSizes.forEach(pixelSize => {
       this.game.textPixels = [
         ...this.game.textPixels,
-        ...pixelSize.pixels.map(pixel => new TextPixel(pixel, pixelSize.size, pixelSize.absorption)),
+        ...pixelSize.pixels
+          // .filter((pixel, i) => pixelSize.size !== 1 || i % 2 === 0)
+          .map(pixel => new TextPixel(pixel, pixelSize.size, pixelSize.absorption))
+          .sort((pixel, lastPixel) => pixel.r > lastPixel.r)
+          .sort((pixel, lastPixel) => pixel.g > lastPixel.g)
+          .sort((pixel, lastPixel) => pixel.b > lastPixel.b)
+          .sort((pixel, lastPixel) => pixel.a > lastPixel.a)
       ];
     });
 
-    console.log('draw Count:', this.game.textPixels.length)
+    console.log('draw Count:', this.game.textPixels.length);
 
     // Set our counts, which we reference for firing events
     this.initialCount = this.game.textPixels.length;
@@ -76,8 +82,8 @@ export class Level0 {
 
     // Draw out the text
     const introText = this.textElement.textContent;
-    const size = 5 / this.game.dpr;
-    context.font = size + "vw 'Press Start 2P'";
+    const size = 50 / this.game.dpr;
+    context.font = size + "px 'Press Start 2P'";
     context.fillStyle="white";
     context.shadowColor="rgb(165,165,165,1)";
     context.shadowOffsetX=3;
@@ -88,11 +94,12 @@ export class Level0 {
     context.fillText(introText, this.game.width / 2 / this.game.dpr, this.game.height / 2 / this.game.dpr);
 
     // Draw out the sub text
-    context.font = "1vw 'Courier', sans-serif";
+    const sizeSmall = 20 / this.game.dpr;
+    context.font = sizeSmall + "px 'Courier', sans-serif";
     context.shadowColor="none";
     context.shadowOffsetX=0;
     context.shadowOffsetY=0;
-    context.fillText('Senior Software Engineer | Milwaukee, WI', this.game.width / 2 / this.game.dpr, this.game.height / 2 / this.game.dpr + this.game.height * .05 + 10);
+    context.fillText('Senior Software Engineer | Milwaukee, WI', this.game.width / 2 / this.game.dpr, this.game.height / 2 / this.game.dpr + 30);
 
     // This gives us a big crazy array of EVERY pixel on the screen PLUS various data about those pixels 
     // so we store the pixel data for access, & then convert to array so we can actually modify it reasonably.
@@ -100,54 +107,70 @@ export class Level0 {
 
     // These are the pixel sizes we'll try to make, in order.
     // TODO: part of my load process should be re rendering with different pixelSizes to find the lowest draw count
+    // Since the size that gives us the lowest count will be screen dependent
     const pixelSizes = [
-      // {
-      //   size: 10, // 15522
-      //   pixels: [],
-      //   absorption: 1,
-      // },
-      // {
-      //   size: 9, // 16087
-      //   pixels: [],
-      //   absorption: 1,
-      // },
-      // {
-      //   size: 8, // 15495
-      //   pixels: [],
-      //   absorption: 1,
-      // },
       {
-        size: 7, // 15312
+        size: 13, // 8755 draws
         pixels: [],
         absorption: 1,
       },
       {
-        size: 6, // 15788
+        size: 12, // 8974 draws
+        pixels: [],
+        absorption: 1,
+      },
+      {
+        size: 11, // 9054 draws
+        pixels: [],
+        absorption: 1,
+      },
+      {
+        size: 10, // 8942 draws
+        pixels: [],
+        absorption: 1,
+      },
+      {
+        size: 9, // 8938 draws
+        pixels: [],
+        absorption: 1,
+      },
+      {
+        size: 8, // 8949 draws
+        pixels: [],
+        absorption: 1,
+      },
+      {
+        size: 7, // 9019 draws
+        pixels: [],
+        absorption: 1,
+      },
+      {
+        size: 6, // 9310 draws
         pixels: [],
         absorption: 1,
       },
       { 
-        size: 5, // 16642
+        size: 5, // 9835 draws
         pixels: [],
         absorption: 1,
       },
       {
-        size: 4, // 17897
+        size: 4, // 9808 draws
         pixels: [],
         absorption: .8,
       },
       {
-        size: 3, // 19493
+        size: 3, // 10414 draws
         pixels: [],
         absorption: .6,
       },
       {
-        size: 2, // 25467
+        size: 2, // 12478 draws
         pixels: [],
         absorption: .4,
       },
       {
-        size: 1, // 60558
+        size: 1, // 24862 draws
         pixels: [],
         absorption: .2,
       },
@@ -211,7 +234,6 @@ export class Level0 {
   // We'll fire this to make sure we've cleaned up anything we may have left behind accidentally
   unload() {
     this.game.textPixels = [];
-    // this.textElement.remove();
     delete this;
   }
 }
