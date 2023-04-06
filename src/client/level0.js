@@ -1,4 +1,4 @@
-import { TextPixel, BigTextPixel } from './textPixel.js';
+import { TextPixel2 } from './textPixel.js';
 import { level0 } from './levelData.js';
 
 // -----------------------------------------------------------------------------
@@ -15,15 +15,17 @@ export class Level0 {
 
     this.levelData = level0;
     this.events = [];
+
+    this.loggedCount = 0;
   }
 
   init = (game, context) => {
     // Create our destructible pixel header
     const pixels = this.createIntroTextPixels(context);
-    const normPixels = pixels.pix.map(pixel => new TextPixel(pixel));
-    const bigPixels = pixels.bigPixels.map(pixel => new BigTextPixel(pixel));
-    // const bigBigPixels = pixels.bigBigPixels.map(pixel => new BigBigTextPixel(pixel));
-    this.game.textPixels = [ ...normPixels, ...bigPixels ];
+    const normPixels = pixels.pix.map(pixel => new TextPixel2(pixel, 1, .125));
+    const bigPixels = pixels.bigPixels.map(pixel => new TextPixel2(pixel, 2, .5));
+    const bigBigPixels = pixels.bigBigPixels.map(pixel => new TextPixel2(pixel, 3, 1));
+    this.game.textPixels = [ ...normPixels, ...bigPixels, ...bigBigPixels ];
 
     // Set our counts, which we reference for firing events
     this.initialCount = this.game.textPixels.length;
@@ -32,6 +34,63 @@ export class Level0 {
     // register our events
     this.events = this.levelData.events(this).map(event => event);
     this.initialized = true;
+  }
+
+  getNeigborPositions = (i, gw, size) => {
+    const arr = [];
+    const sqr = Math.sqrt(size);
+
+    for(let x = 0; x < sqr; x++) {
+      for(let y = 0; y < sqr; y++) {
+        arr[x * sqr + y] = i + (gw * 4 * x) + (y * 4);
+      } 
+    }
+
+    // 0 - 8
+
+    // if(this.loggedCount < 100 ){
+    //   console.log(i, gw, size, sqr, arr);
+    //   this.loggedCount++;
+    // }
+
+    return arr;
+  }
+
+  getNeigborPositionsMan = (i, gw) => {
+    return [
+      i, // TOP LEFT
+      i + 4, // TOP MID
+      i + 8, // TOP RIGHT
+      i + gw * 4, // MID LEFT
+      i + gw * 4 + 4, // MID MID
+      i + gw * 4 + 8, // MID RIGHT
+      i + gw * 4 * 2, // BOT LEFT
+      i + gw * 4 * 2 + 4, // BOT MID
+      i + gw * 4 * 2 + 8, // BOT RIGHT
+    ];
+  }
+
+  findMyNeigbors = (i, size, pixels) => {
+    const neighborPos9TL = this.getNeigborPositions(i, this.game.width, size);
+    if(this.loggedCount < 1) {
+      console.log(i);
+      console.log(neighborPos9TL);
+      this.loggedCount++;
+    }
+    return neighborPos9TL.map((pos) => {
+      const hasData = pixels[pos];
+      return {
+        pos, 
+        hasData,
+        pixelData: {
+          x: ((pos / 4) % this.game.width),
+          y: (((pos / 4)  / this.game.width)|0),
+          r: pixels[pos], 
+          g: pixels[pos + 1], 
+          b: pixels[pos + 2],
+          a: pixels[pos + 3] / 255
+        },
+    }});
   }
 
   createIntroTextPixels(context) {
@@ -60,69 +119,43 @@ export class Level0 {
     context.fillText('Senior Software Engineer | Milwaukee, WI', this.game.width / 2 / this.game.dpr, this.game.height / 2 / this.game.dpr + this.game.height * .05);
 
     // This gives us a big crazy array of EVERY pixel on the screen PLUS various data about those pixels 
-    // so we store the pixel data for access, but use the Uint32Array to navigate it
-    const pixels = context.getImageData(0, 0, this.game.width, this.game.height).data;
-    const data32 = Array.from(new Uint32Array(pixels.buffer));
+    // so we store the pixel data for access, & then convert to array so we can actually modify it reasonably.
+    const pixels = Array.from(context.getImageData(0, 0, this.game.width, this.game.height).data);
     let pix = [];
     let bigPixels = [];
     let bigBigPixels = [];
-    // console.log(pixels.length);
-    // i = data.length; i >= 0; i -= 4
-    // for(let i = pixels.length; i >= 0; i -= 4) {
-    for(let i = 0; i < pixels.length; i += 4) {
 
+    console.log(this.getNeigborPositions(0, this.game.width, 9));
+    console.log(this.getNeigborPositionsMan(0, this.game.width));
+
+    // This loop will start at 0,0 (left edge) and to the right edge, then down one and repeat
+    for(let i = 0; i < pixels.length; i += 4) {
+      // We can ignore fully transparent pixels
       if (pixels[i + 3] <= 0) {
         continue;
       }
 
-      // 0 denotes an empty pixel
-      if (pixels[i] === 0) { 
+       // Mark our removed pixels, so we don't double render them
+       if (pixels[i] === 'removed') { 
         continue;
       }
 
-      if (pixels[i] === 'beans') { 
-        // console.log('?');
-        continue;
-      }
 
-      // TDOO: we can get pretty good performance gains by reducing the pixel count
-      // reduce by 1.5x 
-      // if (((i / this.game.width)|0) % 8 === 0 ) { 
-      //   continue;
-      // }
-      // if (i % 8 === 0) { 
-      //   continue;
-      // }
-
-      // reduce by 2x 
-      // if (((i / this.game.width)|0) % 4 === 0 ) { 
-      //   continue;
-      // }
-      // if (i % 4 === 0) { 
-      //   continue;
-      // }
-
-      // Reduce by 4x
-      // if (((i / this.game.width)|0) % 2 === 0 ) { 
-      //   continue;
-      // }
-      // if (i % 2 === 0) { 
-      //   continue;
-      // }
-
-      // const neighborPos9 = [
-      //   i, // Middle
-      //   i - this.game.width * 4 - 4, // Upper left
-      //   i - this.game.width * 4, // Upper middle
-      //   i - this.game.width * 4 + 4, // Upper right
-      //   i - 4, // Left
-      //   i + 4, // Right
-      //   i + this.game.width * 4 - 4, // Lower left
-      //   i + this.game.width * 4, // Lower middle
-      //   i + this.game.width * 4 + 4, // Lower right
+      // const neighborPos9TL = [
+      //   i, // TOP LEFT
+      //   i + 4, // TOP MID
+      //   i + 8, // TOP RIGHT
+      //   i + this.game.width * 4, // MID LEFT
+      //   i + this.game.width * 4 + 4, // MID MID
+      //   i + this.game.width * 4 + 8, // MID RIGHT
+      //   i + this.game.width * 4 * 2, // BOT LEFT
+      //   i + this.game.width * 4 * 2 + 4, // BOT MID
+      //   i + this.game.width * 4 * 2 + 8, // BOT RIGHT
       // ];
 
-      // const neighbors9 =  neighborPos9.map((pos) => {
+      const neighbors9 = this.findMyNeigbors(i, 9, pixels);
+ 
+      // const neighbors9 =  neighborPos9TL.map((pos) => {
       //   const hasData = pixels[pos];
       //   return {
       //     pos, 
@@ -137,45 +170,33 @@ export class Level0 {
       //     },
       // }});
 
-      // const pixelcount9 = neighbors9.reduce((prev, n) => {
-      //   const v = (
-      //     n.pixelData.r === neighbors9[0].pixelData.r && 
-      //     n.pixelData.g === neighbors9[0].pixelData.g && 
-      //     n.pixelData.b === neighbors9[0].pixelData.b && 
-      //     n.pixelData.a === neighbors9[0].pixelData.a
-      //   ) ? 1 : 0;
-      //   return prev + v;
-      // }, 0);
+      const pixelcount9 = neighbors9.reduce((prev, n) => {
+        const v = (
+          n.pixelData.r === neighbors9[0].pixelData.r && 
+          n.pixelData.g === neighbors9[0].pixelData.g && 
+          n.pixelData.b === neighbors9[0].pixelData.b && 
+          n.pixelData.a === neighbors9[0].pixelData.a
+        ) ? 1 : 0;
+        return prev + v;
+      }, 0);
 
-      // if(pixelcount9 === 9) {
-      //   neighbors9.forEach(neighbor => {
-      //     pixels[neighbor.pos] = 'beans';
-      //   });
-      //   bigBigPixels.push(neighbors9);
-      //   continue;
-      //  }
+      if(pixelcount9 === 9) {
+        neighbors9.forEach(neighbor => {
+          pixels[neighbor.pos] = 'removed';
+        });
+        bigBigPixels.push(neighbors9);
+        continue;
+       }
 
 
-      const neighborPos = [
+      const neighborPos4 = [
         i, // TOP LEFT
         i + 4, // TOP RIGHT
         i + this.game.width * 4, // BOT LEFT
         i + this.game.width * 4 + 4, // BOT RIGHT
       ];
 
-      // const neighborPos2 = [
-      //   i - this.game.width - 4, // Upper left
-      //   i - this.game.width - 3, // Upper middle
-      //   i - this.game.width - 2, // Upper right
-      //   i - this.game.width - 1, // Left
-      //   i, // Middle
-      //   i + this.game.width + 1, // Right
-      //   i + this.game.width + 2, // Lower left
-      //   i + this.game.width + 3, // Lower middle
-      //   i + this.game.width + 4, // Lower right
-      // ];
-
-      const neighbors =  neighborPos.map((pos) => {
+      const neighbors4 =  neighborPos4.map((pos) => {
         const hasData = pixels[pos];
         return {
           pos, 
@@ -190,59 +211,34 @@ export class Level0 {
           },
       }});
 
-        //var x = (i / 4) % this.el.width;
-        //var y = Math.floor((i / 4) / this.el.width);
-      // const filtered = neighbors.filter(neighbor => {
-      //   return (
-      //     data32[neighbor.data] !== 0 &&
-      //     neighbor.pixelData.r === neighbors.pixelData && 
-      //     neighbor.pixelData.g === pixels[i*4 + 1] &&
-      //     neighbor.pixelData.b === pixels[i*4 + 2] && 
-      //     neighbor.pixelData.a === pixels[i*4 + 3] / 255
-      //   );
-      // });
-
-      const pixelcount = neighbors.reduce((prev, n) => {
+      const pixelcount = neighbors4.reduce((prev, n) => {
         const v = (
-          n.pixelData.r === neighbors[0].pixelData.r && 
-          n.pixelData.g === neighbors[0].pixelData.g && 
-          n.pixelData.b === neighbors[0].pixelData.b && 
-          n.pixelData.a === neighbors[0].pixelData.a
+          n.pixelData.r === neighbors4[0].pixelData.r && 
+          n.pixelData.g === neighbors4[0].pixelData.g && 
+          n.pixelData.b === neighbors4[0].pixelData.b && 
+          n.pixelData.a === neighbors4[0].pixelData.a
         ) ? 1 : 0;
         return prev + v;
       }, 0);
 
       if(pixelcount === 4) {
-        neighbors.forEach(neighbor => {
-          pixels[neighbor.pos] = 'beans';
+        neighbors4.forEach(neighbor => {
+          pixels[neighbor.pos] = 'removed';
         });
-        bigPixels.push(neighbors);
+        bigPixels.push(neighbors4);
         continue;
        }
 
-      // if(filtered.length === 8) {
-      //   neighbors.forEach(neighbor => {
-      //     data32[neighbor.pos] = 0;
-      //   });
-      //   continue;
-      // }
-
-      // TODO: find neighbors and try to combine into 4x4 rects?
-
-      // For every "real" pixel, we'll find the data we need from it and store it here so we can make interactable pixels with them later
-
-      // console.log({ x: neighbors[4].pixelData.x, y: neighbors[4].pixelData.y });
-
-      pix.push(neighbors[0].pixelData);
+      pix.push([neighbors4[0]]);
     }
 
     // We should be safe to hide the loading text at this point
     this.textElement.classList.add('hidden');
     context.restore();
 
-    // console.log(pix.length);
-    // console.log(bigPixels.length);
-    // console.log(bigBigPixels.length);
+    console.log('pixels', pix.length);
+    console.log('4x4 pixels', bigPixels.length);
+    console.log('9x9 pixels', bigBigPixels.length);
     return { pix, bigPixels, bigBigPixels };
   }
 

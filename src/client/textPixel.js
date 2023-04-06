@@ -143,6 +143,67 @@ export class BigTextPixel {
   }
 }
 
+export class TextPixel2 {
+  constructor(pixels, size, projectileAbsorption) {
+    this.pixels = pixels;
+    this.x = pixels[0].pixelData.x;
+    this.y = pixels[0].pixelData.y;
+    this.height = size;
+    this.width = size;
+    this.render = true;
+    this.particles = [];
+    this.destroyedTime = 0;
+    this.markedForDeletion = false;
+    this.type = 'textPixel';
+    this.projectileAbsorption = projectileAbsorption;
+    this.myPixels = pixels
+  }
+
+  update(deltaTime) {
+    if(this.particles && this.particles.length) {
+      this.particles.forEach(particle => particle.update());
+
+      // Delay destruction
+      this.destroyedTime += deltaTime;
+      if(this.destroyedTime > 500) {
+        this.particles = null;
+        this.markedForDeletion = true;
+      }
+    }
+  }
+
+  draw(context){
+    if(this.render) {
+      context.beginPath();
+      context.fillStyle = `rgba(${this.myPixels[0].pixelData.r}, ${this.myPixels[0].pixelData.g}, ${this.myPixels[0].pixelData.b}, ${this.myPixels[0].pixelData.a})`;
+      // context.fillStyle = `red`;
+      context.fillRect(this.x, this.y, this.width, this.height);
+      // context.rect(this.x, this.y, this.width, this.height);
+      // context.strokeStyle = 'blue';
+      // context.stroke();
+    }
+    if(this.particles) {
+      this.particles.forEach(particle => particle.draw(context));
+    }
+  }
+
+  hit() {
+    this.destroy();
+  }
+
+  destroy(massDestroy = false) {
+    if(!this.render) {
+      return;
+    }
+    this.render = false;
+
+    for(let x = 0; x < (massDestroy ? 1 : 5); x++) {
+      this.particles.push(new TextPixelParticle(this.myPixels[0].pixelData));
+    }
+  }
+}
+
+
 // -----------------------------------------------------------------------------
 
 class TextPixelParticle {
