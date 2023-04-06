@@ -29,13 +29,13 @@ export class TextPixel {
   draw(context, debug = false){
     if(this.render) {
       context.beginPath();
-      context.fillStyle = `rgba(${this.pixels[0].pixelData.r}, ${this.pixels[0].pixelData.g}, ${this.pixels[0].pixelData.b}, ${this.pixels[0].pixelData.a})`;
-      context.fillRect(this.x, this.y, this.width, this.height);
-
+      context.rect(this.x, this.y, this.width, this.height);
       if(debug) {
-        context.rect(this.x, this.y, this.width, this.height);
-        context.strokeStyle = 'blue';
+        context.strokeStyle = this.height === 1 ? 'red' : this.height === 2 ? 'green' : 'blue';
         context.stroke();
+      } else {
+        context.fillStyle = `rgba(${this.pixels[0].pixelData.r}, ${this.pixels[0].pixelData.g}, ${this.pixels[0].pixelData.b}, ${this.pixels[0].pixelData.a})`;
+        context.fill();
       }
     }
 

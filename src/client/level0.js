@@ -17,11 +17,11 @@ export class Level0 {
     this.events = [];
 
     this.loggedCount = 0;
+    this.game.textPixels = [];
   }
 
   init = (game, context) => {
     // Create our destructible pixel header
-    this.game.textPixels = [];
     const pixelSizes = this.createIntroTextPixels(context);
     pixelSizes.forEach(pixelSize => {
       this.game.textPixels = [
@@ -29,6 +29,8 @@ export class Level0 {
         ...pixelSize.pixels.map(pixel => new TextPixel(pixel, pixelSize.size, pixelSize.absorption)),
       ];
     });
+
+    console.log('draw Count:', this.game.textPixels.length)
 
     // Set our counts, which we reference for firing events
     this.initialCount = this.game.textPixels.length;
@@ -85,6 +87,7 @@ export class Level0 {
     context.textBaseline="middle";
     context.fillText(introText, this.game.width / 2 / this.game.dpr, this.game.height / 2 / this.game.dpr);
 
+    // Draw out the sub text
     context.font = "1vw 'Courier', sans-serif";
     context.shadowColor="none";
     context.shadowOffsetX=0;
@@ -96,29 +99,55 @@ export class Level0 {
     const pixels = Array.from(context.getImageData(0, 0, this.game.width, this.game.height).data);
 
     // These are the pixel sizes we'll try to make, in order.
+    // TODO: part of my load process should be re rendering with different pixelSizes to find the lowest draw count
     const pixelSizes = [
+      // {
+      //   size: 10, // 15522
+      //   pixels: [],
+      //   absorption: 1,
+      // },
+      // {
+      //   size: 9, // 16087
+      //   pixels: [],
+      //   absorption: 1,
+      // },
+      // {
+      //   size: 8, // 15495
+      //   pixels: [],
+      //   absorption: 1,
+      // },
       {
-        size: 5,
+        size: 7, // 15312
         pixels: [],
         absorption: 1,
       },
       {
-        size: 4,
+        size: 6, // 15788
+        pixels: [],
+        absorption: 1,
+      },
+      { 
+        size: 5, // 16642
+        pixels: [],
+        absorption: 1,
+      },
+      {
+        size: 4, // 17897
         pixels: [],
         absorption: .8,
       },
       {
-        size: 3,
+        size: 3, // 19493
         pixels: [],
         absorption: .6,
       },
       {
-        size: 2,
+        size: 2, // 25467
         pixels: [],
         absorption: .4,
       },
       {
-        size: 1,
+        size: 1, // 60558
         pixels: [],
         absorption: .2,
       },
@@ -161,6 +190,7 @@ export class Level0 {
     }
 
     // We should be safe to hide the loading text at this point
+    context.clearRect(0,0, this.game.width, this.game.height);
     this.textElement.classList.add('hidden');
     context.restore();
     return pixelSizes;

@@ -23,7 +23,7 @@ body {
   width: 100%;
   color: white;
   font-family: 'Courier', sans-serif;
-  background-color: green;
+  background-color: black;
 }
 
 html.game-loaded body,
@@ -40,7 +40,7 @@ html.game-loaded #main-canvas {
   width: 100%;
   position: absolute;
   z-index: 1;
-  background-color: green;
+  background-color: black;
   cursor: crosshair;
   cursor: crosshair;
 }
