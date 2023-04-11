@@ -1,6 +1,6 @@
-import { level1 } from './levelData.js';
+import { level1 } from './levelData';
 
-import { Enemy } from './enemy.js';
+import { Enemy } from './actors/enemy';
 
 // -----------------------------------------------------------------------------
 

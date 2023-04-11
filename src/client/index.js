@@ -1,7 +1,9 @@
-import { Game } from "./game.js";
+import { Game } from "./game";
 
+// Styles
 import './style.css';
 
+// Sprites
 import mort from './assets/dino-sprites-mort.png';
 import vita from './assets/dino-sprites-vita.png';
 
@@ -11,6 +13,11 @@ const init = (sprites) => {
   const canvas = document.getElementById('main-canvas');
   const fps = document.getElementById('fps');
   const ctx = canvas.getContext('2d');
+
+  if(!canvas || !fps) {
+    console.error('Missing some important stuff, that\'s for sure');
+    return;
+  }
 
   // Fix pixel scaling for retina screens
   const rect = canvas.getBoundingClientRect();
@@ -26,20 +33,25 @@ const init = (sprites) => {
   const game = new Game(sprites, canvas, ctx, rect.width, rect.height, dpr);
   document.documentElement.classList.add('game-loaded');
 
+  // Storing an array of fps counts to get a less jittery number by getting the average
   let fpsAvs = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
-  let fpsAv = 0;
-
-  // Start the render loop
   let lastTime = 0;
+
+  // Start the main loop
   const animate = (timeStamp) => {
     const deltaTime = timeStamp - lastTime;
+
+    // Clear Whole Screen and run game loop
     ctx.clearRect(0,0, canvas.width, canvas.height);
-    game.update(deltaTime);
+    game.update(ctx, deltaTime);
     game.draw(ctx, deltaTime);
+    
+    // FPS
     fpsAvs.unshift(1 / ((performance.now() - lastTime) / 1000)|0);
     fpsAvs.pop();
     fps.innerText = 'FPS: ' + (fpsAvs.reduce((l, t) => l+t, 0) / fpsAvs.length|0);
     lastTime = timeStamp;
+
     requestAnimationFrame(animate);
   }
   animate(0);
@@ -47,16 +59,17 @@ const init = (sprites) => {
 
 // -----------------------------------------------------------------------------
 
+// Make sure fonts are loaded
 let fonts = false;
-let playerSpriteLoaded = false;
-let enemySpriteLoaded = false;
 document.fonts.ready.then(function () {
   if(document.fonts.check('1em "Press Start 2P"') && document.fonts.check('1em "Black Han Sans"')) {
     fonts = true;
   }
 });
 
-const playerSprite = new Image(); // Create new img element
+// Load up our player sprite
+let playerSpriteLoaded = false;
+const playerSprite = new Image();
 playerSprite.src = vita;
 playerSprite.addEventListener(
   "load",
@@ -66,7 +79,9 @@ playerSprite.addEventListener(
   false
 );
 
-const enemySprite = new Image(); // Create new img element
+// Load up our enemy sprite
+let enemySpriteLoaded = false;
+const enemySprite = new Image();
 enemySprite.src = mort;
 enemySprite.addEventListener(
   "load",
@@ -77,7 +92,7 @@ enemySprite.addEventListener(
 );
 
 const loader = () => {
-  // Reload loop until fonts are ready
+  // Reload loop until all assets are ready
   if(!fonts || !playerSpriteLoaded || !enemySpriteLoaded) {
     setTimeout(loader, 500);
     return;

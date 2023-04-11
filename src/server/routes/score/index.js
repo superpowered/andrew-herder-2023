@@ -34,7 +34,7 @@ router.get('/', async (_req, res) => {
 
 router.post('/', async (_req, res) => {
   const body = _req?.body;
-  console.log(DB_PATH);
+  
   // Get our existing data from file
   let data;
   try {

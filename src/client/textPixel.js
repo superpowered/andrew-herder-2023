@@ -71,7 +71,7 @@ export class TextPixel {
 
 class TextPixelParticle {
   constructor(pixel) {
-    const { x, y, r, g, b, a, height, width } = pixel;
+    const { x, y, r = 255, g = 255, b = 255, a = 1, height = 1, width = 1 } = pixel;
     this.x = x;
     this.y = y;
     this.r = r;

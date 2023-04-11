@@ -1,4 +1,4 @@
-import { isOutOfGameBounds, isRectangularCollision } from "./utils.js";
+import { isOutOfGameBounds, isRectangularCollision } from "./utils";
 
 // -----------------------------------------------------------------------------
 

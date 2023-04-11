@@ -1,27 +1,27 @@
-import { InputHandler } from './input.js';
-import { Level0 } from './level0.js';
-import { Level1 } from './level1.js';
-import { Player } from './player.js';
-import { TextSystem } from './textSystem.js';
+import { InputHandler } from './input';
+import { Level0 } from './level0';
+import { Level1 } from './level1';
+import { Player } from './actors/player';
+import { TextSystem } from './textSystem';
 
 // -----------------------------------------------------------------------------
 
 export class Game {
   constructor(sprites, canvas, context, width, height, dpr) {
-    // Initial Game data
+    // Constraints
     this.width = width;
     this.height = height;
-    this.dpr = dpr;
-    this.sprites = sprites;
-
-    this.context = context;
-    this.canvas = canvas;
-
     this.bounds = {
       height,
       width,
     }
 
+    // Load items
+    this.dpr = dpr;
+    this.sprites = sprites;
+    this.canvas = canvas;
+
+    // Score
     this.score = 0;
     this.lastScore = null;
     this.scoreElement = Array.from(document.getElementsByClassName('score-counter'));
@@ -79,10 +79,11 @@ export class Game {
     }, 1000);
   }
 
-  update(deltaTime) {
+  update(context, deltaTime) {
     // Player
     this.player && this.player.update(this.input.keys, deltaTime);
 
+    // Mobile fix
     if(this.isTouch) {
       this.mousePos = {
         x: this.player.x,
@@ -93,22 +94,25 @@ export class Game {
     // Level
     if(this.lastLevel !== this.level) {
       this.lastLevel = this.level;
-      this.levels[this.level].init(this, this.context);
+      this.levels[this.level].init(this, context);
     }
     if(this.levels[this.level] && this.levels[this.level].initialized) {
       this.levels[this.level].update(deltaTime);
     }
 
+    // Enemies
     this.enemies = this.enemies.filter( (enemy) => {
       enemy.update(deltaTime);
       return !enemy.markedForDeletion;
     });
 
+    // Text Pixels (TODO: should these just be lumped in with enemies?)
     this.textPixels = this.textPixels.filter( pixel => { 
       pixel.update(deltaTime);
       return !pixel.markedForDeletion;
     });
 
+    // Projectiles
     this.projectiles = this.projectiles.filter( (projectile) => {
       projectile.update(this.bounds, this.collisionItems);
       return !projectile.markedForDeletion;
@@ -122,7 +126,7 @@ export class Game {
       ...this.textPixels,
     ];
 
-
+    // Score Updater
     if(this.score !== this.lastScore) {
       this.lastScore = this.score;
       this.scoreElement.forEach(el => {

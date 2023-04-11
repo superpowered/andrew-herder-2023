@@ -1,41 +1,28 @@
 import Victor from 'victor';
-
-import { keepInBounds, shakeScreen } from './utils.js';
-import { CONTROLS } from './input.js';
-import { Projectile } from "./projectile.js";
+import { getDistance, keepInBounds } from '../utils';
+import { Projectile } from "../projectile";
 
 // -----------------------------------------------------------------------------
-export class Player {
+
+export class Enemy {
   constructor(game) {
     this.game = game;
     this.width = 60;
     this.height = 60;
     this.swidth = 24;
     this.sheight = 24;
-    this.image = game.sprites.playerSprite;
-    this.type = 'player';
+    this.image = game.sprites.enemySprite;
 
-    this.maxSpeed = 3;
+    this.maxSpeed = 1;
     this.speedX = 0;
     this.speedY = 0;
 
-    this.x = (this.game.bounds.width / 2) - (this.width / 2);
-    this.y = (this.game.bounds.height / 2) - (this.height / 2);
-    
-    // TODO: convert positions on all things to use a position compoosed class
-    this.hasPosition = {
-      x: 'TODO',
-      y: 'TODO',
-    };
-    this.hasSize = {
-      height: 'TODO',
-      width: 'TODO',
-    };
-
+    this.x = Math.random() * this.game.width;
+    this.y = 0;
     this.spawnY = this.y;
     this.weight = 1;
 
-    // TODO:
+    // TODO: need an animation class
     this.idleFrame = 0;
     setInterval(() => {
       this.idleFrame++;
@@ -45,12 +32,13 @@ export class Player {
     }, 200);
 
     this.facing = 'r';
+    this.type = 'enemy';
 
-    this.fireRate = 120;
-    this.lastFired = 0;
+    this.fireRate = 2000;
+    this.lastFired = Math.random() * 1500;
     this.projectileSpeed = 5;
     this.projectileSize = 10;
-    this.controllable = false;
+    this.accuracy = 1;
 
     this.health = 4;
     this.invulnerable = false;
@@ -67,77 +55,58 @@ export class Player {
   }
 
   init() {
-    this.y = this.spawnY - 30;
+
   }
 
-  update(inputKeys, deltaTime) {
-    if(this.markedForDeletion){
+  update(deltaTime) {
+    if(this.game.gameOver) {
       return;
     }
 
-    if(this.game.gameOver){
-      return;
-    }
-
-    if(!this.controllable) {
-      if(this.y !== this.spawnY) {
-        this.y += 5;
+    if(this.render) {
+      const playerX = this.game.player.x;
+      const playerY = this.game.player.y;
+      const distance = getDistance(playerX, playerY, this.x, this.y);
+      this.x += this.speedX;
+      this.y += this.speedY;
+      if(distance > this.height * 2) {
+        const dirX = this.x - playerX;
+        const dirY = this.y - playerY;
+        const direction = new Victor(dirX,dirY).normalize();
+        this.speedX = -this.maxSpeed * direction.x;
+        this.speedY = -this.maxSpeed * direction.y;
       } else {
-        this.controllable = true;
+        this.speedX = 0;
+        this.speedY = 0;
       }
-      return;
-    }
+  
+      if(this.invulnerable && this.invulnerableTime > this.invulnerableDuration ) {
+        this.invulnerable = false;
+        this.invulnerableTime = 0;
+      } else {
+        this.invulnerableTime += deltaTime;
+      }
 
-    // Handle L R Movement
-    this.x += this.speedX;
-    if(inputKeys.includes(CONTROLS.RIGHT)) {
-      this.speedX = this.maxSpeed;
-      this.facing = 'r';
-    } else if(inputKeys.includes(CONTROLS.LEFT)) {
-      this.speedX = -this.maxSpeed;
-      this.facing = 'l';
-    } else {
-      this.speedX = 0;
-    } 
+      if(this.lastFired > this.fireRate ) {
+        this.lastFired = 0;
+        this.fireProjectile();
+      } else {
+        this.lastFired += deltaTime;
+      }
 
-    // Handle U D Movement
-    this.y += this.speedY;
-    if(inputKeys.includes(CONTROLS.UP)) {
-      this.speedY = -this.maxSpeed;
-      this.facing = 'u';
-    } else if(inputKeys.includes(CONTROLS.DOWN)) {
-      this.speedY = this.maxSpeed;
-      this.facing = 'd';
-    } else {
-      this.speedY = 0;
-    } 
-
-    if(this.invulnerable && this.invulnerableTime > this.invulnerableDuration ) {
-      this.invulnerable = false;
-      this.invulnerableTime = 0;
-    } else {
-      this.invulnerableTime += deltaTime;
-    }
-
-    if(inputKeys.includes(CONTROLS.SHOOT) && this.lastFired > this.fireRate && this.render) {
-      this.lastFired = 0;
-      this.fireProjectile();
-    } else {
-      this.lastFired += deltaTime;
-    }
-
-    keepInBounds(this, this.game.bounds);
+      keepInBounds(this, this.game);
     
-    this.checkCollisions();
+      this.checkCollisions();
+    }
 
     if(this.particles && this.particles.length) {
       this.particles.forEach(particle => particle.update());
 
       // Delay destruction
       this.destroyedTime += deltaTime;
-      if(this.destroyedTime > 1000) {
+      if(this.destroyedTime > 2000) {
         this.particles = null;
-        this.destroy();
+        this.markedForDeletion = true;
       }
     }
   }
@@ -146,6 +115,11 @@ export class Player {
     if(debug) {
       context.fillStyle = 'red';
       context.fillRect(this.x, this.y, this.width, this.height);
+    }
+
+    if(this.invulnerable) {
+      // context.fillStyle = 'white';
+      //context.fillRect(this.x, this.y, this.width, this.height);
     }
     if(this.render) {
       context.drawImage(this.image, this.idleFrame * this.swidth, 0, this.sheight, this.swidth, this.x, this.y, this.width, this.height);
@@ -157,8 +131,8 @@ export class Player {
   }
 
   fireProjectile() {
-    const dirX = this.x - this.game.mousePos.x;
-    const dirY = this.y - this.game.mousePos.y;
+    const dirX = this.x - this.game.player.x + (Math.random() * this.accuracy);
+    const dirY = this.y - this.game.player.y + (Math.random() * this.accuracy);
 
     const direction = new Victor(dirX,dirY).normalize();
     const projectile = new Projectile(
@@ -168,8 +142,8 @@ export class Player {
       this.y + this.height / 2 - this.projectileSize / 2 - direction.y * this.height / 2,
       direction.x * - this.projectileSpeed, 
       direction.y * - this.projectileSpeed,
-      ['textPixel', 'enemy'],
-      'playerProjectile',
+      ['player'],
+      'enemyProjectile',
     );
     this.game.projectiles.unshift(projectile);
   }
@@ -181,10 +155,11 @@ export class Player {
 
     this.health--;
     this.invulnerable = true;
-    shakeScreen();
 
     if(this.health < 0) {
       this.render = false;
+      this.game.score++;
+
       for(let x = 0; x < 500; x++) {
         this.particles.push(new TextPixelParticle({
           x: this.x,
@@ -193,8 +168,8 @@ export class Player {
           g: 255,
           b: 255,
           a: 1,
-          height: 4,
-          width: 4,
+          height: 2,
+          width: 2,
         }));
       }
     }
@@ -202,14 +177,12 @@ export class Player {
 
   destroy() {
     this.markedForDeletion = true;
-    this.game.gameOver = true;
   }
 
   checkCollisions() {
   }
 }
 
-// TODO: this should just be a generic class somewhere
 class TextPixelParticle {
   constructor(pixel) {
     const { x, y, r, g, b, a, height, width} = pixel;
@@ -224,14 +197,14 @@ class TextPixelParticle {
     this.width = width;
     var plusOrMinusX = Math.random() < 0.5 ? -1 : 1;
     var plusOrMinusY = Math.random() < 0.5 ? -1 : 1;
-    this.vx = Math.random() * 2 * plusOrMinusX;
-    this.vy = Math.random() * 2 * plusOrMinusY;
+    this.vx = Math.random() * 3 * plusOrMinusX + .1;
+    this.vy = Math.random() * 3 * plusOrMinusY + .1;
   }
 
   update() {
     this.x += this.vx;
     this.y += this.vy;
-    this.a -= this.initialA * .02;
+    this.a -= this.initialA * Math.random() * .03 + .01;
   }
 
   draw(context) {

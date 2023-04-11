@@ -1,8 +1,7 @@
 import axios from 'axios';
-import { shakeScreen } from './utils.js';
+import { shakeScreen } from './utils';
 
 // TODO: split this file up
-
 const textBubbles = [
   {
     clearOthers: true,
@@ -221,19 +220,19 @@ export const level0 = {
   events: (data) => {
     return [
       // DEBUG: Fast Forward to level 1
-      {
-        id: 'intro_text_4',
-        triggered: false,
-        trigger: (data) => { 
-          return true;
-        }  ,
-        action: (data) => {
-          setTimeout(() => {
-            data.game.level = 1;
-            data.unload();
-          }, 1000);
-        }
-      },
+      // {
+      //   id: 'intro_text_4',
+      //   triggered: false,
+      //   trigger: (data) => { 
+      //     return true;
+      //   }  ,
+      //   action: (data) => {
+      //     setTimeout(() => {
+      //       data.game.level = 1;
+      //       data.unload();
+      //     }, 1000);
+      //   }
+      // },
       {
         id: 'intro_text_1',
         triggered: false,
@@ -317,21 +316,21 @@ export const level1 = {
   events: (data) => {
     return [
       // DEBUG: Fast Forward to game over
-      {
-        id: 'game_over',
-        triggered: false,
-        trigger: (data) => { 
-          return true;
-        }  ,
-        action: (data) => {
-          setTimeout(() => {
-            data.game.player.markedForDeletion = true;
-            data.game.player.render = false;
-            data.game.gameOver = true;
-            data.unload();
-          }, 1000);
-        }
-      },
+      // {
+      //   id: 'game_over',
+      //   triggered: false,
+      //   trigger: (data) => { 
+      //     return true;
+      //   }  ,
+      //   action: (data) => {
+      //     setTimeout(() => {
+      //       data.game.player.markedForDeletion = true;
+      //       data.game.player.render = false;
+      //       data.game.gameOver = true;
+      //       data.unload();
+      //     }, 1000);
+      //   }
+      // },
       {
         id: 'level_1_text_1',
         triggered: false,

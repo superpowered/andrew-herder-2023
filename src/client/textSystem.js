@@ -8,7 +8,6 @@ export class TextBubble {
     this.textSystem = textSystem;
     this.destroyed = false;
     this.textData = textData;
-
     this.init(textData);
   }
 
@@ -86,6 +85,8 @@ export class TextSystem {
       }
       return !textBubble.destroyed;
     });
+
+    // TODO: can I break this away from setTimeout? Maybe use like deltaTime or similar
     setTimeout(()=> {
       this.textBubbles.push(new TextBubble(this, textData, this.textAnchor, this.textElement));
      }, 100);

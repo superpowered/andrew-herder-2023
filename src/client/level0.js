@@ -1,5 +1,5 @@
-import { TextPixel } from './textPixel.js';
-import { level0 } from './levelData.js';
+import { TextPixel } from './textPixel';
+import { level0 } from './levelData';
 
 // -----------------------------------------------------------------------------
 

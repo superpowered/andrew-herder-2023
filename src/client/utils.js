@@ -72,14 +72,46 @@ export const keepInBounds = (rect, game) => {
   }
 }
 
-
+/**
+ * getDistance
+ * Finds the distance between 2 points
+ * 
+ * @param {Number} x1
+ * @param {Number} y1
+ * @param {Number} x2
+ * @param {Number} y2
+ * 
+ * @returns {Number} - distance
+ */
 export const getDistance = (x1, y1, x2, y2) => {
-  let y = x2 - x1;
-  let x = y2 - y1;
-  
+  const y = x2 - x1;
+  const x = y2 - y1;
   return Math.sqrt(x * x + y * y);
 }
 
+/**
+ * getPointsDistance
+ * Finds the distance between 2 points
+ * 
+ * @param {Object} point1
+ * @param {Number} point1.x
+ * @param {Number} point1.y
+ * @param {Object} point2
+ * @param {Number} point2.x
+ * @param {Number} point2.y
+ * 
+ * @returns {Number} - distance
+ */
+export const getPointsDistance = ({ x: x1, y: y1 }, { x: x2, y: y2 }) => {  
+  return getDistance(x1, y1, x2, y2);
+}
+
+/**
+ * shakeScreen
+ * Does a little screen shake efect by moving the canvas and some other elements
+ * 
+ * @returns {void}
+ */
 export const shakeScreen = () => {
   document.body.classList.remove('shake');
   document.body.classList.add('shake');
