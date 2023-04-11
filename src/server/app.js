@@ -14,6 +14,7 @@ import {
 
 // Routes.
 import health from './routes/health';
+import score from './routes/score';
 
 // -----------------------------------------------------------------------------
 
@@ -23,10 +24,11 @@ const app = express();
 // app.use(compression());
 
 // Middleware.
-// TODO
+app.use(express.json());
 
 // API Routes
 app.use(`${API_ROOT}/health`, health);
+app.use(`${API_ROOT}/score`, score);
 
 // Serve static files from the React app
 app.use(STATIC_ROOT, express.static(STATIC_DIR));

@@ -1,3 +1,4 @@
+import axios from 'axios';
 import { shakeScreen } from './utils.js';
 
 // TODO: split this file up
@@ -220,19 +221,19 @@ export const level0 = {
   events: (data) => {
     return [
       // DEBUG: Fast Forward to level 1
-      // {
-      //   id: 'intro_text_4',
-      //   triggered: false,
-      //   trigger: (data) => { 
-      //     return true;
-      //   }  ,
-      //   action: (data) => {
-      //     setTimeout(() => {
-      //       data.game.level = 1;
-      //       data.unload();
-      //     }, 1000);
-      //   }
-      // },
+      {
+        id: 'intro_text_4',
+        triggered: false,
+        trigger: (data) => { 
+          return true;
+        }  ,
+        action: (data) => {
+          setTimeout(() => {
+            data.game.level = 1;
+            data.unload();
+          }, 1000);
+        }
+      },
       {
         id: 'intro_text_1',
         triggered: false,
@@ -316,21 +317,21 @@ export const level1 = {
   events: (data) => {
     return [
       // DEBUG: Fast Forward to game over
-      // {
-      //   id: 'game_over',
-      //   triggered: false,
-      //   trigger: (data) => { 
-      //     return true;
-      //   }  ,
-      //   action: (data) => {
-      //     setTimeout(() => {
-      //       data.game.player.markedForDeletion = true;
-      //       data.game.player.render = false;
-      //       data.game.gameOver = true;
-      //       data.unload();
-      //     }, 1000);
-      //   }
-      // },
+      {
+        id: 'game_over',
+        triggered: false,
+        trigger: (data) => { 
+          return true;
+        }  ,
+        action: (data) => {
+          setTimeout(() => {
+            data.game.player.markedForDeletion = true;
+            data.game.player.render = false;
+            data.game.gameOver = true;
+            data.unload();
+          }, 1000);
+        }
+      },
       {
         id: 'level_1_text_1',
         triggered: false,
@@ -384,6 +385,7 @@ export const level1 = {
         triggered: false,
         trigger: (data) => data.game.gameOver,
         action: (data) => {
+          // TODO: I should move all of this to like a  "level end" file
           data['game_over'] = true;
           data.game.scoreElement.forEach(el => {
             el.classList.remove('active');
@@ -393,18 +395,18 @@ export const level1 = {
           const enter = document.getElementById('initials-submit');
           const endScreen = document.getElementById('end-screen');
           const scoreboard = document.getElementById('scoreboard');
+          const scoreboardList = document.getElementById('scoreboard-list');
           endScreen.classList.add('active');
 
           // TODO: eventually could probably find a way to get mobile input
           if(data.game.isTouch) {
-            const scoreboard = document.getElementById('scoreboard');
             endScreen.classList.remove('active');
             scoreboard.classList.add('active');
             return;
           }
 
           let initials = [];
-          window.addEventListener('keydown', e => {
+          window.addEventListener('keydown', async e => {
             const lastInitial = document.getElementById('initials-' + initials.length);
             const nextInitial = document.getElementById('initials-' + (initials.length + 1));
             if((e.key === 'Delete' || e.key === 'Backspace' || e.key === 'Escape') && initials.length) {
@@ -426,11 +428,36 @@ export const level1 = {
                   shakeScreen();
                   return;
                 }
+                const respData = await axios.post('/api/score', {
+                  score: data.game.score + 1,
+                  name,
+                  date: new Date().toString(),
+                }, {
+                  headers: {
+                    'Content-Type': 'application/json'
+                  }
+                });
+                console.log(respData);
 
-                // TODO: 
-                // - submit to server
-                // Wait for response
-                // populate scoreboard
+                if(respData?.data?.scores?.length && !respData?.data?.error) {
+                  respData.data.scores.forEach((resp) => {
+                    const name = resp.name;
+                    const score = resp.score;
+
+                    if(typeof name === 'string' && name.length === 3 && !disallowed.includes(name.toLowerCase()) && Number.isInteger(score)) {
+                      const listItem = document.createElement('li');
+                      const nameSpan = document.createElement('span');
+                      nameSpan.innerText = name;
+                      const scoreSpan = document.createElement('span');
+                      scoreSpan.innerText = score;
+                      listItem.appendChild(nameSpan, scoreSpan);
+                      listItem.appendChild(scoreSpan);
+                      scoreboardList.appendChild(listItem);
+                    } else {
+                      console.log(name, score, typeof name === 'string', Number.isInteger(score), name.length);
+                    }
+                  });
+                }
 
                 endScreen.classList.remove('active');
                 scoreboard.classList.add('active');

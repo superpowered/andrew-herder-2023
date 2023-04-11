@@ -9,6 +9,10 @@ export const API_ROOT = `/api`;
 
 export const STATIC_ROOT = `${PUBLIC_URL}`;
 
+export const DB_DIR = IS_DEV_ENV
+  ? path.join(process.cwd(), 'src', 'db')
+  : path.join(process.cwd(), 'db');
+
 export const STATIC_DIR = IS_DEV_ENV
   ? path.join(process.cwd(), 'src', 'client')
   : path.join(process.cwd(), 'dist', 'client');

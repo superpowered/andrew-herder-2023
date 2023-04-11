@@ -7,4 +7,4 @@ export {
   PORT,
   PUBLIC_URL,
 } from './env';
-export { API_ROOT, STATIC_ROOT, STATIC_DIR } from './paths';
+export { API_ROOT, STATIC_ROOT, STATIC_DIR, DB_DIR } from './paths';

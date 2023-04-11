@@ -52,12 +52,6 @@ const closeServers = () => {
   });
 };
 
-process.on('SIGTERM', () => {
-  console.log('SIGTERM issued...app is shutting down');
-  closeServers();
-  timeoutExit();
-});
-
 process.on('uncaughtException', (error) => {
   console.log(
     error,

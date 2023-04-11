@@ -347,10 +347,12 @@ body.shake .shakeable {
   justify-content: center;
   opacity: 0;
   text-align: center;
+  pointer-events: none;
 }
 #scoreboard.active {
   opacity: 1;
   transition: all .5s;
+  pointer-events: all;
 }
 
 #scoreboard a {
