@@ -1,0 +1,47 @@
+#end-screen {
+  position: absolute;
+  z-index: 3;
+  top: 0;
+  left: 0;
+  height: 100%;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0;
+  text-align: center;
+  transition: all 1s;
+
+  &.active {
+    opacity: 1;
+  }
+}
+
+#initials-container {
+  display: flex;
+  justify-content: center;
+
+  span {
+    border-bottom: 3px solid white;
+    width: 3vw;
+    margin: .5em;
+    height: 5vw;
+
+    &.active {
+      animation: blink-border .5s infinite;
+      @keyframes blink-border {
+        0% { border-color: white; }
+        50% { border-color: transparent; }
+        100% { border-color: white;  }
+      }
+    }
+  }
+}
+
+#initials-submit {
+  opacity: 0;
+
+  &.active {
+    opacity: 1;
+  }
+}

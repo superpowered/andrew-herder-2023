@@ -1,0 +1,39 @@
+.site-nav {
+  position: absolute;
+  right: 1em;
+  top: 1em;
+  z-index: 100;
+
+  a {
+    display: block;
+    color: white;
+    cursor: pointer;
+
+    &:hover {
+      cursor: pointer;
+    }
+  }
+
+  svg {
+    fill: white;
+  }
+
+  .left-nav {
+    display: flex;
+    padding-right: 2em;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .bot-nav {
+    display: flex;
+    flex-direction: column;
+    position: absolute;
+    right: 0;
+    top: 2em;
+
+    a {
+      margin-bottom: .5em;
+    }
+  }
+}

@@ -1,0 +1,65 @@
+#text-bubble-anchor {
+  width: 80%;
+  left: 10%;
+  top: 5%;
+  position: absolute;
+  z-index: 3;
+}
+
+#text-bubble-template {
+  display: none;
+}
+
+.text-bubble {
+  border: 3px solid white;
+  padding: 2em;
+  width: 100%;
+  position: relative;
+  color: white;
+  opacity: .875;
+  text-align: center;
+  margin-bottom: 1em;
+  transition: all .1s;
+  background-color: rgba(0,0,0, .5);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-wrap: wrap;
+
+  // Fade out before removal
+  &.removed {
+    opacity: 0;
+  }
+
+  // Shake whole frame in for effect
+  &.slam {
+    animation: slam 0.15s 2;
+    font-family: 'Black Han Sans';
+    @keyframes slam {
+      0% { transform: translate(0, 0) }
+      25% { transform: translate(5px, 5px) }
+      50% { transform: translate(0, 0) }
+      75% { transform: translate(-5px, 5px) }
+      100% { transform: translate(0, 0) }
+    }
+  }
+
+  // Individual Letters
+  span {
+    opacity: 0;
+    min-width: .5em;
+
+    &.revealed {
+      opacity: 1;
+    }
+    &.bold {
+      font-weight: 700;
+    }
+    &.large {
+      font-size: 3em;
+    }
+    &.small {
+      font-size: .75em;
+    }
+  }
+}

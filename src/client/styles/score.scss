@@ -1,0 +1,21 @@
+.ui-score {
+  position: absolute;
+  left: 1em;
+  top: 1em;
+  color: white;
+  font-weight: bold;
+  z-index: 3;
+  font-size: 5vw;
+  opacity: 0;
+  pointer-events: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 5vw;
+  width: 5vw;
+  transition: all .3s;
+
+  &.active {
+    opacity: 1;
+  }
+}

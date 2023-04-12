@@ -1,7 +1,7 @@
 import { Game } from "./game";
 
 // Styles
-import './style.css';
+import './styles/index.scss';
 
 // Sprites
 import mort from './assets/dino-sprites-mort.png';
@@ -36,21 +36,26 @@ const init = (sprites) => {
   // Storing an array of fps counts to get a less jittery number by getting the average
   let fpsAvs = Array(100).fill(0);
   let lastTime = 0;
+  const requiredElapsed = 1000 / 120; // desired interval is 60fps
 
   // Start the main loop
   const animate = (timeStamp) => {
     // FPS &  Delta Time
     const deltaTime = timeStamp - lastTime;
-    fpsAvs.unshift(1 / (deltaTime / 1000)|0);
-    fpsAvs.pop();
-    fps.innerText = 'FPS: ' + (fpsAvs.reduce((l, t) => l+t, 0) / fpsAvs.length|0);
-    lastTime = timeStamp;
+    // lastTime = timeStamp;
 
-    // Clear Whole Screen and run game loop
-    ctx.clearRect(0,0, canvas.width, canvas.height);
-    game.update(ctx, deltaTime);
-    game.draw(ctx, deltaTime);
+    if (!lastTime) { lastTime = timeStamp; }
+    if (deltaTime > requiredElapsed) {
+      fpsAvs.unshift(1 / (deltaTime / 1000)|0);
+      fpsAvs.pop();
+      fps.innerText = 'FPS: ' + (fpsAvs.reduce((l, t) => l+t, 0) / fpsAvs.length|0);
 
+      // Clear Whole Screen and run game loop
+      ctx.clearRect(0,0, canvas.width, canvas.height);
+      game.draw(ctx, deltaTime);
+      game.update(ctx, deltaTime);
+      lastTime = timeStamp;
+    }
     requestAnimationFrame(animate);
   }
   animate(0);
