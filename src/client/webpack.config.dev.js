@@ -1,4 +1,5 @@
 import HtmlWebpackPlugin from 'html-webpack-plugin';
+import MiniCssExtractPlugin from "mini-css-extract-plugin";
 import path from 'path';
 import { fileURLToPath } from 'url';
 
@@ -33,6 +34,7 @@ export default {
       template: 'src/client/public/index.html',
       favicon: 'src/client/public/cropped-favi-192x192.jpg',
     }),
+    new MiniCssExtractPlugin(),
   ],
   module: {
     rules: [
@@ -47,7 +49,12 @@ export default {
       {
         test: /\.(css|scss)$/,
         exclude: /node_modules/,
-        use: ['style-loader', 'css-loader', 'sass-loader'],
+        // use: [
+        //   MiniCssExtractPlugin.loader, // instead of style-loader
+        //   // 'css-loader'
+        //   ['css-loader', 'sass-loader'],
+        // ]
+        use: [MiniCssExtractPlugin.loader, 'css-loader', 'sass-loader'],
       },
       {
         test: /\.(ico|svg|jpg|png)$/,

@@ -9,7 +9,7 @@
   <link href="https://fonts.googleapis.com/css?family=Black+Han+Sans" rel="stylesheet">
 </head>
 <body>
-  <noscript> You need to enable JavaScript to run this app. </noscript>
+  <noscript> This page is no fun without JavaScript. </noscript>
   
   <!-- This will display even when we haven't loaded (we'll hide it if the game loads up) -->
   <span id="intro-text">ANDREW HERDER</span>
@@ -57,27 +57,31 @@
     <div id="fps"></div>
   </section>
 
+  <!-- Score Counter, updates on kills -->
   <div class="ui-score score-counter"></div>
-  <section id="end-screen" class="shakeable">
-    <div>
-      <h1>You died.</h1>
-      <div id="end-score">Score: <span class="score-counter"></span></div>
-      <div id="initials">
-        <h3>
+
+  <!-- Should show on game over -->
+  <section id="end-screen" class="end-screen">
+    <div class="end-screen-wrapper">
+      <h1 class="end-screen-header">You died.</h1>
+      <div class="end-screen-score" id="end-score">Score: <span class="score-counter"></span></div>
+      <div id="initials" class="end-screen-initals">
+        <h3 class="end-screen-initals-title">
           Enter Your Initials:
         </h3>
-        <div id="initials-container">
+        <div id="initials-container" class="end-screen-initals-container">
           <span id="initials-1" class="active"></span>
           <span id="initials-2"></span>
           <span id="initials-3"></span>
         </div>
-        <div id="initials-submit">
+        <div id="initials-submit" class="end-screen-initals-submit">
           Press Enter to save, delete to remove letter
         </div>
       </div>
     </div>
   </section>
 
+  <!-- Should show after we submit our score in the end screen -->
   <section id="scoreboard" class="scoreboard">
     <div class="scoreboard-wrapper">
       <ol id="scoreboard-list" class="scoreboard-list">

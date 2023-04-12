@@ -42,12 +42,12 @@
     "css-loader": "^6",
     "file-loader": "^6",
     "html-webpack-plugin": "^5",
+    "mini-css-extract-plugin": "^2",
     "mkdirp": "^2",
     "nodemon": "^2",
     "npm-run-all": "^4",
     "sass": "^1",
     "sass-loader": "^13",
-    "style-loader": "^3",
     "webpack": "^5",
     "webpack-cli": "^5",
     "webpack-dev-server": "^4"

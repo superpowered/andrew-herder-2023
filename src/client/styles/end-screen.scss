@@ -24,8 +24,9 @@
   span {
     border-bottom: 3px solid white;
     width: 3vw;
-    margin: .5em;
+    margin: .5rem;
     height: 5vw;
+    font-size: 4vw;
 
     &.active {
       animation: blink-border .5s infinite;
@@ -40,7 +41,8 @@
 
 #initials-submit {
   opacity: 0;
-
+  margin-top: 1em;
+  
   &.active {
     opacity: 1;
   }
