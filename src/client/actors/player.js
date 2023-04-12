@@ -160,13 +160,14 @@ export class Player {
   fireProjectile() {
     const dirX = this.x - this.game.mousePos.x;
     const dirY = this.y - this.game.mousePos.y;
+    const distanceFromCenter = .25;
 
     const direction = new Victor(dirX,dirY).normalize();
     const projectile = new Projectile(
       this.game, 
       this.projectileSize,
-      this.x + this.width / 2 - this.projectileSize / 2 - direction.x * this.width / 2, 
-      this.y + this.height / 2 - this.projectileSize / 2 - direction.y * this.height / 2,
+      this.x + this.width / 2 - this.projectileSize / 2 - direction.x * this.width * distanceFromCenter, 
+      this.y + this.height / 2 - this.projectileSize / 2 - direction.y * this.height * distanceFromCenter,
       direction.x * - this.projectileSpeed, 
       direction.y * - this.projectileSpeed,
       ['textPixel', 'enemy'],

@@ -34,23 +34,22 @@ const init = (sprites) => {
   document.documentElement.classList.add('game-loaded');
 
   // Storing an array of fps counts to get a less jittery number by getting the average
-  let fpsAvs = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
+  let fpsAvs = Array(100).fill(0);
   let lastTime = 0;
 
   // Start the main loop
   const animate = (timeStamp) => {
+    // FPS &  Delta Time
     const deltaTime = timeStamp - lastTime;
+    fpsAvs.unshift(1 / (deltaTime / 1000)|0);
+    fpsAvs.pop();
+    fps.innerText = 'FPS: ' + (fpsAvs.reduce((l, t) => l+t, 0) / fpsAvs.length|0);
+    lastTime = timeStamp;
 
     // Clear Whole Screen and run game loop
     ctx.clearRect(0,0, canvas.width, canvas.height);
     game.update(ctx, deltaTime);
     game.draw(ctx, deltaTime);
-    
-    // FPS
-    fpsAvs.unshift(1 / ((performance.now() - lastTime) / 1000)|0);
-    fpsAvs.pop();
-    fps.innerText = 'FPS: ' + (fpsAvs.reduce((l, t) => l+t, 0) / fpsAvs.length|0);
-    lastTime = timeStamp;
 
     requestAnimationFrame(animate);
   }
@@ -59,50 +58,55 @@ const init = (sprites) => {
 
 // -----------------------------------------------------------------------------
 
-// Make sure fonts are loaded
-let fonts = false;
-document.fonts.ready.then(function () {
-  if(document.fonts.check('1em "Press Start 2P"') && document.fonts.check('1em "Black Han Sans"')) {
-    fonts = true;
-  }
-});
+const loadSite = () => {
+  console.log('Hello, my treacherous friends');
+  console.log('Repo for this can be found here: https://github.com/superpowered/andrew-herder-2023');
 
-// Load up our player sprite
-let playerSpriteLoaded = false;
-const playerSprite = new Image();
-playerSprite.src = vita;
-playerSprite.addEventListener(
-  "load",
-  () => {
-    playerSpriteLoaded = true;
-  },
-  false
-);
-
-// Load up our enemy sprite
-let enemySpriteLoaded = false;
-const enemySprite = new Image();
-enemySprite.src = mort;
-enemySprite.addEventListener(
-  "load",
-  () => {
-    enemySpriteLoaded = true;
-  },
-  false
-);
-
-const loader = () => {
-  // Reload loop until all assets are ready
-  if(!fonts || !playerSpriteLoaded || !enemySpriteLoaded) {
-    setTimeout(loader, 500);
-    return;
-  }
-
-  // Once we're sure everythings loaded, we can start the init loops
-  init({
-    playerSprite,
-    enemySprite, 
+  // Make sure fonts are loaded
+  let fonts = false;
+  document.fonts.ready.then(function () {
+    if(document.fonts.check('1em "Press Start 2P"') && document.fonts.check('1em "Black Han Sans"')) {
+      fonts = true;
+    }
   });
-}
 
-window.addEventListener('load', loader);
+  // Load up our player sprite
+  let playerSpriteLoaded = false;
+  const playerSprite = new Image();
+  playerSprite.src = vita;
+  playerSprite.addEventListener(
+    "load",
+    () => {
+      playerSpriteLoaded = true;
+    },
+    false
+  );
+
+  // Load up our enemy sprite
+  let enemySpriteLoaded = false;
+  const enemySprite = new Image();
+  enemySprite.src = mort;
+  enemySprite.addEventListener(
+    "load",
+    () => {
+      enemySpriteLoaded = true;
+    },
+    false
+  );
+
+  // Runs a reload loop until all the assets are loaded
+  const loader = () => {
+    if(!fonts || !playerSpriteLoaded || !enemySpriteLoaded) {
+      setTimeout(loader, 500);
+      return;
+    }
+
+    // Once we're sure everythings loaded, we can start the init loops
+    init({
+      playerSprite,
+      enemySprite, 
+    });
+  }
+  window.addEventListener('load', loader);
+};
+loadSite();

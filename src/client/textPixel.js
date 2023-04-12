@@ -69,6 +69,7 @@ export class TextPixel {
 
 // -----------------------------------------------------------------------------
 
+// TODO: this should just be a generic class somewhere
 class TextPixelParticle {
   constructor(pixel) {
     const { x, y, r = 255, g = 255, b = 255, a = 1, height = 1, width = 1 } = pixel;

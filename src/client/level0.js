@@ -76,6 +76,7 @@ export class Level0 {
   }
 
   createIntroTextPixels(context) {
+    // TODO: is it possible to not have to pass context here and instead draw out the pixels on a blank newly made canvas?
     // Clear everything so we only save the pixels we output in this function
     context.save();
     context.clearRect(0,0, this.game.width, this.game.height);
@@ -225,9 +226,9 @@ export class Level0 {
     // Loop through our level events and do things as needed
     this.events.filter((event) => {
       if(!event.triggered && event.trigger(this)) { 
-          event.triggered = true;
-          event.action(this);
-        }
+        event.triggered = true;
+        event.action(this);
+      }
     });
   }
 
