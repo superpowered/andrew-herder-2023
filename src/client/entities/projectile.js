@@ -1,4 +1,4 @@
-import { isOutOfGameBounds, isRectangularCollision } from "./utils";
+import { isOutOfGameBounds, isRectangularCollision } from "../utils";
 
 // -----------------------------------------------------------------------------
 

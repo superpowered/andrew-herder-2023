@@ -69,8 +69,7 @@ export class TextBubble {
 // -----------------------------------------------------------------------------
 
 export class TextSystem {
-  constructor(game) {
-    this.game = game;
+  constructor() {
     this.textBubbles = [];
     this.textAnchor = document.getElementById('text-bubble-anchor');
     this.textElement = document.getElementById('text-bubble-template').cloneNode();

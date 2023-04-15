@@ -49,11 +49,6 @@ export default {
       {
         test: /\.(css|scss)$/,
         exclude: /node_modules/,
-        // use: [
-        //   MiniCssExtractPlugin.loader, // instead of style-loader
-        //   // 'css-loader'
-        //   ['css-loader', 'sass-loader'],
-        // ]
         use: [MiniCssExtractPlugin.loader, 'css-loader', 'sass-loader'],
       },
       {

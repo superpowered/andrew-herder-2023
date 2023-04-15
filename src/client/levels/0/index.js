@@ -1,9 +1,9 @@
-import { TextPixel } from './textPixel';
-import { level0 } from './levelData';
+import { TextPixel } from '../../entities/textPixel';
+import { levelData } from './data';
 
 // -----------------------------------------------------------------------------
 
-export class Level0 {
+export class Level {
   constructor(game) {
     this.textElement = document.getElementById('intro-text');
 
@@ -13,7 +13,7 @@ export class Level0 {
 
     this.initialized = false;
 
-    this.levelData = level0;
+    this.levelData = levelData;
     this.events = [];
 
     this.loggedCount = 0;

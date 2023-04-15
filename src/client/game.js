@@ -1,8 +1,13 @@
-import { InputHandler } from './input';
-import { Level0 } from './level0';
-import { Level1 } from './level1';
-import { Player } from './actors/player';
-import { TextSystem } from './textSystem';
+// Levels
+import {  Level as Level0 } from './levels/0';
+import {  Level as Level1 } from './levels/1';
+
+// Actors
+import { Player } from './entities/player';
+
+// Systems
+import { InputHandler } from './systems/input';
+import { TextSystem } from './systems/text';
 
 // -----------------------------------------------------------------------------
 

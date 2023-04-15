@@ -1,6 +1,6 @@
 import Victor from 'victor';
 import { getDistance, keepInBounds } from '../utils';
-import { Projectile } from "../projectile";
+import { Projectile } from "./projectile";
 
 // -----------------------------------------------------------------------------
 

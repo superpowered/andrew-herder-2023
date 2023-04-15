@@ -1,8 +1,13 @@
 import Victor from 'victor';
 
+// Utils
 import { keepInBounds, shakeScreen } from '../utils';
-import { CONTROLS } from '../input';
-import { Projectile } from "../projectile";
+
+// Constants
+import { CONTROLS } from '../systems/input';
+
+
+import { Projectile } from "./projectile";
 
 // -----------------------------------------------------------------------------
 

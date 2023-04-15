@@ -1,14 +1,13 @@
-import { level1 } from './levelData';
-
-import { Enemy } from './actors/enemy';
+import { levelData } from './data';
+import { Enemy } from '../../entities/enemy';
 
 // -----------------------------------------------------------------------------
 
-export class Level1 {
+export class Level {
   constructor(game, context) {
     this.game = game; 
 
-    this.levelData = level1;
+    this.levelData = levelData;
     this.events = [];
     this.lastSpawned = 0;
     this.spawnRate = 2000;
