@@ -16,6 +16,7 @@ const init = (sprites) => {
   const ctx = canvas.getContext('2d');
 
   if (!canvas || !fps) {
+    // eslint-disable-next-line no-console
     console.error("Missing some important stuff, that's for sure");
     return;
   }
@@ -69,7 +70,9 @@ const init = (sprites) => {
 // -----------------------------------------------------------------------------
 
 const loadSite = () => {
+  // eslint-disable-next-line no-console
   console.log('Hello, my treacherous friends');
+  // eslint-disable-next-line no-console
   console.log(
     'Repo for this can be found here: https://github.com/superpowered/andrew-herder-2023',
   );

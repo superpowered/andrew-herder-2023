@@ -24,16 +24,24 @@
   span {
     border-bottom: 3px solid white;
     width: 3vw;
-    margin: .5rem;
+    margin: 0.5rem;
     height: 5vw;
     font-size: 4vw;
 
     &.active {
-      animation: blink-border .5s infinite;
+      animation: blink-border 0.5s infinite;
       @keyframes blink-border {
-        0% { border-color: white; }
-        50% { border-color: transparent; }
-        100% { border-color: white;  }
+        0% {
+          border-color: white;
+        }
+
+        50% {
+          border-color: transparent;
+        }
+
+        100% {
+          border-color: white;
+        }
       }
     }
   }
@@ -42,7 +50,7 @@
 #initials-submit {
   opacity: 0;
   margin-top: 1em;
-  
+
   &.active {
     opacity: 1;
   }

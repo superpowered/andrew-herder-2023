@@ -3,8 +3,8 @@ import { fileURLToPath } from 'url';
 
 // -----------------------------------------------------------------------------
 
-const __filename = fileURLToPath(import.meta.url);
-const __dirname = path.dirname(__filename);
+const filename = fileURLToPath(import.meta.url);
+const dirname = path.dirname(filename);
 process.env.NODE_ENV = 'production';
 
 // -----------------------------------------------------------------------------
@@ -13,10 +13,10 @@ export default {
   mode: 'production',
   target: 'node',
   entry: {
-    server: path.resolve(__dirname, 'index.js'),
+    server: path.resolve(dirname, 'index.js'),
   },
   output: {
-    path: path.resolve(__dirname, '../../dist'),
+    path: path.resolve(dirname, '../../dist'),
     filename: '[name].cjs',
     libraryTarget: 'commonjs2',
   },

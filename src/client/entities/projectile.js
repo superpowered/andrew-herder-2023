@@ -49,9 +49,9 @@ class Projectile {
   }
 
   checkCollision(collisionItems) {
-    collisionItems.filter((item) => {
+    collisionItems.forEach((item) => {
       if (!this.collidesWith.includes(item.type)) {
-        return false;
+        return;
       }
       if (isRectangularCollision(item, this) && item.render === true) {
         item.hit();

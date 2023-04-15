@@ -115,7 +115,9 @@ router.post('/', async (_req, res) => {
       date: body.date,
     },
   ];
-  newData.sort((thisScore, lastScore) => lastScore?.score - thisScore?.score);
+  newData.sort(
+    (thisScore, lastScore) => (lastScore?.score ?? 0) - (thisScore?.score ?? 0),
+  );
 
   // Write new scores to file and serve
   const topTen = newData.slice(0, 10);

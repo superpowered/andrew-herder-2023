@@ -110,8 +110,8 @@ const textBubbles = [
 // -----------------------------------------------------------------------------
 
 const levelData = {
-  init: (initData) => {},
-  events: (initData) => {
+  init: () => {},
+  events: () => {
     return [
       // DEBUG: Fast Forward to game over
       // {
@@ -235,8 +235,8 @@ const levelData = {
                   'jew',
                   'tit',
                 ];
-                const name = initials.join('');
-                if (disallowed.includes(name.toLowerCase())) {
+                const enteredName = initials.join('');
+                if (disallowed.includes(enteredName.toLowerCase())) {
                   shakeScreen();
                   return;
                 }
@@ -244,7 +244,7 @@ const levelData = {
                   '/api/score',
                   {
                     score: data.game.score + 1,
-                    name,
+                    name: enteredName,
                     date: new Date().toString(),
                   },
                   {
@@ -253,12 +253,10 @@ const levelData = {
                     },
                   },
                 );
-                console.log(respData);
 
                 if (respData?.data?.scores?.length && !respData?.data?.error) {
                   respData.data.scores.forEach((resp) => {
-                    const { name } = resp;
-                    const { score } = resp;
+                    const { score, name } = resp;
 
                     if (
                       typeof name === 'string' &&
@@ -275,13 +273,7 @@ const levelData = {
                       listItem.appendChild(scoreSpan);
                       scoreboardList.appendChild(listItem);
                     } else {
-                      console.log(
-                        name,
-                        score,
-                        typeof name === 'string',
-                        Number.isInteger(score),
-                        name.length,
-                      );
+                      // TODO
                     }
                   });
                 }

@@ -116,8 +116,8 @@ const textBubbles = [
 // -----------------------------------------------------------------------------
 
 const levelData = {
-  init: (initData) => {},
-  events: (initData) => {
+  init: () => {},
+  events: () => {
     return [
       // DEBUG: Fast Forward to level 1
       // {

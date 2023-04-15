@@ -53,7 +53,9 @@ class InputSystem {
       }
     });
     window.addEventListener('mouseup', (e) => {
-      this.keys.splice(this.keys.indexOf(KEY_MAP.mouseclick), 1);
+      if (e.button === 0) {
+        this.keys.splice(this.keys.indexOf(KEY_MAP.mouseclick), 1);
+      }
     });
 
     // Handle losing focus of screen
@@ -66,60 +68,60 @@ class InputSystem {
 
     // Attempt to handle mobile
     const w = document.querySelector('.control-key--w');
-    w.addEventListener('touchstart', (e) => {
+    w.addEventListener('touchstart', () => {
       w.classList.add('active');
       this.game.isTouch = true;
       this.keys.push(KEY_MAP.w);
     });
-    w.addEventListener('touchend', (e) => {
+    w.addEventListener('touchend', () => {
       w.classList.remove('active');
       this.game.isTouch = true;
       this.keys.splice(this.keys.indexOf(KEY_MAP.w), 1);
     });
 
     const a = document.querySelector('.control-key--a');
-    a.addEventListener('touchstart', (e) => {
+    a.addEventListener('touchstart', () => {
       a.classList.add('active');
       this.game.isTouch = true;
       this.keys.push(KEY_MAP.a);
     });
-    a.addEventListener('touchend', (e) => {
+    a.addEventListener('touchend', () => {
       a.classList.remove('active');
       this.game.isTouch = true;
       this.keys.splice(this.keys.indexOf(KEY_MAP.a), 1);
     });
 
     const s = document.querySelector('.control-key--s');
-    s.addEventListener('touchstart', (e) => {
+    s.addEventListener('touchstart', () => {
       s.classList.add('active');
       this.game.isTouch = true;
       this.keys.push(KEY_MAP.s);
     });
-    s.addEventListener('touchend', (e) => {
+    s.addEventListener('touchend', () => {
       s.classList.remove('active');
       this.game.isTouch = true;
       this.keys.splice(this.keys.indexOf(KEY_MAP.s), 1);
     });
 
     const d = document.querySelector('.control-key--d');
-    d.addEventListener('touchstart', (e) => {
+    d.addEventListener('touchstart', () => {
       d.classList.add('active');
       this.game.isTouch = true;
       this.keys.push(KEY_MAP.d);
     });
-    d.addEventListener('touchend', (e) => {
+    d.addEventListener('touchend', () => {
       d.classList.remove('active');
       this.game.isTouch = true;
       this.keys.splice(this.keys.indexOf(KEY_MAP.d), 1);
     });
 
     const space = document.querySelector('.control-key--space');
-    space.addEventListener('touchstart', (e) => {
+    space.addEventListener('touchstart', () => {
       space.classList.add('active');
       this.game.isTouch = true;
       this.keys.push(KEY_MAP.mouseclick);
     });
-    space.addEventListener('touchend', (e) => {
+    space.addEventListener('touchend', () => {
       space.classList.remove('active');
       this.game.isTouch = true;
       this.keys.splice(this.keys.indexOf(KEY_MAP.mouseclick), 1);

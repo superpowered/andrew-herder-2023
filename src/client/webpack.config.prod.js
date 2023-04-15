@@ -5,8 +5,8 @@ import { fileURLToPath } from 'url';
 
 // -----------------------------------------------------------------------------
 
-const __filename = fileURLToPath(import.meta.url);
-const __dirname = path.dirname(__filename);
+const filename = fileURLToPath(import.meta.url);
+const dirname = path.dirname(filename);
 
 // -----------------------------------------------------------------------------
 
@@ -16,7 +16,7 @@ export default {
   devtool: 'source-map',
   entry: './src/client/index',
   output: {
-    path: path.resolve(__dirname, '../../dist/client'),
+    path: path.resolve(dirname, '../../dist/client'),
     filename: 'client.bundle.js',
   },
   plugins: [

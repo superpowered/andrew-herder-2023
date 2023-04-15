@@ -83,7 +83,9 @@ class Game {
 
   update(context, deltaTime) {
     // Player
-    this.player && this.player.update(this.inputSystem.keys, deltaTime);
+    if (this.player) {
+      this.player.update(this.inputSystem.keys, deltaTime);
+    }
 
     // Mobile fix
     if (this.isTouch) {
@@ -138,7 +140,9 @@ class Game {
   }
 
   draw(context, deltaTime) {
-    this.player && this.player.draw(context, deltaTime, false, this.dpr);
+    if (this.player) {
+      this.player.draw(context, deltaTime, false, this.dpr);
+    }
     this.enemies.forEach((enemy) =>
       enemy.draw(context, deltaTime, false, this.dpr),
     );

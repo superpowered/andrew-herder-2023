@@ -23,7 +23,7 @@
     "lint:php": "phplint '**/*.php' '!node_modules/**' --cache",
     "lint:style": "stylelint '**/*.scss' --cache",
     "lint:style:fix": "npm run lint:style -- --fix",
-    "prettier": "prettier --check '*.json' '**/*.json' '*.js' '**/*.js' '**/*.scss'",
+    "prettier": "prettier --check '*.json' '**/*.json' '**/*.js' '**/*.scss'",
     "prettier:fix": "npm run prettier -- --write",
     "build:clean": "rimraf dist .eslintcache .stylelintcache",
     "build:dist": "mkdirp dist dist/client",

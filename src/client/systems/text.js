@@ -1,3 +1,4 @@
+/* eslint-disable max-classes-per-file */ // TODO
 class TextBubble {
   constructor(textSystem, textData, textAnchor, textElement) {
     this.x = 0;

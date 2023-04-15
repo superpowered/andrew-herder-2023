@@ -5,8 +5,8 @@ import { fileURLToPath } from 'url';
 
 // -----------------------------------------------------------------------------
 
-const __filename = fileURLToPath(import.meta.url);
-const __dirname = path.dirname(__filename);
+const filename = fileURLToPath(import.meta.url);
+const dirname = path.dirname(filename);
 const DEV_PORT = 3014;
 const HTTP_PORT = 3015;
 
@@ -18,7 +18,7 @@ export default {
   devtool: 'eval-source-map',
   entry: './src/client/index',
   output: {
-    path: path.resolve(__dirname, '../../dist/client'),
+    path: path.resolve(dirname, '../../dist/client'),
     publicPath: '/',
     filename: 'client.bundle.js',
   },

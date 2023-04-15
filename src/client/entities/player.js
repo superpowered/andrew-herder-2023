@@ -1,3 +1,4 @@
+/* eslint-disable max-classes-per-file */ // TODO
 import Victor from 'victor';
 
 // Constants
@@ -11,6 +12,39 @@ import Projectile from './projectile';
 
 // -----------------------------------------------------------------------------
 
+// TODO: this should just be a generic class somewhere
+class TextPixelParticle {
+  constructor(pixel) {
+    const { x, y, r, g, b, a, height, width } = pixel;
+    this.x = x;
+    this.y = y;
+    this.r = r;
+    this.g = g;
+    this.b = b;
+    this.a = a;
+    this.initialA = a;
+    this.height = height;
+    this.width = width;
+    const plusOrMinusX = Math.random() < 0.5 ? -1 : 1;
+    const plusOrMinusY = Math.random() < 0.5 ? -1 : 1;
+    this.vx = Math.random() * 2 * plusOrMinusX;
+    this.vy = Math.random() * 2 * plusOrMinusY;
+  }
+
+  update() {
+    this.x += this.vx;
+    this.y += this.vy;
+    this.a -= this.initialA * 0.02;
+  }
+
+  draw(context) {
+    context.beginPath();
+    context.fillStyle = `rgba(${this.r}, ${this.b}, ${this.g}, ${this.a})`;
+    context.fillRect(this.x, this.y, this.width, this.height);
+  }
+}
+
+// -----------------------------------------------------------------------------
 class Player {
   constructor(game) {
     this.game = game;
@@ -44,7 +78,7 @@ class Player {
     // TODO:
     this.idleFrame = 0;
     setInterval(() => {
-      this.idleFrame++;
+      this.idleFrame += 1;
       if (this.idleFrame > 3) {
         this.idleFrame = 0;
       }
@@ -141,7 +175,7 @@ class Player {
 
     keepInBounds(this, this.game.bounds);
 
-    this.checkCollisions();
+    // this.checkCollisions();
 
     if (this.particles && this.particles.length) {
       this.particles.forEach((particle) => particle.update());
@@ -209,7 +243,7 @@ class Player {
       return;
     }
 
-    this.health--;
+    this.health -= 1;
     this.invulnerable = true;
     shakeScreen();
 
@@ -237,39 +271,7 @@ class Player {
     this.game.gameOver = true;
   }
 
-  checkCollisions() {}
-}
-
-// TODO: this should just be a generic class somewhere
-class TextPixelParticle {
-  constructor(pixel) {
-    const { x, y, r, g, b, a, height, width } = pixel;
-    this.x = x;
-    this.y = y;
-    this.r = r;
-    this.g = g;
-    this.b = b;
-    this.a = a;
-    this.initialA = a;
-    this.height = height;
-    this.width = width;
-    const plusOrMinusX = Math.random() < 0.5 ? -1 : 1;
-    const plusOrMinusY = Math.random() < 0.5 ? -1 : 1;
-    this.vx = Math.random() * 2 * plusOrMinusX;
-    this.vy = Math.random() * 2 * plusOrMinusY;
-  }
-
-  update() {
-    this.x += this.vx;
-    this.y += this.vy;
-    this.a -= this.initialA * 0.02;
-  }
-
-  draw(context) {
-    context.beginPath();
-    context.fillStyle = `rgba(${this.r}, ${this.b}, ${this.g}, ${this.a})`;
-    context.fillRect(this.x, this.y, this.width, this.height);
-  }
+  // checkCollisions() {}
 }
 
 // -----------------------------------------------------------------------------

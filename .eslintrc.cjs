@@ -48,6 +48,7 @@ module.exports = {
     //'import/prefer-default-export': 0,
     'arrow-body-style': 0,
     'jsx-a11y/label-has-associated-control': 0,
+    'no-bitwise': 0,
   },
 
   settings: {

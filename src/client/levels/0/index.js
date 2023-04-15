@@ -42,7 +42,7 @@ class Level {
       ];
     });
 
-    console.log('draw Count:', this.game.textPixels.length);
+    // console.log('draw Count:', this.game.textPixels.length);
 
     // Set our counts, which we reference for firing events
     this.initialCount = this.game.textPixels.length;
@@ -53,7 +53,7 @@ class Level {
     this.initialized = true;
   };
 
-  getNeigborPositions = (i, gameWidth, size) => {
+  static getNeigborPositions = (i, gameWidth, size) => {
     const positions = [];
     const sqr = Math.sqrt(size);
     for (let x = 0; x < sqr; x++) {
@@ -202,6 +202,7 @@ class Level {
     for (let i = 0; i < pixels.length; i += 4) {
       // We can ignore fully transparent pixels
       if (pixels[i + 3] <= 0) {
+        // eslint-disable-next-line no-continue
         continue;
       }
 
@@ -246,11 +247,11 @@ class Level {
     return pixelSizes;
   }
 
-  update(deltaTime) {
+  update() {
     this.count = this.game.textPixels.length;
 
     // Loop through our level events and do things as needed
-    this.events.filter((event) => {
+    this.events.forEach((event) => {
       if (!event.triggered && event.trigger(this)) {
         event.triggered = true;
         event.action(this);

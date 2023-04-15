@@ -7,7 +7,7 @@ import levelData from './data';
 // -----------------------------------------------------------------------------
 
 class Level {
-  constructor(game, context) {
+  constructor(game) {
     this.game = game;
 
     this.levelData = levelData;
@@ -27,7 +27,7 @@ class Level {
 
   update(deltaTime) {
     // Loop through our level events and do things as needed
-    this.events.filter((event) => {
+    this.events.forEach((event) => {
       if (!event.triggered && event.trigger(this)) {
         event.triggered = true;
         event.action(this);

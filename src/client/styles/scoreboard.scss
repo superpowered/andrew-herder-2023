@@ -14,7 +14,7 @@
 
   &.active {
     opacity: 1;
-    transition: all .5s;
+    transition: all 0.5s;
     pointer-events: all;
   }
 
@@ -23,10 +23,11 @@
     overflow-x: hidden;
     padding: 2em;
   }
-  
+
   &-list {
     li {
       display: flex;
+
       span {
         width: 50%;
         font-size: 2em;
