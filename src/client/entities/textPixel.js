@@ -1,4 +1,4 @@
-export class TextPixel {
+class TextPixel {
   constructor(pixels, size, projectileAbsorption) {
     this.pixels = pixels;
     this.x = pixels[0].pixelData.x;
@@ -99,3 +99,7 @@ class TextPixelParticle {
     context.fillRect(this.x, this.y, this.width, this.height);
   }
 }
+
+// -----------------------------------------------------------------------------
+
+export default TextPixel;

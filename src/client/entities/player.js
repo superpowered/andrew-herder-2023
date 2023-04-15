@@ -1,17 +1,17 @@
 import Victor from 'victor';
 
+// Constants
+import { CONTROLS } from '../constants';
+
 // Utils
 import { keepInBounds, shakeScreen } from '../utils';
 
-// Constants
-import { CONTROLS } from '../systems/input';
-
-
-import { Projectile } from "./projectile";
+// Other Entities
+import Projectile from "./projectile";
 
 // -----------------------------------------------------------------------------
 
-export class Player {
+class Player {
   constructor(game) {
     this.game = game;
     this.width = 60;
@@ -247,3 +247,7 @@ class TextPixelParticle {
     context.fillRect(this.x, this.y, this.width, this.height);
   }
 }
+
+// -----------------------------------------------------------------------------
+
+export default Player;

@@ -1,10 +1,14 @@
 import Victor from 'victor';
+
+// Utils
 import { getDistance, keepInBounds } from '../utils';
-import { Projectile } from "./projectile";
+
+// Other Entities
+import Projectile from "./projectile";
 
 // -----------------------------------------------------------------------------
 
-export class Enemy {
+class Enemy {
   constructor(game) {
     this.game = game;
     this.width = 60;
@@ -214,3 +218,7 @@ class TextPixelParticle {
     context.fillRect(this.x, this.y, this.width, this.height);
   }
 }
+
+// -----------------------------------------------------------------------------
+
+export default Enemy;

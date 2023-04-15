@@ -1,3 +1,4 @@
+// Utils
 import { isOutOfGameBounds, isRectangularCollision } from "../utils";
 
 // -----------------------------------------------------------------------------
@@ -12,7 +13,7 @@ const POSSIBLE_FILLS = [
 
 // -----------------------------------------------------------------------------
 
-export class Projectile {
+class Projectile {
   constructor(game, size, x, y, vx, vy, collidesWith, type) {
     this.size = size;
     this.width = size;
@@ -80,3 +81,7 @@ export class Projectile {
     this.markedForDeletion = true;
   }
 }
+
+// -----------------------------------------------------------------------------
+
+export default Projectile;

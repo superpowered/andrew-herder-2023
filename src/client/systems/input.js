@@ -1,10 +1,7 @@
-export const CONTROLS = {
-  DOWN: 'DOWN',
-  UP: 'UP',
-  LEFT: 'LEFT',
-  RIGHT: 'RIGHT',
-  SHOOT: 'SHOOT',
-}
+// Constants
+import { CONTROLS } from '../constants';
+
+// -----------------------------------------------------------------------------
 
 const KEY_MAP = {
   arrowdown: CONTROLS.DOWN,
@@ -21,7 +18,7 @@ const KEY_MAP = {
 
 // -----------------------------------------------------------------------------
 
-export class InputHandler {
+class InputSystem {
   constructor(game) {
     this.keys = [];
     this.game = game;
@@ -129,3 +126,7 @@ export class InputHandler {
     });
   }
 }
+
+// -----------------------------------------------------------------------------
+
+export default InputSystem;

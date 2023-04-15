@@ -1,13 +1,11 @@
 // Levels
-import {  Level as Level0 } from './levels/0';
-import {  Level as Level1 } from './levels/1';
+import { Level0, Level1 } from './levels';
 
-// Actors
-import { Player } from './entities/player';
+// Entities
+import { Player } from './entities';
 
 // Systems
-import { InputHandler } from './systems/input';
-import { TextSystem } from './systems/text';
+import { InputSystem, TextSystem } from './systems';
 
 // -----------------------------------------------------------------------------
 
@@ -43,7 +41,7 @@ export class Game {
     this.textPixels = [];
 
     // Systems
-    this.input = new InputHandler(this);
+    this.inputSystem = new InputSystem(this);
     this.textSystem = new TextSystem(this);
 
     // Levels
@@ -86,7 +84,7 @@ export class Game {
 
   update(context, deltaTime) {
     // Player
-    this.player && this.player.update(this.input.keys, deltaTime);
+    this.player && this.player.update(this.inputSystem.keys, deltaTime);
 
     // Mobile fix
     if(this.isTouch) {

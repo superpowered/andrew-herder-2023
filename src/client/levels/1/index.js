@@ -1,9 +1,12 @@
-import { levelData } from './data';
-import { Enemy } from '../../entities/enemy';
+// Entities
+import { Enemy } from '../../entities';
+
+// Data
+import levelData from './data';
 
 // -----------------------------------------------------------------------------
 
-export class Level {
+class Level {
   constructor(game, context) {
     this.game = game; 
 
@@ -49,3 +52,7 @@ export class Level {
     delete this;
   }
 }
+
+// -----------------------------------------------------------------------------
+
+export default Level;

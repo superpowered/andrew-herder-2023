@@ -1,4 +1,4 @@
-export class TextBubble {
+class TextBubble {
   constructor(textSystem, textData, textAnchor, textElement) {
     this.x = 0;
     this.y = 0;
@@ -68,7 +68,7 @@ export class TextBubble {
 
 // -----------------------------------------------------------------------------
 
-export class TextSystem {
+class TextSystem {
   constructor() {
     this.textBubbles = [];
     this.textAnchor = document.getElementById('text-bubble-anchor');
@@ -91,3 +91,7 @@ export class TextSystem {
      }, 100);
   }
 }
+
+// -----------------------------------------------------------------------------
+
+export default TextSystem;

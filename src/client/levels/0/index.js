@@ -1,9 +1,12 @@
-import { TextPixel } from '../../entities/textPixel';
-import { levelData } from './data';
+// Entities
+import { TextPixel } from '../../entities';
+
+// Data
+import levelData from './data';
 
 // -----------------------------------------------------------------------------
 
-export class Level {
+class Level {
   constructor(game) {
     this.textElement = document.getElementById('intro-text');
 
@@ -238,3 +241,7 @@ export class Level {
     delete this;
   }
 }
+
+// -----------------------------------------------------------------------------
+
+export default Level;

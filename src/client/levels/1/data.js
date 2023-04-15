@@ -108,7 +108,7 @@ const textBubbles = [
 
 // -----------------------------------------------------------------------------
 
-export const levelData = {
+const levelData = {
   init: (initData) => {
 
   },
@@ -289,3 +289,7 @@ export const levelData = {
     ];
   }
 }
+
+// -----------------------------------------------------------------------------
+
+export default levelData;
