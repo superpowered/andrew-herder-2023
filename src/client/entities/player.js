@@ -7,7 +7,7 @@ import { CONTROLS } from '../constants';
 import { keepInBounds, shakeScreen } from '../utils';
 
 // Other Entities
-import Projectile from "./projectile";
+import Projectile from './projectile';
 
 // -----------------------------------------------------------------------------
 
@@ -25,9 +25,9 @@ class Player {
     this.speedX = 0;
     this.speedY = 0;
 
-    this.x = (this.game.bounds.width / 2) - (this.width / 2);
-    this.y = (this.game.bounds.height / 2) - (this.height / 2);
-    
+    this.x = this.game.bounds.width / 2 - this.width / 2;
+    this.y = this.game.bounds.height / 2 - this.height / 2;
+
     // TODO: convert positions on all things to use a position compoosed class
     this.hasPosition = {
       x: 'TODO',
@@ -45,7 +45,7 @@ class Player {
     this.idleFrame = 0;
     setInterval(() => {
       this.idleFrame++;
-      if(this.idleFrame > 3) {
+      if (this.idleFrame > 3) {
         this.idleFrame = 0;
       }
     }, 200);
@@ -77,16 +77,16 @@ class Player {
   }
 
   update(inputKeys, deltaTime) {
-    if(this.markedForDeletion){
+    if (this.markedForDeletion) {
       return;
     }
 
-    if(this.game.gameOver){
+    if (this.game.gameOver) {
       return;
     }
 
-    if(!this.controllable) {
-      if(this.y !== this.spawnY) {
+    if (!this.controllable) {
+      if (this.y !== this.spawnY) {
         this.y += 5;
       } else {
         this.controllable = true;
@@ -96,36 +96,43 @@ class Player {
 
     // Handle L R Movement
     this.x += this.speedX;
-    if(inputKeys.includes(CONTROLS.RIGHT)) {
+    if (inputKeys.includes(CONTROLS.RIGHT)) {
       this.speedX = this.maxSpeed;
       this.facing = 'r';
-    } else if(inputKeys.includes(CONTROLS.LEFT)) {
+    } else if (inputKeys.includes(CONTROLS.LEFT)) {
       this.speedX = -this.maxSpeed;
       this.facing = 'l';
     } else {
       this.speedX = 0;
-    } 
+    }
 
     // Handle U D Movement
     this.y += this.speedY;
-    if(inputKeys.includes(CONTROLS.UP)) {
+    if (inputKeys.includes(CONTROLS.UP)) {
       this.speedY = -this.maxSpeed;
       this.facing = 'u';
-    } else if(inputKeys.includes(CONTROLS.DOWN)) {
+    } else if (inputKeys.includes(CONTROLS.DOWN)) {
       this.speedY = this.maxSpeed;
       this.facing = 'd';
     } else {
       this.speedY = 0;
-    } 
+    }
 
-    if(this.invulnerable && this.invulnerableTime > this.invulnerableDuration ) {
+    if (
+      this.invulnerable &&
+      this.invulnerableTime > this.invulnerableDuration
+    ) {
       this.invulnerable = false;
       this.invulnerableTime = 0;
     } else {
       this.invulnerableTime += deltaTime;
     }
 
-    if(inputKeys.includes(CONTROLS.SHOOT) && this.lastFired > this.fireRate && this.render) {
+    if (
+      inputKeys.includes(CONTROLS.SHOOT) &&
+      this.lastFired > this.fireRate &&
+      this.render
+    ) {
       this.lastFired = 0;
       this.fireProjectile();
     } else {
@@ -133,15 +140,15 @@ class Player {
     }
 
     keepInBounds(this, this.game.bounds);
-    
+
     this.checkCollisions();
 
-    if(this.particles && this.particles.length) {
-      this.particles.forEach(particle => particle.update());
+    if (this.particles && this.particles.length) {
+      this.particles.forEach((particle) => particle.update());
 
       // Delay destruction
       this.destroyedTime += deltaTime;
-      if(this.destroyedTime > 1000) {
+      if (this.destroyedTime > 1000) {
         this.particles = null;
         this.destroy();
       }
@@ -149,32 +156,48 @@ class Player {
   }
 
   draw(context, deltaTime, debug = true) {
-    if(debug) {
+    if (debug) {
       context.fillStyle = 'red';
       context.fillRect(this.x, this.y, this.width, this.height);
     }
-    if(this.render) {
-      context.drawImage(this.image, this.idleFrame * this.swidth, 0, this.sheight, this.swidth, this.x, this.y, this.width, this.height);
+    if (this.render) {
+      context.drawImage(
+        this.image,
+        this.idleFrame * this.swidth,
+        0,
+        this.sheight,
+        this.swidth,
+        this.x,
+        this.y,
+        this.width,
+        this.height,
+      );
     }
 
-    if(this.particles) {
-      this.particles.forEach(particle => particle.draw(context));
+    if (this.particles) {
+      this.particles.forEach((particle) => particle.draw(context));
     }
   }
 
   fireProjectile() {
     const dirX = this.x - this.game.mousePos.x;
     const dirY = this.y - this.game.mousePos.y;
-    const distanceFromCenter = .25;
+    const distanceFromCenter = 0.25;
 
-    const direction = new Victor(dirX,dirY).normalize();
+    const direction = new Victor(dirX, dirY).normalize();
     const projectile = new Projectile(
-      this.game, 
+      this.game,
       this.projectileSize,
-      this.x + this.width / 2 - this.projectileSize / 2 - direction.x * this.width * distanceFromCenter, 
-      this.y + this.height / 2 - this.projectileSize / 2 - direction.y * this.height * distanceFromCenter,
-      direction.x * - this.projectileSpeed, 
-      direction.y * - this.projectileSpeed,
+      this.x +
+        this.width / 2 -
+        this.projectileSize / 2 -
+        direction.x * this.width * distanceFromCenter,
+      this.y +
+        this.height / 2 -
+        this.projectileSize / 2 -
+        direction.y * this.height * distanceFromCenter,
+      direction.x * -this.projectileSpeed,
+      direction.y * -this.projectileSpeed,
       ['textPixel', 'enemy'],
       'playerProjectile',
     );
@@ -182,7 +205,7 @@ class Player {
   }
 
   hit() {
-    if(this.invulnerable) {
+    if (this.invulnerable) {
       return;
     }
 
@@ -190,19 +213,21 @@ class Player {
     this.invulnerable = true;
     shakeScreen();
 
-    if(this.health < 0) {
+    if (this.health < 0) {
       this.render = false;
-      for(let x = 0; x < 500; x++) {
-        this.particles.push(new TextPixelParticle({
-          x: this.x,
-          y: this.y,
-          r: 255,
-          g: 255,
-          b: 255,
-          a: 1,
-          height: 4,
-          width: 4,
-        }));
+      for (let x = 0; x < 500; x++) {
+        this.particles.push(
+          new TextPixelParticle({
+            x: this.x,
+            y: this.y,
+            r: 255,
+            g: 255,
+            b: 255,
+            a: 1,
+            height: 4,
+            width: 4,
+          }),
+        );
       }
     }
   }
@@ -212,14 +237,13 @@ class Player {
     this.game.gameOver = true;
   }
 
-  checkCollisions() {
-  }
+  checkCollisions() {}
 }
 
 // TODO: this should just be a generic class somewhere
 class TextPixelParticle {
   constructor(pixel) {
-    const { x, y, r, g, b, a, height, width} = pixel;
+    const { x, y, r, g, b, a, height, width } = pixel;
     this.x = x;
     this.y = y;
     this.r = r;
@@ -229,8 +253,8 @@ class TextPixelParticle {
     this.initialA = a;
     this.height = height;
     this.width = width;
-    var plusOrMinusX = Math.random() < 0.5 ? -1 : 1;
-    var plusOrMinusY = Math.random() < 0.5 ? -1 : 1;
+    const plusOrMinusX = Math.random() < 0.5 ? -1 : 1;
+    const plusOrMinusY = Math.random() < 0.5 ? -1 : 1;
     this.vx = Math.random() * 2 * plusOrMinusX;
     this.vy = Math.random() * 2 * plusOrMinusY;
   }
@@ -238,7 +262,7 @@ class TextPixelParticle {
   update() {
     this.x += this.vx;
     this.y += this.vy;
-    this.a -= this.initialA * .02;
+    this.a -= this.initialA * 0.02;
   }
 
   draw(context) {

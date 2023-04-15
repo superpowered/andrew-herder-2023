@@ -9,7 +9,7 @@ import { InputSystem, TextSystem } from './systems';
 
 // -----------------------------------------------------------------------------
 
-export class Game {
+class Game {
   constructor(sprites, canvas, context, width, height, dpr) {
     // Constraints
     this.width = width;
@@ -17,7 +17,7 @@ export class Game {
     this.bounds = {
       height,
       width,
-    }
+    };
 
     // Load items
     this.dpr = dpr;
@@ -27,7 +27,9 @@ export class Game {
     // Score
     this.score = 0;
     this.lastScore = null;
-    this.scoreElement = Array.from(document.getElementsByClassName('score-counter'));
+    this.scoreElement = Array.from(
+      document.getElementsByClassName('score-counter'),
+    );
     this.gameOver = false;
 
     // Changeable Game Data
@@ -47,10 +49,7 @@ export class Game {
     // Levels
     this.lastLevel = null;
     this.level = 0;
-    this.levels = [
-      new Level0(this, context),
-      new Level1(this, context),
-    ];
+    this.levels = [new Level0(this, context), new Level1(this, context)];
 
     // Initialize our collision items
     this.collisionItems = [
@@ -68,10 +67,10 @@ export class Game {
     // Add listener to keep mouse position updated
     const rect = canvas.getBoundingClientRect();
     document.addEventListener('mousemove', (e) => {
-      if(!this.isTouch) {
+      if (!this.isTouch) {
         this.mousePos = {
           x: e.clientX - rect.left,
-          y: e.clientY - rect.top
+          y: e.clientY - rect.top,
         };
       }
     });
@@ -87,7 +86,7 @@ export class Game {
     this.player && this.player.update(this.inputSystem.keys, deltaTime);
 
     // Mobile fix
-    if(this.isTouch) {
+    if (this.isTouch) {
       this.mousePos = {
         x: this.player.x,
         y: this.player.y - this.player.height,
@@ -95,28 +94,28 @@ export class Game {
     }
 
     // Level
-    if(this.lastLevel !== this.level) {
+    if (this.lastLevel !== this.level) {
       this.lastLevel = this.level;
       this.levels[this.level].init(this, context);
     }
-    if(this.levels[this.level] && this.levels[this.level].initialized) {
+    if (this.levels[this.level] && this.levels[this.level].initialized) {
       this.levels[this.level].update(deltaTime);
     }
 
     // Enemies
-    this.enemies = this.enemies.filter( (enemy) => {
+    this.enemies = this.enemies.filter((enemy) => {
       enemy.update(deltaTime);
       return !enemy.markedForDeletion;
     });
 
     // Text Pixels (TODO: should these just be lumped in with enemies?)
-    this.textPixels = this.textPixels.filter( pixel => { 
+    this.textPixels = this.textPixels.filter((pixel) => {
       pixel.update(deltaTime);
       return !pixel.markedForDeletion;
     });
 
     // Projectiles
-    this.projectiles = this.projectiles.filter( (projectile) => {
+    this.projectiles = this.projectiles.filter((projectile) => {
       projectile.update(this.bounds, this.collisionItems);
       return !projectile.markedForDeletion;
     });
@@ -130,9 +129,9 @@ export class Game {
     ];
 
     // Score Updater
-    if(this.score !== this.lastScore) {
+    if (this.score !== this.lastScore) {
       this.lastScore = this.score;
-      this.scoreElement.forEach(el => {
+      this.scoreElement.forEach((el) => {
         el.innerText = this.score;
       });
     }
@@ -140,8 +139,14 @@ export class Game {
 
   draw(context, deltaTime) {
     this.player && this.player.draw(context, deltaTime, false, this.dpr);
-    this.enemies.forEach( enemy => enemy.draw(context, deltaTime, false, this.dpr));
-    this.projectiles.forEach( projectile => projectile.draw(context));
-    this.textPixels.forEach( pixel => pixel.draw(context));
+    this.enemies.forEach((enemy) =>
+      enemy.draw(context, deltaTime, false, this.dpr),
+    );
+    this.projectiles.forEach((projectile) => projectile.draw(context));
+    this.textPixels.forEach((pixel) => pixel.draw(context));
   }
 }
+
+// -----------------------------------------------------------------------------
+
+export default Game;

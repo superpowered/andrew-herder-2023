@@ -22,7 +22,7 @@ const textBubbles = [
       {
         string: 'Calm down there bud.',
         speed: 30,
-      }
+      },
     ],
   },
   {
@@ -62,11 +62,11 @@ const textBubbles = [
         speed: 40,
       },
       {
-        string: 'This is like my life\'s work.',
+        string: "This is like my life's work.",
         speed: 40,
       },
       {
-        string: 'I\'m nothing without this website.',
+        string: "I'm nothing without this website.",
         speed: 30,
         classes: ['small'],
       },
@@ -111,21 +111,19 @@ const textBubbles = [
       },
     ],
   },
-]
+];
 
 // -----------------------------------------------------------------------------
 
 const levelData = {
-  init: (initData) => {
-
-  },
+  init: (initData) => {},
   events: (initData) => {
     return [
       // DEBUG: Fast Forward to level 1
       // {
       //   id: 'intro_text_4',
       //   triggered: false,
-      //   trigger: (data) => { 
+      //   trigger: (data) => {
       //     return true;
       //   }  ,
       //   action: (data) => {
@@ -138,78 +136,78 @@ const levelData = {
       {
         id: 'intro_text_1',
         triggered: false,
-        trigger: (data) => { 
-          return data.count < data.initialCount - data.initialCount * .01;
-        }  ,
+        trigger: (data) => {
+          return data.count < data.initialCount - data.initialCount * 0.01;
+        },
         action: (data) => {
-          data['intro_text_1'] = true;
+          data.intro_text_1 = true;
           data.game.textSystem.makeText(textBubbles[0]);
-        }
+        },
       },
       {
         id: 'intro_text_2',
         triggered: false,
-        trigger: (data) => { 
-          return data.count < data.initialCount - data.initialCount * .05;
-        }  ,
+        trigger: (data) => {
+          return data.count < data.initialCount - data.initialCount * 0.05;
+        },
         action: (data) => {
-          data['intro_text_2'] = true;
+          data.intro_text_2 = true;
           data.game.textSystem.makeText(textBubbles[1]);
-        }
+        },
       },
       {
         id: 'intro_text_3',
         triggered: false,
-        trigger: (data) => { 
-          return data.count < data.initialCount - data.initialCount * .1;
-        }  ,
+        trigger: (data) => {
+          return data.count < data.initialCount - data.initialCount * 0.1;
+        },
         action: (data) => {
-          data['intro_text_3'] = true;
+          data.intro_text_3 = true;
           data.game.textSystem.makeText(textBubbles[2]);
-        }
+        },
       },
       {
         id: 'intro_text_4',
         triggered: false,
-        trigger: (data) => { 
-          return data.count < data.initialCount - data.initialCount * .15;
-        }  ,
+        trigger: (data) => {
+          return data.count < data.initialCount - data.initialCount * 0.15;
+        },
         action: (data) => {
-          data['intro_text_4'] = true;
+          data.intro_text_4 = true;
           data.game.textSystem.makeText(textBubbles[3]);
           shakeScreen();
-          data.game.textPixels.forEach( pixel => pixel.destroy(true));
+          data.game.textPixels.forEach((pixel) => pixel.destroy(true));
           data.textElement.remove();
-        }
+        },
       },
       {
         id: 'intro_text_5',
         triggered: false,
-        trigger: (data) => { 
-          return data['intro_text_4'];
-        }  ,
+        trigger: (data) => {
+          return data.intro_text_4;
+        },
         action: (data) => {
-          data['intro_text_5'] = true;
+          data.intro_text_5 = true;
           setTimeout(() => data.game.textSystem.makeText(textBubbles[4]), 2000);
-        }
+        },
       },
       {
         id: 'end_level',
         triggered: false,
-        trigger: (data) => { 
-          return data['intro_text_5'];
-        }  ,
+        trigger: (data) => {
+          return data.intro_text_5;
+        },
         action: (data) => {
-          data['end_level'] = true;
+          data.end_level = true;
           setTimeout(() => {
             data.game.level = 1;
             data.unload();
           }, 4000);
-        }
+        },
       },
     ];
-  }
-}
+  },
+};
 
 // -----------------------------------------------------------------------------
 

@@ -30,7 +30,7 @@ const textBubbles = [
         speed: 60,
       },
       {
-        string: 'Y\'know,',
+        string: "Y'know,",
         speed: 10,
       },
       {
@@ -72,7 +72,7 @@ const textBubbles = [
         string: ' ',
       },
       {
-        string: 'Your\'e supposed to run INTO the pixels!',
+        string: "Your'e supposed to run INTO the pixels!",
         speed: 70,
       },
     ],
@@ -88,12 +88,13 @@ const textBubbles = [
         delayAfter: 500,
       },
       {
-        string: 'You\'ve managed to expend the amount of minions I can spawn per second.',
+        string:
+          "You've managed to expend the amount of minions I can spawn per second.",
         speed: 70,
         delayAfter: 500,
       },
       {
-        string: '(No really, I didn\'t code much past this. So uhh....',
+        string: "(No really, I didn't code much past this. So uhh....",
         speed: 50,
         classes: ['small'],
       },
@@ -103,22 +104,20 @@ const textBubbles = [
         classes: ['small'],
       },
     ],
-  }
-]
+  },
+];
 
 // -----------------------------------------------------------------------------
 
 const levelData = {
-  init: (initData) => {
-
-  },
+  init: (initData) => {},
   events: (initData) => {
     return [
       // DEBUG: Fast Forward to game over
       // {
       //   id: 'game_over',
       //   triggered: false,
-      //   trigger: (data) => { 
+      //   trigger: (data) => {
       //     return true;
       //   }  ,
       //   action: (data) => {
@@ -133,50 +132,50 @@ const levelData = {
       {
         id: 'level_1_text_1',
         triggered: false,
-        trigger: (data) => { 
+        trigger: (data) => {
           return data.game.score >= 10;
-        }  ,
+        },
         action: (data) => {
-          data['level_1_text_1'] = true;
+          data.level_1_text_1 = true;
           data.game.textSystem.makeText(textBubbles[5]);
           data.spawnRate -= 500;
-        }
+        },
       },
       {
         id: 'level_1_text_2',
         triggered: false,
-        trigger: (data) => { 
+        trigger: (data) => {
           return data.game.score >= 30;
-        }  ,
+        },
         action: (data) => {
-          data['level_1_text_2'] = true;
+          data.level_1_text_2 = true;
           data.game.textSystem.makeText(textBubbles[6]);
           data.spawnRate -= 500;
-        }
+        },
       },
       {
         id: 'level_1_text_3',
         triggered: false,
-        trigger: (data) => { 
+        trigger: (data) => {
           return data.game.score >= 50;
-        }  ,
+        },
         action: (data) => {
-          data['level_1_text_3'] = true;
+          data.level_1_text_3 = true;
           data.game.textSystem.makeText(textBubbles[7]);
           data.spawnRate -= 200;
-        }
+        },
       },
       {
         id: 'level_1_text_4',
         triggered: false,
-        trigger: (data) => { 
+        trigger: (data) => {
           return data.game.score >= 100;
-        }  ,
+        },
         action: (data) => {
-          data['level_1_text_4'] = true;
+          data.level_1_text_4 = true;
           data.game.textSystem.makeText(textBubbles[8]);
           data.spawnRate -= 200;
-        }
+        },
       },
       {
         id: 'game_over',
@@ -184,8 +183,8 @@ const levelData = {
         trigger: (data) => data.game.gameOver,
         action: (data) => {
           // TODO: I should move all of this to like a  "level end" file
-          data['game_over'] = true;
-          data.game.scoreElement.forEach(el => {
+          data.game_over = true;
+          data.game.scoreElement.forEach((el) => {
             el.classList.remove('active');
           });
 
@@ -197,17 +196,26 @@ const levelData = {
           endScreen.classList.add('active');
 
           // TODO: eventually could probably find a way to get mobile input
-          if(data.game.isTouch) {
+          if (data.game.isTouch) {
             endScreen.classList.remove('active');
             scoreboard.classList.add('active');
             return;
           }
 
-          let initials = [];
-          window.addEventListener('keydown', async e => {
-            const lastInitial = document.getElementById('initials-' + initials.length);
-            const nextInitial = document.getElementById('initials-' + (initials.length + 1));
-            if((e.key === 'Delete' || e.key === 'Backspace' || e.key === 'Escape') && initials.length) {
+          const initials = [];
+          window.addEventListener('keydown', async (e) => {
+            const lastInitial = document.getElementById(
+              `initials-${initials.length}`,
+            );
+            const nextInitial = document.getElementById(
+              `initials-${initials.length + 1}`,
+            );
+            if (
+              (e.key === 'Delete' ||
+                e.key === 'Backspace' ||
+                e.key === 'Escape') &&
+              initials.length
+            ) {
               initials.pop();
               lastInitial.innerText = '';
               lastInitial?.classList.add('active');
@@ -216,33 +224,48 @@ const levelData = {
               return;
             }
 
-            if(initials.length >= 3) {
-              if(e.key === 'Enter') {
+            if (initials.length >= 3) {
+              if (e.key === 'Enter') {
                 const disallowed = [
-                  'ass', 'cum', 'fag', 'gay', 'god', 'jew', 'tit'
+                  'ass',
+                  'cum',
+                  'fag',
+                  'gay',
+                  'god',
+                  'jew',
+                  'tit',
                 ];
                 const name = initials.join('');
-                if(disallowed.includes(name.toLowerCase())) {
+                if (disallowed.includes(name.toLowerCase())) {
                   shakeScreen();
                   return;
                 }
-                const respData = await axios.post('/api/score', {
-                  score: data.game.score + 1,
-                  name,
-                  date: new Date().toString(),
-                }, {
-                  headers: {
-                    'Content-Type': 'application/json'
-                  }
-                });
+                const respData = await axios.post(
+                  '/api/score',
+                  {
+                    score: data.game.score + 1,
+                    name,
+                    date: new Date().toString(),
+                  },
+                  {
+                    headers: {
+                      'Content-Type': 'application/json',
+                    },
+                  },
+                );
                 console.log(respData);
 
-                if(respData?.data?.scores?.length && !respData?.data?.error) {
+                if (respData?.data?.scores?.length && !respData?.data?.error) {
                   respData.data.scores.forEach((resp) => {
-                    const name = resp.name;
-                    const score = resp.score;
+                    const { name } = resp;
+                    const { score } = resp;
 
-                    if(typeof name === 'string' && name.length === 3 && !disallowed.includes(name.toLowerCase()) && Number.isInteger(score)) {
+                    if (
+                      typeof name === 'string' &&
+                      name.length === 3 &&
+                      !disallowed.includes(name.toLowerCase()) &&
+                      Number.isInteger(score)
+                    ) {
                       const listItem = document.createElement('li');
                       const nameSpan = document.createElement('span');
                       nameSpan.innerText = name;
@@ -252,7 +275,13 @@ const levelData = {
                       listItem.appendChild(scoreSpan);
                       scoreboardList.appendChild(listItem);
                     } else {
-                      console.log(name, score, typeof name === 'string', Number.isInteger(score), name.length);
+                      console.log(
+                        name,
+                        score,
+                        typeof name === 'string',
+                        Number.isInteger(score),
+                        name.length,
+                      );
                     }
                   });
                 }
@@ -264,7 +293,7 @@ const levelData = {
             }
 
             const key = e.key.toUpperCase();
-            if(!key.match(/^[a-z0-9]{1}$/i)) {
+            if (!key.match(/^[a-z0-9]{1}$/i)) {
               return;
             }
             lastInitial?.classList.remove('active');
@@ -272,23 +301,23 @@ const levelData = {
 
             initials.push(key);
             initials.forEach((init, i) => {
-              const initial = document.getElementById('initials-' + (i + 1));
-              if(!initial) {
+              const initial = document.getElementById(`initials-${i + 1}`);
+              if (!initial) {
                 return;
               }
               initial.innerText = init;
             });
 
-            if(initials.length === 3) {
+            if (initials.length === 3) {
               enter.classList.add('active');
               nextInitial?.classList.remove('active');
             }
           });
-        }
+        },
       },
     ];
-  }
-}
+  },
+};
 
 // -----------------------------------------------------------------------------
 

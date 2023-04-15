@@ -8,7 +8,7 @@ import levelData from './data';
 
 class Level {
   constructor(game, context) {
-    this.game = game; 
+    this.game = game;
 
     this.levelData = levelData;
     this.events = [];
@@ -18,17 +18,17 @@ class Level {
 
   init = () => {
     // register our events
-    this.events = this.levelData.events(this).map(event => event);
+    this.events = this.levelData.events(this).map((event) => event);
     this.initialized = true;
-    this.game.scoreElement.forEach(el => {
+    this.game.scoreElement.forEach((el) => {
       el.classList.add('active');
     });
-  }
+  };
 
-  update(deltaTime){
-     // Loop through our level events and do things as needed
+  update(deltaTime) {
+    // Loop through our level events and do things as needed
     this.events.filter((event) => {
-      if(!event.triggered && event.trigger(this)) { 
+      if (!event.triggered && event.trigger(this)) {
         event.triggered = true;
         event.action(this);
       }
@@ -38,7 +38,7 @@ class Level {
       return;
     }
 
-    if(this.game.enemies.length < 100 && this.lastSpawned > this.spawnRate) {
+    if (this.game.enemies.length < 100 && this.lastSpawned > this.spawnRate) {
       this.lastSpawned = 0;
       const enemy = new Enemy(this.game);
       this.game.enemies.unshift(enemy);

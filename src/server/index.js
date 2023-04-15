@@ -15,11 +15,9 @@ const httpServer = http.createServer(server).listen(httpListenerPort, () => {
   console.log(`http app is listening at localhost:${httpListenerPort}`);
 });
 
-const httpsServer = https
-  .createServer(server)
-  .listen(httpsListenerPort, () => {
-    console.log(`https app is listening at localhost:${httpsListenerPort}`);
-  });
+const httpsServer = https.createServer(server).listen(httpsListenerPort, () => {
+  console.log(`https app is listening at localhost:${httpsListenerPort}`);
+});
 
 /**
  * Forcibly exits this process after the given seconds.

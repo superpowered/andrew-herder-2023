@@ -1,5 +1,5 @@
 // Game
-import { Game } from "./game";
+import Game from './game';
 
 // Styles
 import './styles/index.scss';
@@ -15,8 +15,8 @@ const init = (sprites) => {
   const fps = document.getElementById('fps');
   const ctx = canvas.getContext('2d');
 
-  if(!canvas || !fps) {
-    console.error('Missing some important stuff, that\'s for sure');
+  if (!canvas || !fps) {
+    console.error("Missing some important stuff, that's for sure");
     return;
   }
 
@@ -25,9 +25,9 @@ const init = (sprites) => {
   const dpr = window.devicePixelRatio || 1;
   canvas.width = rect.width * dpr;
   canvas.height = rect.height * dpr;
-  canvas.style.width = rect.width + 'px';
-  canvas.style.height = rect.height + 'px';
-  ctx.imageSmoothingEnabled= false;
+  canvas.style.width = `${rect.width}px`;
+  canvas.style.height = `${rect.height}px`;
+  ctx.imageSmoothingEnabled = false;
   ctx.scale(dpr, dpr);
 
   // Initialize the game
@@ -35,7 +35,7 @@ const init = (sprites) => {
   document.documentElement.classList.add('game-loaded');
 
   // Storing an array of fps counts to get a less jittery number by getting the average
-  let fpsAvs = Array(100).fill(0);
+  const fpsAvs = Array(100).fill(0);
   let lastTime = 0;
   const requiredElapsed = 1000 / 120; // desired interval is 60fps
 
@@ -45,20 +45,24 @@ const init = (sprites) => {
     const deltaTime = timeStamp - lastTime;
     // lastTime = timeStamp;
 
-    if (!lastTime) { lastTime = timeStamp; }
+    if (!lastTime) {
+      lastTime = timeStamp;
+    }
     if (deltaTime > requiredElapsed) {
-      fpsAvs.unshift(1 / (deltaTime / 1000)|0);
+      fpsAvs.unshift((1 / (deltaTime / 1000)) | 0);
       fpsAvs.pop();
-      fps.innerText = 'FPS: ' + (fpsAvs.reduce((l, t) => l+t, 0) / fpsAvs.length|0);
+      fps.innerText = `FPS: ${
+        (fpsAvs.reduce((l, t) => l + t, 0) / fpsAvs.length) | 0
+      }`;
 
       // Clear Whole Screen and run game loop
-      ctx.clearRect(0,0, canvas.width, canvas.height);
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
       game.draw(ctx, deltaTime);
       game.update(ctx, deltaTime);
       lastTime = timeStamp;
     }
     requestAnimationFrame(animate);
-  }
+  };
   animate(0);
 };
 
@@ -66,12 +70,17 @@ const init = (sprites) => {
 
 const loadSite = () => {
   console.log('Hello, my treacherous friends');
-  console.log('Repo for this can be found here: https://github.com/superpowered/andrew-herder-2023');
+  console.log(
+    'Repo for this can be found here: https://github.com/superpowered/andrew-herder-2023',
+  );
 
   // Make sure fonts are loaded
   let fonts = false;
-  document.fonts.ready.then(function () {
-    if(document.fonts.check('1em "Press Start 2P"') && document.fonts.check('1em "Black Han Sans"')) {
+  document.fonts.ready.then(() => {
+    if (
+      document.fonts.check('1em "Press Start 2P"') &&
+      document.fonts.check('1em "Black Han Sans"')
+    ) {
       fonts = true;
     }
   });
@@ -81,11 +90,11 @@ const loadSite = () => {
   const playerSprite = new Image();
   playerSprite.src = vita;
   playerSprite.addEventListener(
-    "load",
+    'load',
     () => {
       playerSpriteLoaded = true;
     },
-    false
+    false,
   );
 
   // Load up our enemy sprite
@@ -93,16 +102,16 @@ const loadSite = () => {
   const enemySprite = new Image();
   enemySprite.src = mort;
   enemySprite.addEventListener(
-    "load",
+    'load',
     () => {
       enemySpriteLoaded = true;
     },
-    false
+    false,
   );
 
   // Runs a reload loop until all the assets are loaded
   const loader = () => {
-    if(!fonts || !playerSpriteLoaded || !enemySpriteLoaded) {
+    if (!fonts || !playerSpriteLoaded || !enemySpriteLoaded) {
       setTimeout(loader, 500);
       return;
     }
@@ -110,9 +119,9 @@ const loadSite = () => {
     // Once we're sure everythings loaded, we can start the init loops
     init({
       playerSprite,
-      enemySprite, 
+      enemySprite,
     });
-  }
+  };
   window.addEventListener('load', loader);
 };
 loadSite();

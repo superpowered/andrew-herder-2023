@@ -3,7 +3,4 @@ import TextSystem from './text';
 
 // -----------------------------------------------------------------------------
 
-export {
-  InputSystem,
-  TextSystem,
-};
+export { InputSystem, TextSystem };

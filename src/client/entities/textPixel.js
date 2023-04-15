@@ -18,24 +18,25 @@ class TextPixel {
   }
 
   update(deltaTime) {
-    if(this.particles && this.particles.length) {
-      this.particles.forEach(particle => particle.update());
+    if (this.particles && this.particles.length) {
+      this.particles.forEach((particle) => particle.update());
 
       // Delay destruction
       this.destroyedTime += deltaTime;
-      if(this.destroyedTime > 500) {
+      if (this.destroyedTime > 500) {
         this.particles = null;
         this.markedForDeletion = true;
       }
     }
   }
 
-  draw(context, debug = false){
-    if(this.render) {
+  draw(context, debug = false) {
+    if (this.render) {
       context.beginPath();
       context.rect(this.x, this.y, this.width, this.height);
-      if(debug) {
-        context.strokeStyle = this.height === 1 ? 'red' : this.height === 2 ? 'green' : 'blue';
+      if (debug) {
+        context.strokeStyle =
+          this.height === 1 ? 'red' : this.height === 2 ? 'green' : 'blue';
         context.stroke();
       } else {
         context.fillStyle = `rgba(${this.r}, ${this.g}, ${this.b}, ${this.a})`;
@@ -43,7 +44,7 @@ class TextPixel {
       }
     }
 
-    this.particles.map(particle => particle.draw(context));
+    this.particles.map((particle) => particle.draw(context));
   }
 
   hit() {
@@ -51,28 +52,38 @@ class TextPixel {
   }
 
   destroy(massDestroy = false) {
-    if(!this.render) {
+    if (!this.render) {
       return;
     }
     this.render = false;
 
-    for(let x = 0; x < (massDestroy ? 1 : 5); x++) {
-      this.particles.push(new TextPixelParticle({ 
-        ...this.pixels[0].pixelData,
-        height: this.height,
-        width: this.width,
-      }));
+    for (let x = 0; x < (massDestroy ? 1 : 5); x++) {
+      this.particles.push(
+        new TextPixelParticle({
+          ...this.pixels[0].pixelData,
+          height: this.height,
+          width: this.width,
+        }),
+      );
     }
   }
 }
-
 
 // -----------------------------------------------------------------------------
 
 // TODO: this should just be a generic class somewhere
 class TextPixelParticle {
   constructor(pixel) {
-    const { x, y, r = 255, g = 255, b = 255, a = 1, height = 1, width = 1 } = pixel;
+    const {
+      x,
+      y,
+      r = 255,
+      g = 255,
+      b = 255,
+      a = 1,
+      height = 1,
+      width = 1,
+    } = pixel;
     this.x = x;
     this.y = y;
     this.r = r;
@@ -82,7 +93,7 @@ class TextPixelParticle {
     this.initialA = a;
     this.height = height;
     this.width = width;
-    var plusOrMinusX = Math.random() < 0.5 ? -1 : 1;
+    const plusOrMinusX = Math.random() < 0.5 ? -1 : 1;
     this.vx = Math.random() * 1.5 * plusOrMinusX;
     this.vy = Math.random() * 2;
   }
@@ -90,7 +101,7 @@ class TextPixelParticle {
   update() {
     this.x += this.vx;
     this.y += this.vy;
-    this.a -= this.initialA * .04;
+    this.a -= this.initialA * 0.04;
   }
 
   draw(context) {

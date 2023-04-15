@@ -1,7 +1,7 @@
-import Enemy from "./enemy";
-import Player from "./player";
-import Projectile from "./projectile";
-import TextPixel from "./textPixel";
+import Enemy from './enemy';
+import Player from './player';
+import Projectile from './projectile';
+import TextPixel from './textPixel';
 
 // -----------------------------------------------------------------------------
 
@@ -11,4 +11,4 @@ export {
   Player,
   Projectile,
   TextPixel,
-}
+};

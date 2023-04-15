@@ -29,7 +29,7 @@ export default {
         use: ['babel-loader'],
         resolve: {
           fullySpecified: false,
-        }
+        },
       },
     ],
   },
@@ -39,5 +39,5 @@ export default {
   },
   externals: {
     express: 'express',
-  }
+  },
 };

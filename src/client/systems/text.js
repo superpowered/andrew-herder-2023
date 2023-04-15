@@ -13,14 +13,14 @@ class TextBubble {
 
   init(textData) {
     const list = textData.text.reduce((prev, textObj, i) => {
-      if(i < textData.text.length - 1 && !textObj.noEndSpace) {
+      if (i < textData.text.length - 1 && !textObj.noEndSpace) {
         textObj.string += ' ';
       }
 
       const thisList = textObj.string.split('').map((char, pos) => {
         const span = document.createElement('span');
         span.textContent = char;
-        textObj.classes?.forEach(className => {
+        textObj.classes?.forEach((className) => {
           span.classList.add(className);
         });
         this.textElement.appendChild(span);
@@ -30,38 +30,38 @@ class TextBubble {
           isSpace: char === ' ',
           speed: textObj.speed,
           classes: textObj.classes ?? [],
-          delay: textObj.delayAfter && pos >= textObj.string.length - 1 ? textObj.delayAfter : 0,
+          delay:
+            textObj.delayAfter && pos >= textObj.string.length - 1
+              ? textObj.delayAfter
+              : 0,
         };
       });
-      return [
-        ...prev,
-        ...thisList,
-      ]
+      return [...prev, ...thisList];
     }, []);
-    textData.classes?.forEach(className => {
+    textData.classes?.forEach((className) => {
       this.textElement.classList.add(className);
     });
     this.textAnchor.appendChild(this.textElement);
     this.revealOneCharacter(list);
 
-    setTimeout(()=> this.destroy(), textData.ttl);
+    setTimeout(() => this.destroy(), textData.ttl);
   }
 
   revealOneCharacter(list) {
-    const next = list.splice(0,1)[0];
+    const next = list.splice(0, 1)[0];
     next.span.classList.add('revealed');
 
-    if(list.length) {
-      const speed =  next.isSpace ? 0 : next.speed;
+    if (list.length) {
+      const speed = next.isSpace ? 0 : next.speed;
       setTimeout(() => this.revealOneCharacter(list), speed + next.delay);
     }
   }
 
   destroy() {
     this.textElement.classList.add('removed');
-    setTimeout(()=>  { 
+    setTimeout(() => {
       this.destroyed = true;
-      this.textElement.remove() 
+      this.textElement.remove();
     }, 100);
   }
 }
@@ -72,23 +72,27 @@ class TextSystem {
   constructor() {
     this.textBubbles = [];
     this.textAnchor = document.getElementById('text-bubble-anchor');
-    this.textElement = document.getElementById('text-bubble-template').cloneNode();
+    this.textElement = document
+      .getElementById('text-bubble-template')
+      .cloneNode();
     this.textElement.id = '';
     document.getElementById('text-bubble-template').remove();
   }
 
   makeText(textData) {
-    this.textBubbles = this.textBubbles.filter(textBubble => { 
-      if(textBubble.textData.removeOnNew) {
+    this.textBubbles = this.textBubbles.filter((textBubble) => {
+      if (textBubble.textData.removeOnNew) {
         textBubble.destroy();
       }
       return !textBubble.destroyed;
     });
 
     // TODO: can I break this away from setTimeout? Maybe use like deltaTime or similar
-    setTimeout(()=> {
-      this.textBubbles.push(new TextBubble(this, textData, this.textAnchor, this.textElement));
-     }, 100);
+    setTimeout(() => {
+      this.textBubbles.push(
+        new TextBubble(this, textData, this.textAnchor, this.textElement),
+      );
+    }, 100);
   }
 }
 

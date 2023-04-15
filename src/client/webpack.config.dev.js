@@ -1,5 +1,5 @@
 import HtmlWebpackPlugin from 'html-webpack-plugin';
-import MiniCssExtractPlugin from "mini-css-extract-plugin";
+import MiniCssExtractPlugin from 'mini-css-extract-plugin';
 import path from 'path';
 import { fileURLToPath } from 'url';
 
@@ -44,7 +44,7 @@ export default {
         use: ['babel-loader'],
         resolve: {
           fullySpecified: false,
-        }
+        },
       },
       {
         test: /\.(css|scss)$/,
