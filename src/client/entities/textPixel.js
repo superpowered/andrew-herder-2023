@@ -1,43 +1,4 @@
-/* eslint-disable max-classes-per-file */ // TODO
-// TODO: this should just be a generic class somewhere
-class TextPixelParticle {
-  constructor(pixel) {
-    const {
-      x,
-      y,
-      r = 255,
-      g = 255,
-      b = 255,
-      a = 1,
-      height = 1,
-      width = 1,
-    } = pixel;
-    this.x = x;
-    this.y = y;
-    this.r = r;
-    this.g = g;
-    this.b = b;
-    this.a = a;
-    this.initialA = a;
-    this.height = height;
-    this.width = width;
-    const plusOrMinusX = Math.random() < 0.5 ? -1 : 1;
-    this.vx = Math.random() * 1.5 * plusOrMinusX;
-    this.vy = Math.random() * 2;
-  }
-
-  update() {
-    this.x += this.vx;
-    this.y += this.vy;
-    this.a -= this.initialA * 0.04;
-  }
-
-  draw(context) {
-    context.beginPath();
-    context.fillStyle = `rgba(${this.r}, ${this.b}, ${this.g}, ${this.a})`;
-    context.fillRect(this.x, this.y, this.width, this.height);
-  }
-}
+import Particle from './particle';
 
 // -----------------------------------------------------------------------------
 
@@ -107,7 +68,7 @@ class TextPixel {
 
     for (let x = 0; x < (massDestroy ? 1 : 5); x++) {
       this.particles.push(
-        new TextPixelParticle({
+        new Particle({
           ...this.pixels[0].pixelData,
           height: this.height,
           width: this.width,

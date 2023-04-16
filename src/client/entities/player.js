@@ -1,4 +1,3 @@
-/* eslint-disable max-classes-per-file */ // TODO
 import Victor from 'victor';
 
 // Constants
@@ -9,40 +8,7 @@ import { keepInBounds, shakeScreen } from '../utils';
 
 // Other Entities
 import Projectile from './projectile';
-
-// -----------------------------------------------------------------------------
-
-// TODO: this should just be a generic class somewhere
-class TextPixelParticle {
-  constructor(pixel) {
-    const { x, y, r, g, b, a, height, width } = pixel;
-    this.x = x;
-    this.y = y;
-    this.r = r;
-    this.g = g;
-    this.b = b;
-    this.a = a;
-    this.initialA = a;
-    this.height = height;
-    this.width = width;
-    const plusOrMinusX = Math.random() < 0.5 ? -1 : 1;
-    const plusOrMinusY = Math.random() < 0.5 ? -1 : 1;
-    this.vx = Math.random() * 2 * plusOrMinusX;
-    this.vy = Math.random() * 2 * plusOrMinusY;
-  }
-
-  update() {
-    this.x += this.vx;
-    this.y += this.vy;
-    this.a -= this.initialA * 0.02;
-  }
-
-  draw(context) {
-    context.beginPath();
-    context.fillStyle = `rgba(${this.r}, ${this.b}, ${this.g}, ${this.a})`;
-    context.fillRect(this.x, this.y, this.width, this.height);
-  }
-}
+import Particle from './particle';
 
 // -----------------------------------------------------------------------------
 class Player {
@@ -64,7 +30,7 @@ class Player {
     this.spawnY = this.y;
     this.weight = 1;
 
-    // TODO:
+    // TODO: need an animation class / state machine
     this.idleFrame = 0;
     setInterval(() => {
       this.idleFrame += 1;
@@ -240,7 +206,7 @@ class Player {
       this.render = false;
       for (let x = 0; x < 500; x++) {
         this.particles.push(
-          new TextPixelParticle({
+          new Particle({
             x: this.x,
             y: this.y,
             r: 255,
