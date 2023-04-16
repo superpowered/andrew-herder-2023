@@ -1,7 +1,7 @@
 import Victor from 'victor';
 
 // Constants
-import { CONTROLS } from '../constants';
+import { CONTROLS, POSSIBLE_FILLS_PLAYER } from '../constants';
 
 // Utils
 import { keepInBounds, shakeScreen } from '../utils';
@@ -189,6 +189,7 @@ class Player {
       direction.y * -this.projectileSpeed,
       ['textPixel', 'enemy'],
       'playerProjectile',
+      POSSIBLE_FILLS_PLAYER,
     );
     this.game.projectiles.unshift(projectile);
   }

@@ -6,7 +6,7 @@
 
   a {
     display: block;
-    color: white;
+    color: $color-white;
     cursor: pointer;
 
     &:hover {
@@ -15,7 +15,7 @@
   }
 
   svg {
-    fill: white;
+    fill: $color-white;
   }
 
   .left-nav {

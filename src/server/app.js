@@ -1,4 +1,5 @@
 import express from 'express';
+import helmet from 'helmet';
 
 // Constants.
 import {
@@ -17,6 +18,7 @@ import { health, score } from './routes';
 const app = express();
 
 // Middleware.
+app.use(helmet());
 app.use(express.json());
 
 // API Routes

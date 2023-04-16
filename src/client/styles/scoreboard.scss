@@ -46,12 +46,12 @@
   }
 
   &-button {
-    border: 1px solid white;
+    border: 1px solid $color-white;
     padding: 1em 2em;
     text-transform: uppercase;
     font-weight: bold;
     text-decoration: none;
-    color: white;
+    color: $color-white;
     display: block;
     margin-top: 3em;
   }

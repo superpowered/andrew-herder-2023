@@ -3,12 +3,8 @@ import { isOutOfGameBounds, isRectangularCollision } from '../utils';
 
 // -----------------------------------------------------------------------------
 
-const POSSIBLE_FILLS = ['#FF5E46', '#FFFFFF', '#D18CFF', '#00FF0F', '#F7FF80'];
-
-// -----------------------------------------------------------------------------
-
 class Projectile {
-  constructor(game, size, x, y, vx, vy, collidesWith, type) {
+  constructor(game, size, x, y, vx, vy, collidesWith, type, fills) {
     this.size = size;
     this.width = size;
     this.height = size;
@@ -19,8 +15,7 @@ class Projectile {
     this.destroyed = false;
     this.textHit = 0;
     this.health = 1;
-    this.color =
-      POSSIBLE_FILLS[Math.floor(Math.random() * POSSIBLE_FILLS.length)];
+    this.color = fills[Math.floor(Math.random() * fills.length)];
     this.type = type;
 
     this.render = true;

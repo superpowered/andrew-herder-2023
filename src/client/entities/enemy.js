@@ -1,8 +1,10 @@
 import Victor from 'victor';
 
+// Constants
+import { POSSIBLE_FILLS_ENEMY } from '../constants';
+
 // Utils
 import { getDistance, keepInBounds } from '../utils';
-// import getDistance from '../utils/getDistance';
 
 // Other Entities
 import Projectile from './projectile';
@@ -102,8 +104,6 @@ class Enemy {
       }
 
       keepInBounds(this, this.game);
-
-      // this.checkCollisions();
     }
 
     if (this.particles && this.particles.length) {
@@ -167,6 +167,7 @@ class Enemy {
       direction.y * -this.projectileSpeed,
       ['player'],
       'enemyProjectile',
+      POSSIBLE_FILLS_ENEMY,
     );
     this.game.projectiles.unshift(projectile);
   }
@@ -203,8 +204,6 @@ class Enemy {
   destroy() {
     this.markedForDeletion = true;
   }
-
-  // checkCollisions() {}
 }
 
 // -----------------------------------------------------------------------------

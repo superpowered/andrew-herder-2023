@@ -21,7 +21,7 @@ body {
   overflow: hidden;
   height: 100%;
   width: 100%;
-  color: white;
+  color: $color-white;
   font-family: Courier, sans-serif;
   background-color: black;
 }
@@ -76,7 +76,7 @@ noscript {
   left: 0;
   width: 100%;
   font-size: 3em;
-  color: white;
+  color: $color-white;
   z-index: 99;
   text-align: center;
   padding: 0.25em;
