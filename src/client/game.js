@@ -110,7 +110,7 @@ class Game {
       return !enemy.markedForDeletion;
     });
 
-    // Text Pixels (TODO: should these just be lumped in with enemies?)
+    // Text Pixels
     this.textPixels = this.textPixels.filter((pixel) => {
       pixel.update(deltaTime);
       return !pixel.markedForDeletion;

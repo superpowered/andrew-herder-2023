@@ -9,18 +9,12 @@ import {
   IS_DEV_ENV,
 } from './constants';
 
-// Middleware.
-// TODO
-
 // Routes.
 import { health, score } from './routes';
 
 // -----------------------------------------------------------------------------
 
 const app = express();
-
-// gzip
-// app.use(compression());
 
 // Middleware.
 app.use(express.json());
@@ -36,9 +30,6 @@ if (!IS_DEV_ENV) {
     res.sendFile('index.html', { root: STATIC_DIR });
   });
 }
-
-// Error Handling
-// TODO
 
 // -----------------------------------------------------------------------------
 

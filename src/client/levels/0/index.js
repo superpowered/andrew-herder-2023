@@ -128,8 +128,6 @@ class Level {
     );
 
     // These are the pixel sizes we'll try to make, in order.
-    // TODO: part of my load process should be re rendering with different pixelSizes to find the lowest draw count
-    // Since the size that gives us the lowest count will be screen dependent
     const pixelSizes = [
       {
         size: 13, // 8755 draws

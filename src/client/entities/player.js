@@ -61,17 +61,6 @@ class Player {
 
     this.x = this.game.bounds.width / 2 - this.width / 2;
     this.y = this.game.bounds.height / 2 - this.height / 2;
-
-    // TODO: convert positions on all things to use a position compoosed class
-    this.hasPosition = {
-      x: 'TODO',
-      y: 'TODO',
-    };
-    this.hasSize = {
-      height: 'TODO',
-      width: 'TODO',
-    };
-
     this.spawnY = this.y;
     this.weight = 1;
 
