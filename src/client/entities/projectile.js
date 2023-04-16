@@ -31,7 +31,8 @@ class Projectile {
   }
 
   // TODO: i need to actually, uh, implement debug mode
-  draw(context, debug = false) {
+  draw(context, deltaTime, debug = false) {
+    context.beginPath();
     if (this.render) {
       context.fillStyle = this.color;
       context.fillRect(this.x, this.y, this.width, this.height);

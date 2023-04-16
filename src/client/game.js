@@ -59,6 +59,8 @@ class Game {
       ...this.textPixels,
     ];
 
+    this.debug = false;
+
     // Init
     this.init(canvas);
   }
@@ -141,13 +143,17 @@ class Game {
 
   draw(context, deltaTime) {
     if (this.player) {
-      this.player.draw(context, deltaTime, false, this.dpr);
+      this.player.draw(context, deltaTime, this.debug, this.dpr);
     }
     this.enemies.forEach((enemy) =>
-      enemy.draw(context, deltaTime, false, this.dpr),
+      enemy.draw(context, deltaTime, this.debug, this.dpr),
     );
-    this.projectiles.forEach((projectile) => projectile.draw(context));
-    this.textPixels.forEach((pixel) => pixel.draw(context));
+    this.projectiles.forEach((projectile) =>
+      projectile.draw(context, deltaTime, this.debug, this.dpr),
+    );
+    this.textPixels.forEach((pixel) =>
+      pixel.draw(context, deltaTime, this.debug, this.dpr),
+    );
   }
 }
 

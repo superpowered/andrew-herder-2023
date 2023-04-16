@@ -4,6 +4,7 @@ export const CONTROLS = {
   LEFT: 'LEFT',
   RIGHT: 'RIGHT',
   SHOOT: 'SHOOT',
+  TOGGLE_DEBUG: 'TOGGLE_DEBUG',
 };
 
 export const POSSIBLE_FILLS_PLAYER = [

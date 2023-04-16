@@ -118,7 +118,7 @@ class Enemy {
     }
   }
 
-  draw(context, deltaTime, debug = true) {
+  draw(context, deltaTime, debug = false) {
     if (debug) {
       context.fillStyle = 'red';
       context.fillRect(this.x, this.y, this.width, this.height);

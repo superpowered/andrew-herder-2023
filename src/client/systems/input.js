@@ -14,6 +14,7 @@ const KEY_MAP = {
   d: CONTROLS.RIGHT,
   ' ': CONTROLS.SHOOT,
   mouseclick: CONTROLS.SHOOT,
+  i: CONTROLS.TOGGLE_DEBUG,
 };
 
 // -----------------------------------------------------------------------------
@@ -34,6 +35,10 @@ class InputSystem {
       if (KEY_MAP[key] && this.keys.indexOf(KEY_MAP[key]) === -1) {
         e.preventDefault();
         this.keys.push(KEY_MAP[key]);
+      }
+
+      if (KEY_MAP[key] === CONTROLS.TOGGLE_DEBUG) {
+        this.game.debug = !this.game.debug;
       }
     });
     window.addEventListener('keyup', (e) => {

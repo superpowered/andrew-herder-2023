@@ -137,7 +137,7 @@ const levelData = {
         },
         action: (data) => {
           data.level_1_text_1 = true;
-          data.game.textSystem.makeText(textBubbles[5]);
+          data.game.textSystem.makeText(textBubbles[0]);
           data.spawnRate -= 500;
         },
       },
@@ -149,7 +149,7 @@ const levelData = {
         },
         action: (data) => {
           data.level_1_text_2 = true;
-          data.game.textSystem.makeText(textBubbles[6]);
+          data.game.textSystem.makeText(textBubbles[1]);
           data.spawnRate -= 500;
         },
       },
@@ -161,7 +161,7 @@ const levelData = {
         },
         action: (data) => {
           data.level_1_text_3 = true;
-          data.game.textSystem.makeText(textBubbles[7]);
+          data.game.textSystem.makeText(textBubbles[2]);
           data.spawnRate -= 200;
         },
       },
@@ -173,7 +173,7 @@ const levelData = {
         },
         action: (data) => {
           data.level_1_text_4 = true;
-          data.game.textSystem.makeText(textBubbles[8]);
+          data.game.textSystem.makeText(textBubbles[3]);
           data.spawnRate -= 200;
         },
       },

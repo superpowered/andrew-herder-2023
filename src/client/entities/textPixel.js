@@ -34,7 +34,7 @@ class TextPixel {
     }
   }
 
-  draw(context, debug = false) {
+  draw(context, deltaTime, debug = false) {
     if (this.render) {
       context.beginPath();
       context.rect(this.x, this.y, this.width, this.height);
@@ -42,7 +42,7 @@ class TextPixel {
         if (this.height > 2) {
           context.strokeStyle = 'green';
         } else if (this.height > 1) {
-          context.strokeStyle = 'green';
+          context.strokeStyle = 'blue';
         } else {
           context.strokeStyle = 'red';
         }
