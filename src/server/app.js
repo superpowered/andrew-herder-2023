@@ -7,14 +7,13 @@ import {
   STATIC_ROOT,
   STATIC_DIR,
   IS_DEV_ENV,
-} from './constants/index';
+} from './constants';
 
 // Middleware.
 // TODO
 
 // Routes.
-import health from './routes/health';
-import score from './routes/score';
+import { health, score } from './routes';
 
 // -----------------------------------------------------------------------------
 

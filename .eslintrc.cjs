@@ -45,10 +45,15 @@ module.exports = {
       'error',
       { namedComponents: 'arrow-function' },
     ],
-    //'import/prefer-default-export': 0,
     'arrow-body-style': 0,
     'jsx-a11y/label-has-associated-control': 0,
     'no-bitwise': 0,
+    'import/no-internal-modules': [
+      'error',
+      {
+        allow: ['./*', '**/*.scss', '**/*.png'],
+      },
+    ],
   },
 
   settings: {

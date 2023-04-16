@@ -3,6 +3,7 @@ import Victor from 'victor';
 
 // Utils
 import { getDistance, keepInBounds } from '../utils';
+// import getDistance from '../utils/getDistance';
 
 // Other Entities
 import Projectile from './projectile';
