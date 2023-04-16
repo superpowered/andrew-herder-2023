@@ -1,4 +1,7 @@
+// Local Modules
 import getDistance from './getDistance';
+
+// -----------------------------------------------------------------------------
 
 /**
  * getPointsDistance

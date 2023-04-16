@@ -1,5 +1,4 @@
 # TODO:
-- Animations 
-- Server Error Handling
-- End Level
+- Animations
+- End Level Cleanup
 - LAUNCH

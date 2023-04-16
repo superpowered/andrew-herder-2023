@@ -1,4 +1,6 @@
 import axios from 'axios';
+
+// Utils
 import { shakeScreen } from '../../utils';
 
 // -----------------------------------------------------------------------------
