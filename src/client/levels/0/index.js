@@ -65,7 +65,7 @@ class Level {
   };
 
   findMyNeigbors = (i, size, pixels) => {
-    const neighborPositions = this.getNeigborPositions(
+    const neighborPositions = Level.getNeigborPositions(
       i,
       this.game.width,
       size,
