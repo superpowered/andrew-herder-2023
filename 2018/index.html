@@ -1,0 +1,805 @@
+<!doctype html>
+<html class="no-js" lang="en-US">
+<head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <title>Andrew Herder | Milwaukee Developer</title>
+
+    <link rel="pingback" href="http://andrewherder.com/xmlrpc.php">
+
+    
+    <!--
+           _   _ _____  _____  ________          __
+     /\   | \ | |  __ \|  __ \|  ____\ \        / /
+    /  \  |  \| | |  | | |__) | |__   \ \  /\  / /
+   / /\ \ | . ` | |  | |  _  /|  __|   \ \/  \/ /
+  / ____ \| |\  | |__| | | \ \| |____   \  /\  /
+ /_/   _\_\_|_\_|_____/|_|__\_\______|___\/  \/
+ | |  | |  ____|  __ \|  __ \|  ____|  __ \
+ | |__| | |__  | |__) | |  | | |__  | |__) |
+ |  __  |  __| |  _  /| |  | |  __| |  _  /
+ | |  | | |____| | \ \| |__| | |____| | \ \
+ |_|  |_|______|_|  \_\_____/|______|_|  \_\
+
+
+    Andrew Herder : ©2018 : http://andrewherder.com/
+     -->
+
+    
+        
+    <script>document.createElement("picture"); document.documentElement.className="js loader-active";</script>
+
+    <style type="text/css">.preloader {
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 100%;
+  width: 100%;
+  position: fixed;
+  z-index: 9999;
+  background: black;
+  opacity: 0;
+  top: -100%;
+  -webkit-transition: opacity 1s 0s, top 0s 1s;
+  -moz-transition: opacity 1s 0s, top 0s 1s;
+  -o-transition: opacity 1s 0s, top 0s 1s;
+  transition: opacity 1s 0s, top 0s 1s;
+  pointer-events: none;
+  text-align: center;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+  padding: 2em 0; }
+  .ua-ie-9 .preloader:before, .ua-ie-8 .preloader:before, .ua-ie-9 .preloader:after, .ua-ie-8 .preloader:after {
+    content: " ";
+    display: table; }
+  .ua-ie-9 .preloader:after, .ua-ie-8 .preloader:after {
+    clear: both; }
+  .preloader > * {
+    float: left; }
+  .loader-intro-title {
+    font-size: 5vw; }
+    .loader-intro-title h1 {
+      font-size: 1em;
+      letter-spacing: .1em;
+      text-shadow: 3px 3px 0 #a5a5a5;
+      font-family: "Press Start 2P", sans-serif;
+      -webkit-transition: all 0.3s ease-in-out 0s;
+      -moz-transition: all 0.3s ease-in-out 0s;
+      -o-transition: all 0.3s ease-in-out 0s;
+      transition: all 0.3s ease-in-out 0s; }
+    .loader-intro-title .below-title {
+      display: block;
+      font-weight: 100;
+      padding-top: .25em;
+      font-size: .5em;
+      line-height: 1.25;
+      text-shadow: none;
+      letter-spacing: 0;
+      font-family: "Oswald", sans-serif;
+      color: transparent; }
+      @media (max-width: 30em) {
+        .loader-intro-title .below-title {
+          padding-top: 1em;
+          font-size: 1em; } }
+  .preloader .loader-dots {
+    width: 100%;
+    text-align: center; }
+    .preloader .loader-dots .dot {
+      display: inline-block;
+      margin: 0 .25em; }
+      .preloader .loader-dots .dot:before {
+        content: '';
+        height: 10px;
+        width: 10px;
+        display: block; }
+      .preloader .loader-dots .dot:nth-of-type(1) {
+        -webkit-animation: loader-dot 3s ease 0.6s infinite;
+        -moz-animation: loader-dot 3s ease 0.6s infinite;
+        -o-animation: loader-dot 3s ease 0.6s infinite;
+        animation: loader-dot 3s ease 0.6s infinite; }
+        .preloader .loader-dots .dot:nth-of-type(1):before {
+          background-color: #00ff0f;
+          -webkit-animation: loader-dot-turn 3s ease 0.6s infinite;
+          -moz-animation: loader-dot-turn 3s ease 0.6s infinite;
+          -o-animation: loader-dot-turn 3s ease 0.6s infinite;
+          animation: loader-dot-turn 3s ease 0.6s infinite; }
+      .preloader .loader-dots .dot:nth-of-type(2) {
+        -webkit-animation: loader-dot 3s ease 1.2s infinite;
+        -moz-animation: loader-dot 3s ease 1.2s infinite;
+        -o-animation: loader-dot 3s ease 1.2s infinite;
+        animation: loader-dot 3s ease 1.2s infinite; }
+        .preloader .loader-dots .dot:nth-of-type(2):before {
+          background-color: #ff5e46;
+          -webkit-animation: loader-dot-turn 3s ease 1.2s infinite;
+          -moz-animation: loader-dot-turn 3s ease 1.2s infinite;
+          -o-animation: loader-dot-turn 3s ease 1.2s infinite;
+          animation: loader-dot-turn 3s ease 1.2s infinite; }
+      .preloader .loader-dots .dot:nth-of-type(3) {
+        -webkit-animation: loader-dot 3s ease 1.8s infinite;
+        -moz-animation: loader-dot 3s ease 1.8s infinite;
+        -o-animation: loader-dot 3s ease 1.8s infinite;
+        animation: loader-dot 3s ease 1.8s infinite; }
+        .preloader .loader-dots .dot:nth-of-type(3):before {
+          background-color: #58fffa;
+          -webkit-animation: loader-dot-turn 3s ease 1.8s infinite;
+          -moz-animation: loader-dot-turn 3s ease 1.8s infinite;
+          -o-animation: loader-dot-turn 3s ease 1.8s infinite;
+          animation: loader-dot-turn 3s ease 1.8s infinite; }
+      .preloader .loader-dots .dot:nth-of-type(4) {
+        -webkit-animation: loader-dot 3s ease 2.4s infinite;
+        -moz-animation: loader-dot 3s ease 2.4s infinite;
+        -o-animation: loader-dot 3s ease 2.4s infinite;
+        animation: loader-dot 3s ease 2.4s infinite; }
+        .preloader .loader-dots .dot:nth-of-type(4):before {
+          background-color: #f7ff80;
+          -webkit-animation: loader-dot-turn 3s ease 2.4s infinite;
+          -moz-animation: loader-dot-turn 3s ease 2.4s infinite;
+          -o-animation: loader-dot-turn 3s ease 2.4s infinite;
+          animation: loader-dot-turn 3s ease 2.4s infinite; }
+      .preloader .loader-dots .dot:nth-of-type(5) {
+        -webkit-animation: loader-dot 3s ease 3s infinite;
+        -moz-animation: loader-dot 3s ease 3s infinite;
+        -o-animation: loader-dot 3s ease 3s infinite;
+        animation: loader-dot 3s ease 3s infinite; }
+        .preloader .loader-dots .dot:nth-of-type(5):before {
+          background-color: #d18cff;
+          -webkit-animation: loader-dot-turn 3s ease 3s infinite;
+          -moz-animation: loader-dot-turn 3s ease 3s infinite;
+          -o-animation: loader-dot-turn 3s ease 3s infinite;
+          animation: loader-dot-turn 3s ease 3s infinite; }
+@-webkit-keyframes loader-dot {
+  0% {
+    -webkit-transform: translateY(0);
+    -moz-transform: translateY(0);
+    -o-transform: translateY(0);
+    transform: translateY(0); }
+  10% {
+    -webkit-transform: translateY(250%);
+    -moz-transform: translateY(250%);
+    -o-transform: translateY(250%);
+    transform: translateY(250%); }
+  25% {
+    -webkit-transform: translateY(-400%);
+    -moz-transform: translateY(-400%);
+    -o-transform: translateY(-400%);
+    transform: translateY(-400%); }
+  35% {
+    -webkit-transform: translateY(100%);
+    -moz-transform: translateY(100%);
+    -o-transform: translateY(100%);
+    transform: translateY(100%); }
+  45% {
+    -webkit-transform: translateY(0);
+    -moz-transform: translateY(0);
+    -o-transform: translateY(0);
+    transform: translateY(0); }
+  65% {
+    -webkit-transform: translateY(2%);
+    -moz-transform: translateY(2%);
+    -o-transform: translateY(2%);
+    transform: translateY(2%); }
+  100% {
+    -webkit-transform: translateY(0);
+    -moz-transform: translateY(0);
+    -o-transform: translateY(0);
+    transform: translateY(0); } }
+@-moz-keyframes loader-dot {
+  0% {
+    -webkit-transform: translateY(0);
+    -moz-transform: translateY(0);
+    -o-transform: translateY(0);
+    transform: translateY(0); }
+  10% {
+    -webkit-transform: translateY(250%);
+    -moz-transform: translateY(250%);
+    -o-transform: translateY(250%);
+    transform: translateY(250%); }
+  25% {
+    -webkit-transform: translateY(-400%);
+    -moz-transform: translateY(-400%);
+    -o-transform: translateY(-400%);
+    transform: translateY(-400%); }
+  35% {
+    -webkit-transform: translateY(100%);
+    -moz-transform: translateY(100%);
+    -o-transform: translateY(100%);
+    transform: translateY(100%); }
+  45% {
+    -webkit-transform: translateY(0);
+    -moz-transform: translateY(0);
+    -o-transform: translateY(0);
+    transform: translateY(0); }
+  65% {
+    -webkit-transform: translateY(2%);
+    -moz-transform: translateY(2%);
+    -o-transform: translateY(2%);
+    transform: translateY(2%); }
+  100% {
+    -webkit-transform: translateY(0);
+    -moz-transform: translateY(0);
+    -o-transform: translateY(0);
+    transform: translateY(0); } }
+@-o-keyframes loader-dot {
+  0% {
+    -webkit-transform: translateY(0);
+    -moz-transform: translateY(0);
+    -o-transform: translateY(0);
+    transform: translateY(0); }
+  10% {
+    -webkit-transform: translateY(250%);
+    -moz-transform: translateY(250%);
+    -o-transform: translateY(250%);
+    transform: translateY(250%); }
+  25% {
+    -webkit-transform: translateY(-400%);
+    -moz-transform: translateY(-400%);
+    -o-transform: translateY(-400%);
+    transform: translateY(-400%); }
+  35% {
+    -webkit-transform: translateY(100%);
+    -moz-transform: translateY(100%);
+    -o-transform: translateY(100%);
+    transform: translateY(100%); }
+  45% {
+    -webkit-transform: translateY(0);
+    -moz-transform: translateY(0);
+    -o-transform: translateY(0);
+    transform: translateY(0); }
+  65% {
+    -webkit-transform: translateY(2%);
+    -moz-transform: translateY(2%);
+    -o-transform: translateY(2%);
+    transform: translateY(2%); }
+  100% {
+    -webkit-transform: translateY(0);
+    -moz-transform: translateY(0);
+    -o-transform: translateY(0);
+    transform: translateY(0); } }
+@keyframes loader-dot {
+  0% {
+    -webkit-transform: translateY(0);
+    -moz-transform: translateY(0);
+    -o-transform: translateY(0);
+    transform: translateY(0); }
+  10% {
+    -webkit-transform: translateY(250%);
+    -moz-transform: translateY(250%);
+    -o-transform: translateY(250%);
+    transform: translateY(250%); }
+  25% {
+    -webkit-transform: translateY(-400%);
+    -moz-transform: translateY(-400%);
+    -o-transform: translateY(-400%);
+    transform: translateY(-400%); }
+  35% {
+    -webkit-transform: translateY(100%);
+    -moz-transform: translateY(100%);
+    -o-transform: translateY(100%);
+    transform: translateY(100%); }
+  45% {
+    -webkit-transform: translateY(0);
+    -moz-transform: translateY(0);
+    -o-transform: translateY(0);
+    transform: translateY(0); }
+  65% {
+    -webkit-transform: translateY(2%);
+    -moz-transform: translateY(2%);
+    -o-transform: translateY(2%);
+    transform: translateY(2%); }
+  100% {
+    -webkit-transform: translateY(0);
+    -moz-transform: translateY(0);
+    -o-transform: translateY(0);
+    transform: translateY(0); } }
+@-webkit-keyframes loader-dot-turn {
+  0% {
+    -webkit-transform: rotate(0);
+    -moz-transform: rotate(0);
+    -o-transform: rotate(0);
+    transform: rotate(0); }
+  10% {
+    -webkit-transform: rotate(0);
+    -moz-transform: rotate(0);
+    -o-transform: rotate(0);
+    transform: rotate(0); }
+  45% {
+    -webkit-transform: rotate(720deg);
+    -moz-transform: rotate(720deg);
+    -o-transform: rotate(720deg);
+    transform: rotate(720deg); }
+  100% {
+    -webkit-transform: rotate(720deg);
+    -moz-transform: rotate(720deg);
+    -o-transform: rotate(720deg);
+    transform: rotate(720deg); } }
+@-moz-keyframes loader-dot-turn {
+  0% {
+    -webkit-transform: rotate(0);
+    -moz-transform: rotate(0);
+    -o-transform: rotate(0);
+    transform: rotate(0); }
+  10% {
+    -webkit-transform: rotate(0);
+    -moz-transform: rotate(0);
+    -o-transform: rotate(0);
+    transform: rotate(0); }
+  45% {
+    -webkit-transform: rotate(720deg);
+    -moz-transform: rotate(720deg);
+    -o-transform: rotate(720deg);
+    transform: rotate(720deg); }
+  100% {
+    -webkit-transform: rotate(720deg);
+    -moz-transform: rotate(720deg);
+    -o-transform: rotate(720deg);
+    transform: rotate(720deg); } }
+@-o-keyframes loader-dot-turn {
+  0% {
+    -webkit-transform: rotate(0);
+    -moz-transform: rotate(0);
+    -o-transform: rotate(0);
+    transform: rotate(0); }
+  10% {
+    -webkit-transform: rotate(0);
+    -moz-transform: rotate(0);
+    -o-transform: rotate(0);
+    transform: rotate(0); }
+  45% {
+    -webkit-transform: rotate(720deg);
+    -moz-transform: rotate(720deg);
+    -o-transform: rotate(720deg);
+    transform: rotate(720deg); }
+  100% {
+    -webkit-transform: rotate(720deg);
+    -moz-transform: rotate(720deg);
+    -o-transform: rotate(720deg);
+    transform: rotate(720deg); } }
+@keyframes loader-dot-turn {
+  0% {
+    -webkit-transform: rotate(0);
+    -moz-transform: rotate(0);
+    -o-transform: rotate(0);
+    transform: rotate(0); }
+  10% {
+    -webkit-transform: rotate(0);
+    -moz-transform: rotate(0);
+    -o-transform: rotate(0);
+    transform: rotate(0); }
+  45% {
+    -webkit-transform: rotate(720deg);
+    -moz-transform: rotate(720deg);
+    -o-transform: rotate(720deg);
+    transform: rotate(720deg); }
+  100% {
+    -webkit-transform: rotate(720deg);
+    -moz-transform: rotate(720deg);
+    -o-transform: rotate(720deg);
+    transform: rotate(720deg); } }
+html.loader-active body {
+  position: fixed;
+  overflow-y: scroll; }
+html.loader-active .preloader {
+  opacity: 1;
+  top: 0;
+  pointer-events: auto;
+  -webkit-transition: opacity 0s 0s, top 0s 0s;
+  -moz-transition: opacity 0s 0s, top 0s 0s;
+  -o-transition: opacity 0s 0s, top 0s 0s;
+  transition: opacity 0s 0s, top 0s 0s; }
+    </style>
+
+    <link href="https://fonts.googleapis.com/css?family=Press+Start+2P" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Oswald:400,700" rel="stylesheet">
+
+    <meta name="description" content="HTML, CSS, JS, PHP, Wordpress, Angular, Ionic, SQL, IOS, Android"/>
+    <link rel="canonical" href="index.html" />
+    <meta property="og:locale" content="en_US" />
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content="Andrew Herder | Milwaukee Developer" />
+    <meta property="og:description" content="HTML, CSS, JS, PHP, Wordpress, Angular, Ionic, SQL, IOS, Android" />
+    <meta property="og:url" content="http://andrewherder.com/" />
+    <meta property="og:site_name" content="Andrew Herder" />
+    <meta property="og:image" content="http://andrewherder.com/wp-content/themes/andrew-herder-2018/img/andrew-herder-preview2.jpg" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:description" content="HTML, CSS, JS, PHP, Wordpress, Angular, Ionic, SQL, IOS, Android" />
+    <meta name="twitter:title" content="Andrew Herder | Milwaukee Developer" />
+    <meta name="twitter:image" content="http://andrewherder.com/wp-content/themes/andrew-herder-2018/img/andrew-herder-preview2.jpg" />
+
+    <link rel='stylesheet' id='wp-block-library-css'  href='wp-includes/css/dist/block-library/style.min%EF%B9%96ver=5.4.12.css' type='text/css' media='all' />
+<link rel='stylesheet' id='main-style-css'  href='wp-content/themes/andrew-herder-2018/style%EF%B9%96ver=1.0.0.css' type='text/css' media='all' />
+<script type='text/javascript' src='wp-content/themes/andrew-herder-2018/js/vendor/picturefill.min%EF%B9%96ver=3.0.2.js' async='async'></script>
+<script type='text/javascript' src='wp-includes/js/jquery/jquery%EF%B9%96ver=1.12.4-wp.js'></script>
+<link rel='https://api.w.org/' href='index.php%EF%B9%96rest_route=%EA%A4%B7.json' />
+<link rel="EditURI" type="application/rsd+xml" title="RSD" href="xmlrpc.php%EF%B9%96rsd.xml" />
+<link rel="wlwmanifest" type="application/wlwmanifest+xml" href="wp-includes/wlwmanifest.xml" /> 
+<meta name="generator" content="WordPress 5.4.12" />
+<link rel="canonical" href="index.html" />
+<link rel='shortlink' href='index.html' />
+<link rel="alternate" type="application/json+oembed" href="index.php%EF%B9%96rest_route=%EA%A4%B7oembed%EA%A4%B71.0%EA%A4%B7embed&amp;url=http%EF%B9%95%EA%A4%B7%EA%A4%B7andrewherder.com%EA%A4%B7.json" />
+<link rel="icon" href="wp-content/uploads/2018/03/cropped-favi-32x32.jpg" sizes="32x32" />
+<link rel="icon" href="wp-content/uploads/2018/03/cropped-favi-192x192.jpg" sizes="192x192" />
+<link rel="apple-touch-icon" href="wp-content/uploads/2018/03/cropped-favi-180x180.jpg" />
+<meta name="msapplication-TileImage" content="http://andrewherder.com/wp-content/uploads/2018/03/cropped-favi-270x270.jpg" />
+
+    
+    
+    </head>
+<body class="home page-template page-template-page-templates page-template-page-landing page-template-page-templatespage-landing-php page page-id-36">
+    <!--[if lt IE 11]>
+        <p class="browserupgrade">*laughs in dinosaur*</p>
+    <![endif]-->
+    <noscript>
+        <p class="browserupgrade">What? You browse the internet with <strong>no</strong> javascript? How do you get <strong>anything</strong> done?</p>
+    </noscript>
+
+    <div class="preloader">
+        <div class="loader-intro-title">
+            <h1>ANDREW HERDER</h1>
+            <div class="loader-dots below-title">
+                <div class="dot"></div>
+                <div class="dot"></div>
+                <div class="dot"></div>
+                <div class="dot"></div>
+                <div class="dot"></div>
+            </div>
+        </div>
+    </div>
+
+    <nav class="hamburger-nav">
+        <button class="hamburger"></button>
+        <div class="left-nav">
+            <a href="https://docs.google.com/document/d/13hCLQZd0PEwZ457JyFlFWmCwe3BKWfXL1Sa3Fcn_orE/edit?usp=sharing">Resume</a>
+        </div>
+        <div class="bot-nav">
+            <a href="https://github.com/superpowered" class="github-icon">
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
+  <path d="M15.3023347,15.6961071 C15.9284722,16.614113 15.9605665,17.6605955 15.9505901,18.7216658 C15.938491,20.0064315 15.948234,21.291283 15.9495288,22.5761346 C15.9499958,22.988785 15.940083,23.0000428 15.5441038,22.9999999 C13.8830076,22.9997421 12.2219114,22.9998925 10.5607939,22.9998495 C10.1903077,22.9998495 10.1570671,22.964035 10.1575765,22.5876073 C10.1587439,21.7681717 10.1579586,20.9487362 10.1579586,20.0853865 C9.87142287,20.1150779 9.58403811,20.1462088 9.29639863,20.1743963 C7.89290648,20.3119178 6.66966924,19.9488748 5.72273657,18.8383689 C5.59019868,18.682908 5.48438489,18.5030193 5.37498382,18.3287381 C4.89288893,17.5604998 4.42599218,16.7821208 3.92687369,16.0255056 C3.77238767,15.7913904 3.53327183,15.6145525 3.33340368,15.411031 C3.22814177,15.3038669 3.12389873,15.1956286 3,15.0680329 C3.34630935,14.8402341 3.67797246,14.9022165 3.99203886,14.9511579 C4.77614352,15.073361 5.30625261,15.5648806 5.72611157,16.2169099 C5.93508587,16.5414314 6.1513196,16.8723982 6.41968547,17.1442615 C7.27914399,18.0149802 8.32301781,18.2959314 9.50537292,18.0244763 C10.2680177,17.8493357 10.1201118,17.9306111 10.2340341,17.2254939 C10.3101309,16.7545349 10.4384447,16.3059841 10.6916974,15.8992849 C10.7336833,15.8318025 10.7684734,15.7597654 10.8202022,15.6648259 C10.4855462,15.597988 10.1730081,15.544406 9.86467286,15.4724118 C8.64126581,15.1868845 7.51316548,14.7041735 6.62040268,13.7760055 C5.67427661,12.7922575 5.16218877,11.6141188 5.1265708,10.2314703 C5.0966203,9.06961678 5.10366747,7.91122222 5.36360645,6.76992923 C5.53042503,6.037355 5.83205273,5.38098584 6.3615038,4.83665771 C6.44354399,4.75226708 6.49157942,4.55237645 6.4533506,4.44222606 C6.07615678,3.35505221 6.12786439,2.28033929 6.47640252,1.19939591 C6.53632475,1.01349161 6.59947341,0.968696687 6.78289107,1.0194213 C7.45566306,1.20556193 8.0315788,1.5569174 8.51193312,2.06053265 C8.83973302,2.40419672 9.13974751,2.77516743 9.46529741,3.14899556 C10.2963337,2.54131 11.2795848,2.51997602 12.249718,2.4626557 C13.3223112,2.39929828 14.3957959,2.4164643 15.449816,2.64772211 C15.8591466,2.73756977 16.248482,2.92078852 16.6123456,3.04926509 C17.0398461,2.63816157 17.4813772,2.21964593 17.916031,1.79386858 C18.3085716,1.40934123 18.7734943,1.16981193 19.2979783,1.02801505 C19.498738,0.973745515 19.6006037,1.02199942 19.668592,1.22032169 C20.0293777,2.27247601 20.0902976,3.32420064 19.6849575,4.37893309 C19.6258631,4.5327827 19.5852994,4.67754442 19.7249482,4.81265966 C20.4340174,5.49897803 20.7867795,6.36320852 20.8617513,7.33168119 C20.9409259,8.35435895 21.0359355,9.38571639 20.9862444,10.4064606 C20.8939731,12.3006735 19.9649343,13.7230895 18.350706,14.6796169 C17.4852829,15.1924489 16.5404092,15.4737009 15.5535071,15.6218142 C15.4969599,15.630279 15.4398608,15.6360368 15.3841414,15.6482829 C15.3616201,15.6533103 15.3420493,15.6722595 15.3023347,15.6961071 Z"/>
+</svg>
+            </a>
+            <a href="https://www.linkedin.com/in/andrew-scott-herder/" class="linkedin-icon">
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
+  <path d="M22.8525641,14.7180632 L22.8525641,22.7653333 L18.1597754,22.7653333 L18.1597754,15.2808094 C18.1597754,13.3956098 17.4813,12.1012936 15.7851113,12.1012936 C14.4847,12.1012936 13.7214151,12.9735501 13.3821773,13.8176694 C13.2690981,14.1271798 13.2408283,14.5211021 13.2408283,14.9431617 L13.2408283,22.7653333 L8.54803961,22.7653333 C8.54803961,22.7653333 8.60457923,10.0754074 8.54803961,8.75295393 L13.2408283,8.75295393 L13.2408283,10.7507028 C13.2408283,10.7788401 13.2125585,10.7788401 13.2125585,10.8069774 L13.2408283,10.8069774 L13.2408283,10.7507028 C13.8627641,9.79403433 14.9652868,8.44344354 17.4530302,8.44344354 C20.5344396,8.41530623 22.8525641,10.4130551 22.8525641,14.7180632 Z M3.65736226,2 C2.04598302,2 1,3.0410804 1,4.41980849 C1,5.77039928 2.01771321,6.83961698 3.60082264,6.83961698 L3.62909245,6.83961698 C5.2687415,6.83961698 6.28645471,5.77039928 6.28645471,4.41980849 C6.22991508,3.0410804 5.2687415,2 3.65736226,2 Z M1.28269811,22.7653333 L5.97548678,22.7653333 L5.97548678,8.75295393 L1.28269811,8.75295393 L1.28269811,22.7653333 Z"/>
+</svg>
+            </a>
+            <a href="https://codepen.io/superpowered/" class="codepen-icon">
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
+  <path d="M22.676552,7.96898677 L12.4085934,1.12293259 C12.1616056,0.95902247 11.8405214,0.95902247 11.5957788,1.12293259 L1.3255749,7.96898677 C1.12124858,8.10370742 1,8.33497786 1,8.57972037 L1,15.4257746 C1,15.6705171 1.12349393,15.8995422 1.3255749,16.0365082 L11.5935335,22.8825623 C11.7170274,22.9656401 11.8584841,23.0060563 11.9999408,23.0060563 C12.1413975,23.0060563 12.2828541,22.9656401 12.4063481,22.8825623 L22.6743067,16.0365082 C22.878633,15.9017875 22.9998816,15.6705171 22.9998816,15.4257746 L22.9998816,8.57972037 C23.0043723,8.33497786 22.8808783,8.10370742 22.676552,7.96898677 Z M12.0021861,14.5433543 L8.18959183,12.0016248 L12.0021861,9.45989526 L15.8125351,12.0016248 L12.0021861,14.5433543 Z M12.7341683,8.18678515 L12.7341683,3.10332609 L20.9476371,8.57972037 L17.1350428,11.1214499 L12.7341683,8.18678515 Z M11.2679586,8.18678515 L6.86708415,11.1214499 L3.05448986,8.57972037 L11.2679586,3.10332609 L11.2679586,8.18678515 Z M5.54457647,12.0016248 L2.4662097,14.0538693 L2.4662097,9.94938028 L5.54457647,12.0016248 Z M6.86708415,12.884045 L11.2679586,15.8187098 L11.2679586,20.9021688 L3.05448986,15.4257746 L6.86708415,12.884045 Z M12.7341683,15.8164644 L17.1350428,12.8817997 L20.9476371,15.4235292 L12.7341683,20.8999235 L12.7341683,15.8164644 Z M18.4575504,12.0016248 L21.5359172,9.94938028 L21.5359172,14.0538693 L18.4575504,12.0016248 Z"/>
+</svg>
+            </a>
+        </div>
+    </nav>
+
+    <ul class="particle-control">
+        <li data-count="400" class="hide-mobile">Just melt my CPU</li>
+        <li data-count="200">Ultra</li>
+        <li data-count="100">High</li>
+        <li data-count="50">Medium</li>
+        <li data-count="25">Low</li>
+        <li data-count="0">Boring (Off)</li>
+    </ul>
+    <button class="particle-control-toggle">Particles</button>
+    <!--2018 Template-->
+    <div id="main-content" class="main-content landing-template">
+
+        <div class="particle-template">
+            <div class="particle">
+                <div class="particle-top"></div>
+                <div class="particle-left"></div>
+                <div class="particle-right"></div>
+                <div class="particle-bottom"></div>
+                <div class="particle-main"></div>
+            </div>
+        </div>
+
+        <div class="canvas-bg fade-particles"></div>
+
+        <div class="site-main">
+
+            <section class="intro-section full-height-section" data-section="intro">
+                <div class="loader-intro-title">
+                    <h1>
+                        ANDREW HERDER
+                        <span class="below-title">Developer | Milwaukee, WI</span>
+                    </h1>
+                </div>
+            </section>
+
+            <section class="graph-section full-height-section" data-section="graph">
+
+                <div class="wrapper">
+                    <h1 class="section-title">
+                        About Me
+                    </h1>
+                    <div class="about-me-text wysiwyg-content">
+                      <p>I&#8217;m Andrew, a developer from Milwaukee, Wisconsin.</p>
+<p>I currently work at THIEL Brand Design as the Director of Technology. </p>
+<p>I have experience with HTML, CSS, SASS, PHP, SVG, JS, Angular1, Angular2+, React, Redux, Node, Typescript, WordPress, C#, Agile, Unity, Ionic, Electron, Node, Linux, Photoshop, Illustrator, Sketch, Figma, 3DS Max, Grunt, Babel, Webpack, Git, Xcode, iOS, Android, Azure, AWS, CI/CD, MYSQL, MSSQL and a ton of other buzzwords.</p>
+                    </div>
+                    
+                    
+                    <svg viewBox="0 0 500 250" class="skills-graph"
+                         data-points-from='{"value":" 11.428571428571 202.5 34.285714285714 202.5 57.142857142857 202.5 80 202.5 102.85714285714 202.5 125.71428571429 202.5 148.57142857143 202.5 171.42857142857 202.5 194.28571428571 202.5 217.14285714286 202.5 240 202.5 262.85714285714 202.5 285.71428571429 202.5 308.57142857143 202.5 331.42857142857 202.5 354.28571428571 202.5 377.14285714286 202.5 400 202.5 422.85714285714 202.5 445.71428571429 202.5 468.57142857143 202.5"}' data-points-to='{"value":" 11.428571428571 10 34.285714285714 10 57.142857142857 10 80 55 102.85714285714 10 125.71428571429 64 148.57142857143 37 171.42857142857 64 194.28571428571 46 217.14285714286 55 240 10 262.85714285714 28 285.71428571429 190 308.57142857143 109 331.42857142857 46 354.28571428571 109 377.14285714286 100 400 82 422.85714285714 100 445.71428571429 184.6 468.57142857143 91"}'
+                    >
+                        <polyline
+                                class="graph-line"
+                                fill="none"
+                                stroke="#00ff0f"
+                                stroke-width="2"
+                                stroke-linecap="round"
+                                points=" 11.428571428571 202.5 34.285714285714 202.5 57.142857142857 202.5 80 202.5 102.85714285714 202.5 125.71428571429 202.5 148.57142857143 202.5 171.42857142857 202.5 194.28571428571 202.5 217.14285714286 202.5 240 202.5 262.85714285714 202.5 285.71428571429 202.5 308.57142857143 202.5 331.42857142857 202.5 354.28571428571 202.5 377.14285714286 202.5 400 202.5 422.85714285714 202.5 445.71428571429 202.5 468.57142857143 202.5" />
+
+                        <circle class="graph-point" cx="11.428571428571" cy="10" r="0" fill="#00ff0f" /><circle class="graph-point" cx="34.285714285714" cy="10" r="0" fill="#00ff0f" /><circle class="graph-point" cx="57.142857142857" cy="10" r="0" fill="#00ff0f" /><circle class="graph-point" cx="80" cy="55" r="0" fill="#00ff0f" /><circle class="graph-point" cx="102.85714285714" cy="10" r="0" fill="#00ff0f" /><circle class="graph-point" cx="125.71428571429" cy="64" r="0" fill="#00ff0f" /><circle class="graph-point" cx="148.57142857143" cy="37" r="0" fill="#00ff0f" /><circle class="graph-point" cx="171.42857142857" cy="64" r="0" fill="#00ff0f" /><circle class="graph-point" cx="194.28571428571" cy="46" r="0" fill="#00ff0f" /><circle class="graph-point" cx="217.14285714286" cy="55" r="0" fill="#00ff0f" /><circle class="graph-point" cx="240" cy="10" r="0" fill="#00ff0f" /><circle class="graph-point" cx="262.85714285714" cy="28" r="0" fill="#00ff0f" /><circle class="graph-point" cx="285.71428571429" cy="190" r="0" fill="#00ff0f" /><circle class="graph-point" cx="308.57142857143" cy="109" r="0" fill="#00ff0f" /><circle class="graph-point" cx="331.42857142857" cy="46" r="0" fill="#00ff0f" /><circle class="graph-point" cx="354.28571428571" cy="109" r="0" fill="#00ff0f" /><circle class="graph-point" cx="377.14285714286" cy="100" r="0" fill="#00ff0f" /><circle class="graph-point" cx="400" cy="82" r="0" fill="#00ff0f" /><circle class="graph-point" cx="422.85714285714" cy="100" r="0" fill="#00ff0f" /><circle class="graph-point" cx="445.71428571429" cy="184.6" r="0" fill="#00ff0f" /><circle class="graph-point" cx="468.57142857143" cy="91" r="0" fill="#00ff0f" />
+                        <polyline points="0,202.5 500,202.5" stroke="#00ff0f" stroke-width="1"/>
+                        <text class="graph-label" x="6.4285714285714" y="215" fill="#fff" transform="rotate(65, 6.4285714285714, 215)" style="font-size: 10px;">HTML</text><text class="graph-label" x="29.285714285714" y="215" fill="#fff" transform="rotate(65, 29.285714285714, 215)" style="font-size: 10px;">CSS</text><text class="graph-label" x="52.142857142857" y="215" fill="#fff" transform="rotate(65, 52.142857142857, 215)" style="font-size: 10px;">SASS</text><text class="graph-label" x="75" y="215" fill="#fff" transform="rotate(65, 75, 215)" style="font-size: 10px;">SVG</text><text class="graph-label" x="97.857142857143" y="215" fill="#fff" transform="rotate(65, 97.857142857143, 215)" style="font-size: 10px;">Javascript</text><text class="graph-label" x="120.71428571429" y="215" fill="#fff" transform="rotate(65, 120.71428571429, 215)" style="font-size: 10px;">Angular</text><text class="graph-label" x="143.57142857143" y="215" fill="#fff" transform="rotate(65, 143.57142857143, 215)" style="font-size: 10px;">React</text><text class="graph-label" x="166.42857142857" y="215" fill="#fff" transform="rotate(65, 166.42857142857, 215)" style="font-size: 10px;">Redux</text><text class="graph-label" x="189.28571428571" y="215" fill="#fff" transform="rotate(65, 189.28571428571, 215)" style="font-size: 10px;">Node</text><text class="graph-label" x="212.14285714286" y="215" fill="#fff" transform="rotate(65, 212.14285714286, 215)" style="font-size: 10px;">Typescript</text><text class="graph-label" x="235" y="215" fill="#fff" transform="rotate(65, 235, 215)" style="font-size: 10px;">Wordpress</text><text class="graph-label" x="257.85714285714" y="215" fill="#fff" transform="rotate(65, 257.85714285714, 215)" style="font-size: 10px;">PHP</text><text class="graph-label" x="280.71428571429" y="215" fill="#fff" transform="rotate(65, 280.71428571429, 215)" style="font-size: 10px;">French</text><text class="graph-label" x="303.57142857143" y="215" fill="#fff" transform="rotate(65, 303.57142857143, 215)" style="font-size: 10px;">C#</text><text class="graph-label" x="326.42857142857" y="215" fill="#fff" transform="rotate(65, 326.42857142857, 215)" style="font-size: 10px;">Agile</text><text class="graph-label" x="349.28571428571" y="215" fill="#fff" transform="rotate(65, 349.28571428571, 215)" style="font-size: 10px;">Unity</text><text class="graph-label" x="372.14285714286" y="215" fill="#fff" transform="rotate(65, 372.14285714286, 215)" style="font-size: 10px;">Ionic</text><text class="graph-label" x="395" y="215" fill="#fff" transform="rotate(65, 395, 215)" style="font-size: 10px;">Electron</text><text class="graph-label" x="417.85714285714" y="215" fill="#fff" transform="rotate(65, 417.85714285714, 215)" style="font-size: 10px;">Linux</text><text class="graph-label" x="440.71428571429" y="215" fill="#fff" transform="rotate(65, 440.71428571429, 215)" style="font-size: 10px;">Spanish</text><text class="graph-label" x="463.57142857143" y="215" fill="#fff" transform="rotate(65, 463.57142857143, 215)" style="font-size: 10px;">SQL</text>                    </svg>
+                    <noscript>
+                        <svg viewBox="0 0 500 250" class="skills-graph no-js"
+                             data-points-from='{"value":" 11.428571428571 202.5 34.285714285714 202.5 57.142857142857 202.5 80 202.5 102.85714285714 202.5 125.71428571429 202.5 148.57142857143 202.5 171.42857142857 202.5 194.28571428571 202.5 217.14285714286 202.5 240 202.5 262.85714285714 202.5 285.71428571429 202.5 308.57142857143 202.5 331.42857142857 202.5 354.28571428571 202.5 377.14285714286 202.5 400 202.5 422.85714285714 202.5 445.71428571429 202.5 468.57142857143 202.5"}' data-points-to='{"value":" 11.428571428571 10 34.285714285714 10 57.142857142857 10 80 55 102.85714285714 10 125.71428571429 64 148.57142857143 37 171.42857142857 64 194.28571428571 46 217.14285714286 55 240 10 262.85714285714 28 285.71428571429 190 308.57142857143 109 331.42857142857 46 354.28571428571 109 377.14285714286 100 400 82 422.85714285714 100 445.71428571429 184.6 468.57142857143 91"}'
+                        >
+                            <polyline
+                                    class="graph-line"
+                                    fill="none"
+                                    stroke="#00ff0f"
+                                    stroke-width="2"
+                                    stroke-linecap="round"
+                                    points=" 11.428571428571 10 34.285714285714 10 57.142857142857 10 80 55 102.85714285714 10 125.71428571429 64 148.57142857143 37 171.42857142857 64 194.28571428571 46 217.14285714286 55 240 10 262.85714285714 28 285.71428571429 190 308.57142857143 109 331.42857142857 46 354.28571428571 109 377.14285714286 100 400 82 422.85714285714 100 445.71428571429 184.6 468.57142857143 91" />
+
+                            <circle class="graph-point" cx="11.428571428571" cy="10" r="0" fill="#00ff0f" /><circle class="graph-point" cx="34.285714285714" cy="10" r="0" fill="#00ff0f" /><circle class="graph-point" cx="57.142857142857" cy="10" r="0" fill="#00ff0f" /><circle class="graph-point" cx="80" cy="55" r="0" fill="#00ff0f" /><circle class="graph-point" cx="102.85714285714" cy="10" r="0" fill="#00ff0f" /><circle class="graph-point" cx="125.71428571429" cy="64" r="0" fill="#00ff0f" /><circle class="graph-point" cx="148.57142857143" cy="37" r="0" fill="#00ff0f" /><circle class="graph-point" cx="171.42857142857" cy="64" r="0" fill="#00ff0f" /><circle class="graph-point" cx="194.28571428571" cy="46" r="0" fill="#00ff0f" /><circle class="graph-point" cx="217.14285714286" cy="55" r="0" fill="#00ff0f" /><circle class="graph-point" cx="240" cy="10" r="0" fill="#00ff0f" /><circle class="graph-point" cx="262.85714285714" cy="28" r="0" fill="#00ff0f" /><circle class="graph-point" cx="285.71428571429" cy="190" r="0" fill="#00ff0f" /><circle class="graph-point" cx="308.57142857143" cy="109" r="0" fill="#00ff0f" /><circle class="graph-point" cx="331.42857142857" cy="46" r="0" fill="#00ff0f" /><circle class="graph-point" cx="354.28571428571" cy="109" r="0" fill="#00ff0f" /><circle class="graph-point" cx="377.14285714286" cy="100" r="0" fill="#00ff0f" /><circle class="graph-point" cx="400" cy="82" r="0" fill="#00ff0f" /><circle class="graph-point" cx="422.85714285714" cy="100" r="0" fill="#00ff0f" /><circle class="graph-point" cx="445.71428571429" cy="184.6" r="0" fill="#00ff0f" /><circle class="graph-point" cx="468.57142857143" cy="91" r="0" fill="#00ff0f" />
+                            <polyline points="0,202.5 500,202.5" stroke="#00ff0f" stroke-width="1"/>
+                            <text class="graph-label" x="6.4285714285714" y="215" fill="#fff" transform="rotate(65, 6.4285714285714, 215)" style="font-size: 10px;">HTML</text><text class="graph-label" x="29.285714285714" y="215" fill="#fff" transform="rotate(65, 29.285714285714, 215)" style="font-size: 10px;">CSS</text><text class="graph-label" x="52.142857142857" y="215" fill="#fff" transform="rotate(65, 52.142857142857, 215)" style="font-size: 10px;">SASS</text><text class="graph-label" x="75" y="215" fill="#fff" transform="rotate(65, 75, 215)" style="font-size: 10px;">SVG</text><text class="graph-label" x="97.857142857143" y="215" fill="#fff" transform="rotate(65, 97.857142857143, 215)" style="font-size: 10px;">Javascript</text><text class="graph-label" x="120.71428571429" y="215" fill="#fff" transform="rotate(65, 120.71428571429, 215)" style="font-size: 10px;">Angular</text><text class="graph-label" x="143.57142857143" y="215" fill="#fff" transform="rotate(65, 143.57142857143, 215)" style="font-size: 10px;">React</text><text class="graph-label" x="166.42857142857" y="215" fill="#fff" transform="rotate(65, 166.42857142857, 215)" style="font-size: 10px;">Redux</text><text class="graph-label" x="189.28571428571" y="215" fill="#fff" transform="rotate(65, 189.28571428571, 215)" style="font-size: 10px;">Node</text><text class="graph-label" x="212.14285714286" y="215" fill="#fff" transform="rotate(65, 212.14285714286, 215)" style="font-size: 10px;">Typescript</text><text class="graph-label" x="235" y="215" fill="#fff" transform="rotate(65, 235, 215)" style="font-size: 10px;">Wordpress</text><text class="graph-label" x="257.85714285714" y="215" fill="#fff" transform="rotate(65, 257.85714285714, 215)" style="font-size: 10px;">PHP</text><text class="graph-label" x="280.71428571429" y="215" fill="#fff" transform="rotate(65, 280.71428571429, 215)" style="font-size: 10px;">French</text><text class="graph-label" x="303.57142857143" y="215" fill="#fff" transform="rotate(65, 303.57142857143, 215)" style="font-size: 10px;">C#</text><text class="graph-label" x="326.42857142857" y="215" fill="#fff" transform="rotate(65, 326.42857142857, 215)" style="font-size: 10px;">Agile</text><text class="graph-label" x="349.28571428571" y="215" fill="#fff" transform="rotate(65, 349.28571428571, 215)" style="font-size: 10px;">Unity</text><text class="graph-label" x="372.14285714286" y="215" fill="#fff" transform="rotate(65, 372.14285714286, 215)" style="font-size: 10px;">Ionic</text><text class="graph-label" x="395" y="215" fill="#fff" transform="rotate(65, 395, 215)" style="font-size: 10px;">Electron</text><text class="graph-label" x="417.85714285714" y="215" fill="#fff" transform="rotate(65, 417.85714285714, 215)" style="font-size: 10px;">Linux</text><text class="graph-label" x="440.71428571429" y="215" fill="#fff" transform="rotate(65, 440.71428571429, 215)" style="font-size: 10px;">Spanish</text><text class="graph-label" x="463.57142857143" y="215" fill="#fff" transform="rotate(65, 463.57142857143, 215)" style="font-size: 10px;">SQL</text>                        </svg>
+                    </noscript>
+                </div>
+
+            </section>
+
+                            <section class="project-section full-height-section" data-section="project">
+                    <div class="wrapper">
+                        <div class="project-preview-image-holder">
+                            <div class="project-preview-image-wrapper">
+                                                                    <div class="project-preview-image" data-id="1">
+                                        <img class="picturefill-srcset-img" srcset="wp-content/uploads/2018/03/Downtown-Milwaukee-Apartments-Yankee-Hill-Apartments-768x413.jpg 768w, wp-content/uploads/2018/03/Downtown-Milwaukee-Apartments-Yankee-Hill-Apartments-480x258.jpg 480w, wp-content/uploads/2018/03/Downtown-Milwaukee-Apartments-Yankee-Hill-Apartments-300x161.jpg 300w, wp-content/uploads/2018/03/Downtown-Milwaukee-Apartments-Yankee-Hill-Apartments-150x81.jpg 150w" sizes="(min-width: 480px) 768px, (min-width: 300px) 480px, (min-width: 150px) 300px,  150px,  150px,  150px, 100vw" src="wp-content/uploads/2018/03/Downtown-Milwaukee-Apartments-Yankee-Hill-Apartments.jpg" alt="" />                                    </div>
+                                                                        <div class="project-preview-image" data-id="2">
+                                        <img class="picturefill-srcset-img" srcset="wp-content/uploads/2018/03/Floorplans-for-studio-one-and-two-bedroom-units-at-Ironworks-at-Keystone.-768x413.jpg 768w, wp-content/uploads/2018/03/Floorplans-for-studio-one-and-two-bedroom-units-at-Ironworks-at-Keystone.-480x258.jpg 480w, wp-content/uploads/2018/03/Floorplans-for-studio-one-and-two-bedroom-units-at-Ironworks-at-Keystone.-300x161.jpg 300w, wp-content/uploads/2018/03/Floorplans-for-studio-one-and-two-bedroom-units-at-Ironworks-at-Keystone.-150x81.jpg 150w" sizes="(min-width: 480px) 768px, (min-width: 300px) 480px, (min-width: 150px) 300px,  150px,  150px,  150px, 100vw" src="wp-content/uploads/2018/03/Floorplans-for-studio-one-and-two-bedroom-units-at-Ironworks-at-Keystone..jpg" alt="" />                                    </div>
+                                                                        <div class="project-preview-image" data-id="3">
+                                        <img class="picturefill-srcset-img" srcset="wp-content/uploads/2018/03/Gallery-Cast-Iron-Luxury-Living-768x413.jpg 768w, wp-content/uploads/2018/03/Gallery-Cast-Iron-Luxury-Living-480x258.jpg 480w, wp-content/uploads/2018/03/Gallery-Cast-Iron-Luxury-Living-300x161.jpg 300w, wp-content/uploads/2018/03/Gallery-Cast-Iron-Luxury-Living-150x81.jpg 150w" sizes="(min-width: 480px) 768px, (min-width: 300px) 480px, (min-width: 150px) 300px,  150px,  150px,  150px, 100vw" src="wp-content/uploads/2018/03/Gallery-Cast-Iron-Luxury-Living.jpg" alt="" />                                    </div>
+                                                                        <div class="project-preview-image" data-id="4">
+                                        <img class="picturefill-srcset-img" srcset="wp-content/uploads/2018/03/Luxury-Apartments-Sheboygan-Floorplans-The-Encore-768x413.jpg 768w, wp-content/uploads/2018/03/Luxury-Apartments-Sheboygan-Floorplans-The-Encore-480x258.jpg 480w, wp-content/uploads/2018/03/Luxury-Apartments-Sheboygan-Floorplans-The-Encore-300x161.jpg 300w, wp-content/uploads/2018/03/Luxury-Apartments-Sheboygan-Floorplans-The-Encore-150x81.jpg 150w" sizes="(min-width: 480px) 768px, (min-width: 300px) 480px, (min-width: 150px) 300px,  150px,  150px,  150px, 100vw" src="wp-content/uploads/2018/03/Luxury-Apartments-Sheboygan-Floorplans-The-Encore.jpg" alt="" />                                    </div>
+                                                                        <div class="project-preview-image" data-id="5">
+                                        <img class="picturefill-srcset-img" srcset="wp-content/uploads/2018/03/Map-Page-768x413.jpg 768w, wp-content/uploads/2018/03/Map-Page-480x258.jpg 480w, wp-content/uploads/2018/03/Map-Page-300x161.jpg 300w, wp-content/uploads/2018/03/Map-Page-150x81.jpg 150w" sizes="(min-width: 480px) 768px, (min-width: 300px) 480px, (min-width: 150px) 300px,  150px,  150px,  150px, 100vw" src="wp-content/uploads/2018/03/Map-Page.jpg" alt="" />                                    </div>
+                                                                        <div class="project-preview-image" data-id="6">
+                                        <img class="picturefill-srcset-img" srcset="wp-content/uploads/2018/03/Mequon-Nature-Preserve-on-the-App-Store-768x413.jpg 768w, wp-content/uploads/2018/03/Mequon-Nature-Preserve-on-the-App-Store-480x258.jpg 480w, wp-content/uploads/2018/03/Mequon-Nature-Preserve-on-the-App-Store-300x161.jpg 300w, wp-content/uploads/2018/03/Mequon-Nature-Preserve-on-the-App-Store-150x81.jpg 150w" sizes="(min-width: 480px) 768px, (min-width: 300px) 480px, (min-width: 150px) 300px,  150px,  150px,  150px, 100vw" src="wp-content/uploads/2018/03/Mequon-Nature-Preserve-on-the-App-Store.jpg" alt="" />                                    </div>
+                                                                        <div class="project-preview-image" data-id="7">
+                                        <img class="picturefill-srcset-img" srcset="wp-content/uploads/2018/03/THIEL-Brand-Strategy-Customer-Experience-Design-Milwaukee-WI-768x411.jpg 768w, wp-content/uploads/2018/03/THIEL-Brand-Strategy-Customer-Experience-Design-Milwaukee-WI-480x257.jpg 480w, wp-content/uploads/2018/03/THIEL-Brand-Strategy-Customer-Experience-Design-Milwaukee-WI-300x160.jpg 300w, wp-content/uploads/2018/03/THIEL-Brand-Strategy-Customer-Experience-Design-Milwaukee-WI-150x80.jpg 150w" sizes="(min-width: 480px) 768px, (min-width: 300px) 480px, (min-width: 150px) 300px,  150px,  150px,  150px, 100vw" src="wp-content/uploads/2018/03/THIEL-Brand-Strategy-Customer-Experience-Design-Milwaukee-WI.jpg" alt="" />                                    </div>
+                                                                        <div class="project-preview-image" data-id="8">
+                                        <img class="picturefill-srcset-img" srcset="wp-content/uploads/2018/03/Young-Distributor-Sales-Rep-on-the-App-Store-768x413.jpg 768w, wp-content/uploads/2018/03/Young-Distributor-Sales-Rep-on-the-App-Store-480x258.jpg 480w, wp-content/uploads/2018/03/Young-Distributor-Sales-Rep-on-the-App-Store-300x161.jpg 300w, wp-content/uploads/2018/03/Young-Distributor-Sales-Rep-on-the-App-Store-150x81.jpg 150w" sizes="(min-width: 480px) 768px, (min-width: 300px) 480px, (min-width: 150px) 300px,  150px,  150px,  150px, 100vw" src="wp-content/uploads/2018/03/Young-Distributor-Sales-Rep-on-the-App-Store.jpg" alt="" />                                    </div>
+                                                                        <div class="project-preview-image" data-id="9">
+                                        <img class="picturefill-srcset-img" srcset="wp-content/uploads/2018/11/Screen-Shot-2018-11-28-at-3.26.52-PM-768x480.png 768w, wp-content/uploads/2018/11/Screen-Shot-2018-11-28-at-3.26.52-PM-480x300.png 480w, wp-content/uploads/2018/11/Screen-Shot-2018-11-28-at-3.26.52-PM-300x188.png 300w, wp-content/uploads/2018/11/Screen-Shot-2018-11-28-at-3.26.52-PM-150x94.png 150w" sizes="(min-width: 480px) 768px, (min-width: 300px) 480px, (min-width: 150px) 300px,  150px,  150px,  150px, 100vw" src="wp-content/uploads/2018/11/Screen-Shot-2018-11-28-at-3.26.52-PM.png" alt="" />                                    </div>
+                                                                </div>
+                        </div>
+                        <h1 class="section-title">
+                            Projects
+                        </h1>
+                        <ul class="project-list">
+                                                            <li>
+                                    <a class="project-link"
+                                       data-id="1"
+                                       data-title="Yankee Hill (Website)"
+                                       data-skills="HMTL / CSS / JS / PHP / Wordpress"
+                                       data-company="THIEL Design"
+                                       href="http://yankeehillapartments.com/"
+                                       target="_blank"
+                                    >
+                                        Yankee Hill (Website)                                    </a>
+                                </li>
+                                                                <li>
+                                    <a class="project-link"
+                                       data-id="2"
+                                       data-title="Iron Works (Website)"
+                                       data-skills="HMTL / CSS / JS / PHP / Wordpress"
+                                       data-company="THIEL Design"
+                                       href="http://ironworksindy.com/"
+                                       target="_blank"
+                                    >
+                                        Iron Works (Website)                                    </a>
+                                </li>
+                                                                <li>
+                                    <a class="project-link"
+                                       data-id="3"
+                                       data-title="Cast Iron (Website)"
+                                       data-skills="HMTL / CSS / JS / PHP / Wordpress"
+                                       data-company="THIEL Design"
+                                       href="http://castironluxuryliving.com/"
+                                       target="_blank"
+                                    >
+                                        Cast Iron (Website)                                    </a>
+                                </li>
+                                                                <li>
+                                    <a class="project-link"
+                                       data-id="4"
+                                       data-title="The Encore (Website) "
+                                       data-skills="HMTL / CSS / JS / PHP / Wordpress"
+                                       data-company="THIEL Design"
+                                       href="http://live-encore.com/"
+                                       target="_blank"
+                                    >
+                                        The Encore (Website)                                     </a>
+                                </li>
+                                                                <li>
+                                    <a class="project-link"
+                                       data-id="5"
+                                       data-title="URT Solutions (Website) "
+                                       data-skills="HMTL / CSS / JS / PHP / Wordpress"
+                                       data-company="THIEL Design"
+                                       href="http://urtsolutions.com/urt-environmental-calculator/"
+                                       target="_blank"
+                                    >
+                                        URT Solutions (Website)                                     </a>
+                                </li>
+                                                                <li>
+                                    <a class="project-link"
+                                       data-id="6"
+                                       data-title="MNP (Mobile App)"
+                                       data-skills="Ionic2 / Angular2 / Typescript"
+                                       data-company="THIEL Design"
+                                       href="https://itunes.apple.com/us/app/mequon-nature-preserve/id1291571961?ls=1&amp;mt=8"
+                                       target="_blank"
+                                    >
+                                        MNP (Mobile App)                                    </a>
+                                </li>
+                                                                <li>
+                                    <a class="project-link"
+                                       data-id="7"
+                                       data-title="THIEL Branding (Website) "
+                                       data-skills="HMTL / CSS / JS / PHP / Wordpress"
+                                       data-company="THIEL Design"
+                                       href="http://thiel.com/"
+                                       target="_blank"
+                                    >
+                                        THIEL Branding (Website)                                     </a>
+                                </li>
+                                                                <li>
+                                    <a class="project-link"
+                                       data-id="8"
+                                       data-title="Young Dental Distributor (Mobile App)"
+                                       data-skills="HMTL / CSS / JS / PHP / Wordpress"
+                                       data-company="THIEL Design"
+                                       href="https://itunes.apple.com/us/app/young-distributor-sales-rep/id1244273025?ls=1&amp;mt=8"
+                                       target="_blank"
+                                    >
+                                        Young Dental Distributor (Mobile App)                                    </a>
+                                </li>
+                                                                <li>
+                                    <a class="project-link"
+                                       data-id="9"
+                                       data-title="Ironworks (Touchscreen App)"
+                                       data-skills="HMTL / CSS / JS / PHP / Electron"
+                                       data-company="THIEL Design"
+                                       href="#"
+                                       target="_blank"
+                                    >
+                                        Ironworks (Touchscreen App)                                    </a>
+                                </li>
+                                                                <li>
+                                    <a class="project-link"
+                                       data-id="0"
+                                       data-title="Johnsonville (Website)"
+                                       data-skills="HMTL / CSS / JS / PHP / WordPress / Azure"
+                                       data-company="THIEL Design"
+                                       href="https://johnsonville.com/"
+                                       target="_blank"
+                                    >
+                                        Johnsonville (Website)                                    </a>
+                                </li>
+                                                                <li>
+                                    <a class="project-link"
+                                       data-id="0"
+                                       data-title="Vizance (Website)"
+                                       data-skills="HMTL / CSS / JS / PHP / Wordpress"
+                                       data-company="THIEL Design"
+                                       href="https://vizance.com/"
+                                       target="_blank"
+                                    >
+                                        Vizance (Website)                                    </a>
+                                </li>
+                                                                <li>
+                                    <a class="project-link"
+                                       data-id="0"
+                                       data-title="David J Frank (Website)"
+                                       data-skills="HMTL / CSS / JS / PHP / Wordpress"
+                                       data-company="THIEL Design"
+                                       href="https://davidjfrank.com/"
+                                       target="_blank"
+                                    >
+                                        David J Frank (Website)                                    </a>
+                                </li>
+                                                        </ul>
+                    </div>
+                </section>
+            
+            <section class="contact-section full-height-section" data-section="contact">
+                                <div class="wrapper">
+                    <h1 class="section-title">
+                        Get in Touch
+                    </h1>
+                    <form class="contact-form" action="" method="POST">
+                                                <div class="form-field tbp_1-2 tbp_pad-right" data-color="#00ff0f">
+                            <input class="form-input" type="text" title="name" name="form_name" required value="">
+                            <label>Name<span>*</span></label>
+                        </div>
+                        <div class="form-field tbp_1-2" data-color="#ff5e46">
+                            <input class="form-input"  type="email" title="email" name="form_email" required value="">
+                            <label>Email<span>*</span></label>
+                        </div>
+                        <div class="form-field" data-color="#58fffa">
+                            <input class="form-input" type="text" title="subject" name="form_subject" value="">
+                            <label>Subject</label>
+                        </div>
+                        <div class="form-field" data-color="#f7ff80">
+                            <textarea class="form-input" title="message" name="form_message" required></textarea>
+                            <label>Message<span>*</span></label>
+                        </div>
+                        <input title="sub" hidden name="form_submit" value="1">
+                        <div class="form-submit">
+                            <button title="Submit" type="submit">Submit</button>
+                        </div>
+                    </form>
+                </div>
+            </section>
+        </div>
+    </div>
+
+    <!--Overlay for Projects-->
+    <div class="project-overlay overlay">
+        <div class="clickout overlay-exit"></div>
+        <div class="overlay-main">
+            <div class="exit-x overlay-exit"></div>
+            <div class="wrapper">
+                <h1 class="project-title project-title-rep">
+                    XXXXX
+                </h1>
+                <div class="company project-info">
+                    <strong>Company:</strong> <span class="project-company-rep">XXXX</span>
+                </div>
+                <div class="skills project-info">
+                    <strong>Tools:</strong>  <span class="project-skills-rep">XXXX</span>
+                </div>
+                <div class="link project-info">
+                    <strong>Link:</strong> <a class="project-link-rep" href="http://thiel.com/" target="_blank">XXXX</a>
+                </div>
+            </div>
+            <div class="project-image project-image-rep">
+            </div>
+        </div>
+    </div>
+
+<!--Footer-->
+<script type='text/javascript' src='wp-content/themes/andrew-herder-2018/js/vendor/modernizr-2.8.3.min%EF%B9%96ver=2.8.3.js'></script>
+<script type='text/javascript' src='wp-content/themes/andrew-herder-2018/js/plugins%EF%B9%96ver=1.0.0.js'></script>
+<script type='text/javascript' src='wp-content/themes/andrew-herder-2018/js/vendor/anime.min%EF%B9%96ver=2.2.0.js'></script>
+<script type='text/javascript' src='wp-content/themes/andrew-herder-2018/js/vendor/cssuseragent.min%EF%B9%96ver=2.1.31.js'></script>
+<script type='text/javascript' src='wp-content/themes/andrew-herder-2018/js/main%EF%B9%96ver=1.0.0.js'></script>
+<!-- Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-59006908-1"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+
+        gtag('config', 'UA-59006908-1');
+    </script>
+
+</body>
+</html>
+<!--
+Performance optimized by W3 Total Cache. Learn more: https://www.boldgrid.com/w3-total-cache/
+
+Minified using disk
+
+Served from: andrewherder.com @ 2023-04-18 15:18:23 by W3 Total Cache
+-->
