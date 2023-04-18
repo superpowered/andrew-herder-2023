@@ -1,10 +1,3 @@
-import axios from 'axios';
-
-// Utils
-import { shakeScreen } from '../../utils';
-
-// -----------------------------------------------------------------------------
-
 const textBubbles = [
   {
     clearOthers: true,
@@ -184,129 +177,10 @@ const levelData = {
         triggered: false,
         trigger: (data) => data.game.gameOver,
         action: (data) => {
-          // TODO: I should move all of this to like a  "level end" file
           data.game_over = true;
-          data.game.scoreElement.forEach((el) => {
-            el.classList.remove('active');
-          });
-
-          document.documentElement.classList.remove('game-loaded');
-          const enter = document.getElementById('initials-submit');
-          const endScreen = document.getElementById('end-screen');
-          const scoreboard = document.getElementById('scoreboard');
-          const scoreboardList = document.getElementById('scoreboard-list');
-          endScreen.classList.add('active');
-
-          // TODO: eventually could probably find a way to get mobile input
-          if (data.game.isTouch) {
-            endScreen.classList.remove('active');
-            scoreboard.classList.add('active');
-            return;
-          }
-
-          const initials = [];
-          window.addEventListener('keydown', async (e) => {
-            const lastInitial = document.getElementById(
-              `initials-${initials.length}`,
-            );
-            const nextInitial = document.getElementById(
-              `initials-${initials.length + 1}`,
-            );
-            if (
-              (e.key === 'Delete' ||
-                e.key === 'Backspace' ||
-                e.key === 'Escape') &&
-              initials.length
-            ) {
-              initials.pop();
-              lastInitial.innerText = '';
-              lastInitial?.classList.add('active');
-              nextInitial?.classList.remove('active');
-              enter.classList.remove('active');
-              return;
-            }
-
-            if (initials.length >= 3) {
-              if (e.key === 'Enter') {
-                const disallowed = [
-                  'ass',
-                  'cum',
-                  'fag',
-                  'gay',
-                  'god',
-                  'jew',
-                  'tit',
-                ];
-                const enteredName = initials.join('');
-                if (disallowed.includes(enteredName.toLowerCase())) {
-                  shakeScreen();
-                  return;
-                }
-                const respData = await axios.post(
-                  '/api/score',
-                  {
-                    score: data.game.score + 1,
-                    name: enteredName,
-                    date: new Date().toString(),
-                  },
-                  {
-                    headers: {
-                      'Content-Type': 'application/json',
-                    },
-                  },
-                );
-
-                if (respData?.data?.scores?.length && !respData?.data?.error) {
-                  respData.data.scores.forEach((resp) => {
-                    const { score, name } = resp;
-
-                    if (
-                      typeof name === 'string' &&
-                      name.length === 3 &&
-                      !disallowed.includes(name.toLowerCase()) &&
-                      Number.isInteger(score)
-                    ) {
-                      const listItem = document.createElement('li');
-                      const nameSpan = document.createElement('span');
-                      nameSpan.innerText = name;
-                      const scoreSpan = document.createElement('span');
-                      scoreSpan.innerText = score;
-                      listItem.appendChild(nameSpan, scoreSpan);
-                      listItem.appendChild(scoreSpan);
-                      scoreboardList.appendChild(listItem);
-                    } else {
-                      // TODO
-                    }
-                  });
-                }
-
-                endScreen.classList.remove('active');
-                scoreboard.classList.add('active');
-              }
-              return;
-            }
-
-            const key = e.key.toUpperCase();
-            if (!key.match(/^[a-z0-9]{1}$/i)) {
-              return;
-            }
-            lastInitial?.classList.remove('active');
-            nextInitial?.classList.add('active');
-
-            initials.push(key);
-            initials.forEach((init, i) => {
-              const initial = document.getElementById(`initials-${i + 1}`);
-              if (!initial) {
-                return;
-              }
-              initial.innerText = init;
-            });
-
-            if (initials.length === 3) {
-              enter.classList.add('active');
-              nextInitial?.classList.remove('active');
-            }
-          });
+          setTimeout(() => {
+            data.unload();
+          }, 500);
         },
       },
     ];

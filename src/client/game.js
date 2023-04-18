@@ -1,5 +1,5 @@
 // Levels
-import { Level0, Level1 } from './levels';
+import { Level0, Level1, LevelEnd } from './levels';
 
 // Entities
 import { Player } from './entities';
@@ -50,6 +50,7 @@ class Game {
     this.lastLevel = null;
     this.level = 0;
     this.levels = [new Level0(this, context), new Level1(this, context)];
+    this.endLevel = new LevelEnd(this, context);
 
     // Initialize our collision items
     this.collisionItems = [
@@ -97,13 +98,18 @@ class Game {
       };
     }
 
-    // Level
-    if (this.lastLevel !== this.level) {
-      this.lastLevel = this.level;
-      this.levels[this.level].init(this, context);
-    }
-    if (this.levels[this.level] && this.levels[this.level].initialized) {
-      this.levels[this.level].update(deltaTime);
+    // Levels
+    if (this.gameOver && this.level !== 'end') {
+      this.level = 'end';
+      this.endLevel.init(this);
+    } else if (this.level !== 'end') {
+      if (this.lastLevel !== this.level) {
+        this.lastLevel = this.level;
+        this.levels[this.level].init(this, context);
+      }
+      if (this.levels[this.level] && this.levels[this.level].initialized) {
+        this.levels[this.level].update(deltaTime);
+      }
     }
 
     // Enemies

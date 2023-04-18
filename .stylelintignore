@@ -1,2 +1,5 @@
 # node_modules are ignored by default
 /dist
+/2014
+/2018
+/db
