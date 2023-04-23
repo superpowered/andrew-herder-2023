@@ -20,7 +20,10 @@ router.get('/', async (_req, res) => {
     // Get our existing data from file & serve
     const rawData = await fs.readFile(DB_PATH);
     const data = parseObject(rawData);
-    return res.json(data);
+    return res.json({
+      error: false,
+      scores: data,
+    });
   } catch (e) {
     return res.json({
       error: 'no scores',
