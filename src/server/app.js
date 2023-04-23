@@ -1,5 +1,6 @@
 import express from 'express';
 import helmet from 'helmet';
+import cors from 'cors';
 
 // Constants.
 import {
@@ -8,7 +9,11 @@ import {
   STATIC_ROOT,
   STATIC_DIR,
   IS_DEV_ENV,
+  IS_PROD_ENV,
 } from './constants';
+
+// Middleware.
+import { authRequest } from './middleWare';
 
 // Routes.
 import { health, score } from './routes';
@@ -20,10 +25,17 @@ const app = express();
 // Middleware.
 app.use(helmet());
 app.use(express.json());
+if (IS_PROD_ENV) {
+  app.use(
+    cors({
+      origin: ['https://andrewherder.com'],
+    }),
+  );
+}
 
 // API Routes
 app.use(`${API_ROOT}/health`, health);
-app.use(`${API_ROOT}/score`, score);
+app.use(`${API_ROOT}/score`, authRequest, score);
 
 // Serve static files from the React app
 app.use(STATIC_ROOT, express.static(STATIC_DIR));
