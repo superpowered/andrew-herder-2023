@@ -37,7 +37,7 @@ export default {
     modules: ['node_modules'],
     extensions: ['.js', '.jsx', '.json'],
   },
-  externals: {
-    express: 'express',
-  },
+  // externals: {
+  //   express: 'express',
+  // },
 };

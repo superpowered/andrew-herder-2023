@@ -15,4 +15,4 @@ export const DB_DIR = IS_DEV_ENV
 
 export const STATIC_DIR = IS_DEV_ENV
   ? path.join(process.cwd(), 'src', 'client')
-  : path.join(process.cwd(), 'dist', 'client');
+  : path.join(process.cwd(), 'client');
