@@ -28,6 +28,12 @@ app.use(`${API_ROOT}/score`, score);
 // Serve static files from the React app
 app.use(STATIC_ROOT, express.static(STATIC_DIR));
 if (!IS_DEV_ENV) {
+  app.get(`${PUBLIC_URL}/2014`, (_req, res) => {
+    res.sendFile('2014/index.html', { root: STATIC_DIR });
+  });
+  app.get(`${PUBLIC_URL}/2018`, (_req, res) => {
+    res.sendFile('2018/index.html', { root: STATIC_DIR });
+  });
   app.get(`${PUBLIC_URL}*`, (_req, res) => {
     res.sendFile('index.html', { root: STATIC_DIR });
   });
