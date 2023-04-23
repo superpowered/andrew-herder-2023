@@ -15,3 +15,13 @@ export const POSSIBLE_FILLS_PLAYER = [
 ];
 
 export const POSSIBLE_FILLS_ENEMY = ['#FF5E46'];
+
+export const DISALLOWED_NAMES = [
+  'ass',
+  'cum',
+  'fag',
+  'gay',
+  'god',
+  'jew',
+  'tit',
+];

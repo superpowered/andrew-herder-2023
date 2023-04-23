@@ -1,5 +1,9 @@
 import axios from 'axios';
 
+// Constants
+import { DISALLOWED_NAMES } from '../../constants';
+
+// Utils
 import { shakeScreen } from '../../utils';
 
 // -----------------------------------------------------------------------------
@@ -17,7 +21,7 @@ class Level {
     this.scoreboardList = document.getElementById('scoreboard-list');
   }
 
-  init = () => {
+  init = async () => {
     this.initialized = true;
 
     // Toggle off other ui elements
@@ -32,9 +36,8 @@ class Level {
     // If we're on mobile, we'll just skip to the score screen for now.
     // TODO: eventually could probably find a way to get mobile input in a good way
     if (this.game.isTouch) {
-      this.endScreen.classList.remove('active');
-      this.scoreboard.classList.add('active');
-      return;
+      const respData = await axios.get('/api/score');
+      this.updateScoreBoard(respData);
     }
 
     // Attach our listener to handle input as it comes in.
@@ -49,6 +52,36 @@ class Level {
     delete this;
   }
 
+  updateScoreBoard = (data) => {
+    if (!data?.data?.scores?.length || data?.data?.error) {
+      // TODO: some type of error handling here, probably just don't show scores, and only the restart button
+      return;
+    }
+
+    data.data.scores.forEach((resp) => {
+      const { score, name } = resp;
+      if (
+        typeof name === 'string' &&
+        name.length === 3 &&
+        !DISALLOWED_NAMES.includes(name.toLowerCase()) &&
+        Number.isInteger(score)
+      ) {
+        const listItem = document.createElement('li');
+        const nameSpan = document.createElement('span');
+        const scoreSpan = document.createElement('span');
+        nameSpan.innerText = name;
+        scoreSpan.innerText = score;
+        listItem.appendChild(nameSpan);
+        listItem.appendChild(scoreSpan);
+        this.scoreboardList.appendChild(listItem);
+      }
+    });
+
+    // Show scoreboard screen
+    this.endScreen.classList.remove('active');
+    this.scoreboard.classList.add('active');
+  };
+
   submitScore = async () => {
     // Only move forward with the right amount of keys
     if (this.initials.length !== 3) {
@@ -56,9 +89,8 @@ class Level {
     }
 
     // Don't allow swears
-    const disallowed = ['ass', 'cum', 'fag', 'gay', 'god', 'jew', 'tit'];
     const enteredName = this.initials.join('');
-    if (disallowed.includes(enteredName.toLowerCase())) {
+    if (DISALLOWED_NAMES.includes(enteredName.toLowerCase())) {
       shakeScreen();
       return;
     }
@@ -78,35 +110,7 @@ class Level {
       },
     );
 
-    // Bail with bad response
-    if (!respData?.data?.scores?.length || respData?.data?.error) {
-      // TODO: some type of error handling here
-      return;
-    }
-
-    // Populate score list
-    respData.data.scores.forEach((resp) => {
-      const { score, name } = resp;
-      if (
-        typeof name === 'string' &&
-        name.length === 3 &&
-        !disallowed.includes(name.toLowerCase()) &&
-        Number.isInteger(score)
-      ) {
-        const listItem = document.createElement('li');
-        const nameSpan = document.createElement('span');
-        const scoreSpan = document.createElement('span');
-        nameSpan.innerText = name;
-        scoreSpan.innerText = score;
-        listItem.appendChild(nameSpan);
-        listItem.appendChild(scoreSpan);
-        this.scoreboardList.appendChild(listItem);
-      }
-    });
-
-    // Show scoreboard screen
-    this.endScreen.classList.remove('active');
-    this.scoreboard.classList.add('active');
+    this.updateScoreBoard(respData);
   };
 
   handleInitialInput = (e) => {
