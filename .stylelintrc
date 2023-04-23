@@ -4,5 +4,6 @@
     "stylelint-config-prettier-scss"
   ],
   "rules": {
+    "property-no-vendor-prefix": [true,  { "ignoreProperties": "user-select"}]
   }
 }
