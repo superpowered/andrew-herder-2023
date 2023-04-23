@@ -57,6 +57,8 @@ class Level {
   updateScoreBoard = (data) => {
     if (!data?.data?.scores?.length || data?.data?.error) {
       // TODO: some type of error handling here, probably just don't show scores, and only the restart button
+      this.endScreen.classList.remove('active');
+      this.scoreboard.classList.add('active');
       return;
     }
 
