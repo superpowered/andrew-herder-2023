@@ -1,4 +1,5 @@
 export {
+  CWD,
   HTTP_PORT,
   IS_DEV_ENV,
   IS_PROD_ENV,
