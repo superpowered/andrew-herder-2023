@@ -7,6 +7,9 @@ const {
 
   // PATHS
   CWD: ENV_CWD,
+
+  // URIs
+  URI: ENV_URI,
 } = process.env;
 
 // -----------------------------------------------------------------------------
@@ -25,4 +28,4 @@ export const PORT = ENV_PORT;
 export const CWD = ENV_CWD;
 
 // URIs.
-export const PUBLIC_URL = '/';
+export const PUBLIC_URL = ENV_URI;

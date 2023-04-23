@@ -1,13 +1,14 @@
 import path from 'path';
 
 // Local Modules.
-import { CWD, IS_DEV_ENV, IS_PROD_ENV, PUBLIC_URL } from './env';
+import { CWD, IS_DEV_ENV, IS_PROD_ENV } from './env';
 
 // -----------------------------------------------------------------------------
 
+export const PUBLIC_PATH = '/';
 export const API_ROOT = `/api`;
 
-export const STATIC_ROOT = `${PUBLIC_URL}`;
+export const STATIC_ROOT = `${PUBLIC_PATH}`;
 
 let dbDir = path.join(process.cwd(), 'db');
 if (IS_DEV_ENV) {

@@ -1,18 +1,23 @@
-const authRequest = (req, _res, next) => {
-  const ip = req?.socket?.remoteAddress;
-  const origin = req?.get('origin');
-  const host = req?.get('host');
-  const hostname = req?.hostname;
-  console.log({
-    ip,
-    origin,
-    host,
-    hostname,
-  });
+// Constants.
+import { IS_PROD_ENV, PUBLIC_URL } from '../constants';
 
-  // if (req.method !== 'POST') {
-  //   return res.status(401).send(`Method ${req.method} not allowed`);
-  // }
+// -----------------------------------------------------------------------------
+
+const authRequest = (req, res, next) => {
+  // const ip = req?.socket?.remoteAddress;
+  const origin = req?.get('origin');
+  // const host = req?.get('host');
+  // const hostname = req?.hostname;
+  // console.log({
+  //   ip,
+  //   origin,
+  //   host,
+  //   hostname,
+  // });
+
+  if (IS_PROD_ENV && origin !== PUBLIC_URL) {
+    return res.status(401).send(`Disallowed`);
+  }
   return next();
 };
 
