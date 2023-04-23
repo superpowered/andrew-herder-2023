@@ -92,9 +92,13 @@ class Level {
     context.save();
     context.clearRect(0, 0, this.game.width, this.game.height);
 
+    // Determine text size bases
+    const mainTextSize = this.game.width < 680 ? 25 : 50;
+    const subTextSize = this.game.width < 680 ? 12 : 20;
+
     // Draw out the text
     const introText = this.textElement.textContent;
-    const size = 50 / this.game.dpr;
+    const size = mainTextSize / this.game.dpr;
     context.font = `${size}px 'Press Start 2P'`;
     context.fillStyle = 'white';
     context.shadowColor = 'rgb(165,165,165,1)';
@@ -110,7 +114,7 @@ class Level {
     );
 
     // Draw out the sub text
-    const sizeSmall = 20 / this.game.dpr;
+    const sizeSmall = subTextSize / this.game.dpr;
     context.font = `${sizeSmall}px 'Courier', sans-serif`;
     context.shadowColor = 'none';
     context.shadowOffsetX = 0;

@@ -22,3 +22,9 @@
     text-shadow: 3px 3px 0 transparent;
   }
 }
+
+@media (max-width: 680px) {
+  #intro-text {
+    font-size: 25px;
+  }
+}
