@@ -28,7 +28,8 @@
     "build:dist": "mkdirp dist dist/client",
     "build:client": "webpack --config src/client/webpack.config.prod.js",
     "build:server": "webpack --config src/server/webpack.config.prod.js",
-    "build": "npm-run-all --sequential build:clean build:dist build:client build:server",
+    "build:mv": "cp -r 2014 dist/client/2014 && cp -r 2018 dist/client/2018",
+    "build": "npm-run-all --sequential build:clean build:dist build:client build:mv build:server",
     "start:build": "npm-run-all --sequential build start",
     "start": "node --enable-source-maps dist/server.cjs"
   },

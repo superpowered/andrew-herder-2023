@@ -32,9 +32,6 @@ jobs:
     - name: NPM build
       run: npm run build
 
-    - name: Move old sites
-      run: mv 2014 dist/2014 && mv 2018 dist/2018
-
     - name: Install SSH Key
       uses: shimataro/ssh-key-action@v2  
       with:

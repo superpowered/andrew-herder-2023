@@ -17,7 +17,7 @@ if (IS_DEV_ENV) {
 }
 export const DB_DIR = dbDir;
 
-let staticDir = path.join(process.cwd(), 'client');
+let staticDir = path.join(process.cwd(), 'dist', 'client');
 if (IS_DEV_ENV) {
   staticDir = path.join(process.cwd(), 'src', 'client');
 } else if (IS_PROD_ENV) {
