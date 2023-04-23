@@ -36,8 +36,10 @@ class Level {
     // If we're on mobile, we'll just skip to the score screen for now.
     // TODO: eventually could probably find a way to get mobile input in a good way
     if (this.game.isTouch) {
+      this.endScreen.classList.remove('active');
       const respData = await axios.get('/api/score');
       this.updateScoreBoard(respData);
+      return;
     }
 
     // Attach our listener to handle input as it comes in.
